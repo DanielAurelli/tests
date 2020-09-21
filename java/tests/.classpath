@@ -16,7 +16,6 @@
 	<classpathentry kind="lib" path="C:/Work/ads/2.0.9/builds/latest/runtime.jar"/>
 	<classpathentry kind="lib" path="C:/Work/ads/2.0.9/builds/latest/ads.jar"/>
 	<classpathentry kind="lib" path="C:/Work/java/libs/commons-text-1.8/commons-text-1.8.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/cwa"/>
 	<classpathentry kind="lib" path="C:/Work/ads/2.0.9/builds/latest/editor.jar"/>
 	<classpathentry kind="lib" path="C:/Work/ads/2.0.9/builds/latest/adsRepository.jar" sourcepath="/adsRepository/src"/>
 	<classpathentry kind="output" path="bin"/>
