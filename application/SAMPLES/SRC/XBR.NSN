@@ -1,0 +1,634 @@
+**********************************************************************
+*        Copyright (c) 2009 Consist Software Solutions, Inc.
+*****************************************************************
+* OPERATION  : XBRIVFT0            TYPE: PUBLIC 
+* AUTHOR     : CTFSK               DATE: 30/08/2011 <> 13:30 hs 
+* DESCRIPTION: SAVE OBJECT
+*              COMO A CHAVE DO COBDT N?O PODIA FICAR PRESO DURANTE
+*              TODO O PROCESSO DE INCLUS?O, ENT?O A CHAVE EST? SENDO
+*              PRESA SOMENTE NO FINAL DO PROCESSO.
+*
+* LAST UPDATE: CTEDS - 10/01/2013 - 17:41 
+* LAST UPDATE: CTEDS - 04/04/2012 - 18:45 
+* 
+* 
+* MAINTENANCE:
+*
+*   DATE    AUTHOR  DESCRIPTION
+* 09/01/07  CTMEL   RETIRADA FORMATACAO DO NUM.DO DOCUMENTO
+* 02/10/07  MEWAM   REV001
+*                   incu?da local OPIHDOCQ para comparar se est?
+*                   usando mesmo processo para ND no faturamento
+*                   e no contas a receber se for n?o atualizar o
+*                   numero em COBDTXT0 pois o XBRIVXI0 j? atualiza
+*                   este o numero para este processo, sen?o atuali-
+*                   zar? duas vezes e perder? um  n?mero
+* 04/10/07  MEWAM   passou a tratar o erro 8001 no retorno do COBDTXT0
+* 11/01/08  MEWAM   chamado COBDTXS0 no lugar do COBDTXT0, no
+*                   XT ele exige site e se o processo for autom?tico
+*                   por companhia e ano, o COBDTXT joga 0000 na
+*                   companhia e atualiza o reg. da cia 0000
+* 04/03/2008 CTSHM  REV002 PASSA ISS_DT PARA BTRCFGA0 
+* 19/04/2010 CTSAT  REV003 RECUPERA STATUS DO ESALES PARA VERIFICAR SE 
+*                          EST? PENDENTE. CASO ESTEJA PENDENTE, VERIFI- 
+*                          FICA SE O ARQUIVO FOI GERADO. CASO CONTR?RIO, 
+*                          EFETUA NOVAMENTE TODO O PROCESSO DE INTEGRA- 
+*                          ??O COM O ESALES. 
+* 03/05/2011 CTFSK  REV004 INCLUS?O DO CAMPO NFE_KEY (CHAVE DA NOTA 
+*                          FISCAL ELETR?NICA NA GDCHD). 
+* 22/08/2011 CTEDS  REV005 Padroniza o tamanho do numero da NF em 15 dig 
+*                          para compor o nome do arquivo xml. 
+* 21/03/2012 CTEDS  REV006 Path do arquivo de retorno da SEFAZ agora 
+*                          e a concatenacao da variavel GEM_NFE com 
+*                          o literal 'processados' 
+* 
+* 27/03/2012 CTEDS  REV007 Path do arquivo de retorno da SEFAZ agora 
+*                          e a concatenacao da variavel GEM_NFE com 
+*                          o literal 'saida' 
+* 
+* 28/03/2012 CTEDS  REV007 arquivo de retorno do eSales e' TEXTO (.txt) 
+* 
+* 13/05/2013 CTFSK  REV009 Substituir XBRIVJD0 por XBRCOJD0 p/ CORSAN 
+*****************************************************************
+* RETURN CODES:
+* 9900 - INTERNAL ERROR
+* 9910 - INTERNAL ERROR (UNKNOWN)
+* 9999 - INTERNAL ERROR (RECEIVED)
+*****************************************************************
+
+DEFINE DATA
+PARAMETER USING GEMNAHDR
+PARAMETER USING XBRIVFTA 
+LOCAL     USING XBRIVOCQ
+LOCAL     USING GEMOCOCA
+LOCAL     USING GEMOCOCQ
+LOCAL     USING GEMEHTRA
+*
+LOCAL     USING XBRFCGYA
+LOCAL     USING XBRIVGHA
+LOCAL     USING XBRIVJDA 
+* LOCAL     USING XBRCOJDA /* REV009 - CTFSK - CORSAN - 13/05/2013 
+LOCAL     USING XBRIVCZA /* CTFSK 
+LOCAL     USING XBRIVLLL
+LOCAL     USING XBRIVFZA 
+LOCAL     USING XBRIVCEA 
+LOCAL     USING FCODFGQA
+LOCAL     USING COBDTXSA
+LOCAL     USING COBDTXTA
+LOCAL     USING OPIHDOCQ
+LOCAL     USING BTRCFGAA
+LOCAL     USING TAXTRASA 
+LOCAL     USING TAXTRGSA 
+*
+LOCAL
+*
+01 #DOC_NUM              (A16) 
+01 REDEFINE #DOC_NUM
+   02 #DOC_NUM_N         (N16) 
+01 #AUX_DOC_NUM          (N16) 
+01 #DOC_NUM_A            (A16) 
+01 #DEL_DOC_PROC         (A01) 
+01 #ITA                  (I04) 
+01 #A (A300)
+01 #ATTACH_FILE_TEST_IN  (A70) 
+01 #ATTACH_FILE_IN       (A100) 
+01 #WKF_PROCESSADOS      (A1000) 
+01 #TIME                 (N2) 
+01 #GRAVAR_ARQ           (A1) 
+* 
+* - edicao do numero da NFe para o padrao - quinze digitos 
+* 
+01 #A15           (A15) 
+01 REDEFINE #A15 
+   02 #N15        (N15) 
+01 #A15ZE         (A15)    /* ALFA COM ZEROS A ESQUERDA 
+* 
+01 #LOGMSG        (A150) 
+* 
+01 #FILE_SEP      (A1) 
+01 #LEN           (I04) 
+* 
+1 USR2011L 
+  2 INPUTS 
+    3 FUNCTION        (A01) 
+    3 WORK-NUM        (I01) 
+  2 INPUT-OUTPUTS 
+    3 WORK-FILE       (A253) 
+*   3 REDEFINE WORK-FILE 
+*     4 WORK-FILE-A   (A50/1:5) 
+    3 WORK-TYPE       (A01) 
+  2 OUTPUTS 
+    3 MAX-NUM         (I01) 
+    3 RESPONSE        (I04) 
+* 
+1 USR2011N 
+  2 VERSION           (I01)     INIT <0> 
+1 REDEFINE USR2011N 
+  2 EXTENDED-PARMS 
+    3 EXTENDED-DATA   (A01/1:1) 
+* 
+1 #USR1053L 
+  2 #ENV-VARIABLE-1053(A80) 
+  2 #CHAR-STRING-1053(A253) 
+  2 #RESPONSE-1053(I4) 
+* 
+1 #I                     (I4) 
+
+1 #XBRIV_DT (N8)
+1 #XBRIV_TM (A10)
+ 
+END-DEFINE
+*
+INCLUDE GEMEHTRH
+RESET ##RC
+*
+PERFORM GET_CACH_VAR        /* RECUPERA VARIAVEIS DO CACHE
+IF ##RC NE 0
+  PERFORM CANCEL_OBJECT
+  ESCAPE ROUTINE
+END-IF
+*
+RESET #BTRCFGA_I #BTRCFGA_O
+MOVE #CACH_CFO_INTR TO #BTRCFGA_I_CFO_INTR
+PERFORM GET_BOOKKEEPING_RULE
+IF ##RC NE 0
+  PERFORM CANCEL_OBJECT
+  ESCAPE ROUTINE
+END-IF
+*
+PERFORM GET_HEADER
+IF ##RC NE 0
+  ESCAPE ROUTINE
+END-IF
+* 
+PERFORM GET_ST_ESALES   /* REV003 
+IF ##RC NE 0            /* 
+  ESCAPE ROUTINE        /* 
+END-IF                  /* REV003 
+
+IF #CACH_ST_ESALES EQ ' '    /* REV004 
+*********************************************************** 
+* CHAMADA DA MONTAGEM DO WORK FILE P/ GRAVA??O DE ARQUIVO * 
+*********************************************************** 
+   /*
+   CALL 'LOGERROR' '@@@@@@@@@@@@@@@@@@ ANTES DO XBRCOJD0 @@@@@@@@@@@@@@@@@@@@@'   
+   COMPRESS ' FCO      = ' #XBRIVGH_I_FCO 
+            ' ENT_GR   = ' #XBRIVGH_O_ENT_GR 
+            ' ENT_ID   = ' #XBRIVGH_O_ENT_ID 
+            ' ENT_SITE = ' #XBRIVGH_O_ENT_SITE 
+            ' INV_TP   = ' #XBRIVGH_O_INV_TP   
+            ' NB_INV   = ' #XBRIVGH_O_NB_INV   
+            ' SER      = ' #XBRIVGH_O_SER      
+            ' SSR      = ' #XBRIVGH_O_SSR      
+            ' DT_ISS   = ' #XBRIVGH_O_DT_ISS INTO #A  
+   CALL 'LOGERROR' #A
+   /* 
+   RESET #XBRCOJD_I 
+   MOVE #XBRIVGH_I_FCO       TO #XBRCOJD_I_FCO          /* REV009 
+   MOVE #XBRIVGH_O_ENT_GR    TO #XBRCOJD_I_ENT_GR       /* REV009 
+   MOVE #XBRIVGH_O_ENT_ID    TO #XBRCOJD_I_ENT_ID       /* REV009 
+   MOVE #XBRIVGH_O_ENT_SITE  TO #XBRCOJD_I_ENT_SITE     /* REV009 
+   MOVE #XBRIVGH_O_INV_TP    TO #XBRCOJD_I_INV_TP       /* REV009 
+   MOVE #XBRIVGH_O_NB_INV    TO #XBRCOJD_I_NB_INV       /* REV009 
+   MOVE #XBRIVGH_O_SER       TO #XBRCOJD_I_SER          /* REV009 
+   MOVE #XBRIVGH_O_SSR       TO #XBRCOJD_I_SSR          /* REV009 
+   MOVE #XBRIVGH_O_DT_ISS    TO #XBRCOJD_I_DT_ISS       /* REV009 
+   CALLNAT 'XBRCOJD0' ##HDR #XBRCOJD_I #XBRCOJD_O       /* REV009 
+   IF ##RC <> 0 
+      COMPRESS 'XBRIVFT - RETORNOU DO XBRCOJD' ##RC INTO #A
+      CALL 'LOGERROR' #A
+      IF ##RC EQ 8602
+         RESET ##RC
+      ELSE
+         INCLUDE GEMOCRCH 
+         ESCAPE ROUTINE 
+      END-IF
+   END-IF 
+END-IF 
+
+MOVE 'Autorizado o uso da NF-e' TO #XBRCOJD_O_DSC
+
+* 
+* Verifica o status da Mensagem de retorno 
+* 
+RESET #XBRIVFT_O_ST /* STATUS PARA TRATAMENTO MENSAGEM DE SUCESSO. 
+
+DECIDE FOR FIRST CONDITION 
+   WHEN #XBRCOJD_O_DSC = 'Autorizado o uso da NF-e' /* ARQ. OK 
+      PERFORM PROCESS_OBJECT 
+* 
+      RESET #XBRIVCE_I 
+      MOVE #XBRIVGH_I_FCO       TO #XBRIVCE_I_FCO 
+      MOVE #XBRIVGH_O_ENT_GR    TO #XBRIVCE_I_ENT_GR 
+      MOVE #XBRIVGH_O_ENT_ID    TO #XBRIVCE_I_ENT_ID 
+      MOVE #XBRIVGH_O_ENT_SITE  TO #XBRIVCE_I_ENT_SITE 
+      MOVE #XBRIVGH_O_INV_TP    TO #XBRIVCE_I_INV_TP 
+      MOVE #XBRIVGH_O_NB_INV    TO #XBRIVCE_I_NB_INV 
+      MOVE #XBRIVGH_O_SER       TO #XBRIVCE_I_SER 
+      MOVE #XBRIVGH_O_SSR       TO #XBRIVCE_I_SSR 
+      MOVE #XBRIVGH_O_DT_ISS    TO #XBRIVCE_I_DT_ISS 
+      MOVE #XBRIVGH_O_DT_ACC    TO #XBRIVCE_I_DT_ACC 
+      MOVE #XBRCOJD_O_KEY       TO #XBRIVCE_I_NFE_KEY  /* INCLUI NFE_KEY 
+      /****** INCLUI O NFE_KEY NO XBRIV ******/ 
+**      CALLNAT 'XBRIVCE0' ##HDR #XBRIVCE_I 
+      IF ##RC <> 0 
+         INCLUDE GEMOCRCH 
+         ESCAPE ROUTINE 
+      END-IF 
+      
+      MOVE *DATN  TO  #XBRIV_DT
+      MOVE *TIMX  TO  #XBRIV_TM
+
+      UPDATE XBRIV SET XBRIV_USR       = ##USR_ID,
+                       XBRIV_TM        = #XBRIV_TM,
+                       XBRIV_DT        = #XBRIV_DT,
+                       XBRIV_NFE_KEY   = #XBRCOJD_O_KEY,
+                       XBRIV_NB_INV    = #XBRCOJD_O_NB_INV,
+                       XBRIV_SER       = #XBRCOJD_O_SSR
+             WHERE XBRIV_FCO     = #XBRIVFT_I_FCO       AND 
+                   XBRIV_DOC_TP  = #XBRIVFT_I_DOC_TP    AND
+                   XBRIV_DOC_ID  = #XBRIVFT_I_DOC_ID
+      
+* 
+      /****** INCLUI O NFE_KEY NO GDCHD ******/ 
+      UPDATE GDCHD SET GDCHD_NFE_KEY = #XBRCOJD_O_KEY, 
+                       GDCHD_TD_NB   = #XBRCOJD_O_NB_INV,
+                       GDCHD_TD_SER  = #XBRCOJD_O_SSR
+       WHERE GDCHD_FCO    = #XBRIVFT_I_FCO                /* 
+         AND GDCHD_DOC_TP = #XBRIVFT_I_DOC_TP             /* 
+         AND GDCHD_DOC_ID = #XBRIVFT_I_DOC_ID             /* REV004 
+* 
+      PERFORM SAVE_OBJECT 
+      IF ##RC <> 0 
+         ESCAPE ROUTINE 
+      END-IF 
+      MOVE '0' TO #XBRIVFT_O_ST /* APROVADO COM SUCESSO 
+      /* 
+   WHEN #XBRCOJD_O_DSC NE 'Autorizado o uso da NF-e' AND /* ARQ.ERRO 
+        #XBRCOJD_O_DSC NE ' ' 
+* 
+      PERFORM CANCEL_OBJECT 
+      PERFORM PROCESS_OBJECT 
+      PERFORM UPD_NB_INV 
+      PERFORM OPEN_OBJECT 
+
+      RESET #XBRIVCZ_I 
+      MOVE #XBRIVGH_I_FCO       TO #XBRIVCZ_I_FCO 
+      MOVE #XBRIVGH_O_ENT_GR    TO #XBRIVCZ_I_ENT_GR 
+      MOVE #XBRIVGH_O_ENT_ID    TO #XBRIVCZ_I_ENT_ID 
+      MOVE #XBRIVGH_O_ENT_SITE  TO #XBRIVCZ_I_ENT_SITE 
+      MOVE #XBRIVGH_O_INV_TP    TO #XBRIVCZ_I_INV_TP 
+      MOVE #XBRIVGH_O_NB_INV    TO #XBRIVCZ_I_NB_INV 
+      MOVE #XBRIVGH_O_SER       TO #XBRIVCZ_I_SER 
+      MOVE #XBRIVGH_O_SSR       TO #XBRIVCZ_I_SSR 
+      MOVE #XBRIVGH_O_DT_ISS    TO #XBRIVCZ_I_DT_ISS 
+      MOVE #XBRIVGH_O_DT_ACC    TO #XBRIVCZ_I_DT_ACC 
+      MOVE '5'                  TO #XBRIVCZ_I_TP_MOV 
+      MOVE '0'                  TO #XBRIVCZ_I_ST /* STATUS SALVO 
+      CALLNAT 'XBRIVCZ0' ##HDR #XBRIVCZ_I 
+      IF ##RC <> 0 
+         INCLUDE GEMOCRCH 
+         ESCAPE ROUTINE 
+      END-IF 
+      MOVE '1' TO #XBRIVFT_O_ST /* SALVO COM ARQUIVO COM ERRO 
+         /* 
+   WHEN #XBRCOJD_O_DSC = ' '  /* ARQ. EM BRANCO 
+* 
+      PERFORM CANCEL_OBJECT 
+      PERFORM PROCESS_OBJECT 
+      PERFORM UPD_NB_INV 
+      PERFORM OPEN_OBJECT 
+      
+      RESET #XBRIVCZ_I 
+      MOVE #XBRIVGH_I_FCO       TO #XBRIVCZ_I_FCO 
+      MOVE #XBRIVGH_O_ENT_GR    TO #XBRIVCZ_I_ENT_GR 
+      MOVE #XBRIVGH_O_ENT_ID    TO #XBRIVCZ_I_ENT_ID 
+      MOVE #XBRIVGH_O_ENT_SITE  TO #XBRIVCZ_I_ENT_SITE 
+      MOVE #XBRIVGH_O_INV_TP    TO #XBRIVCZ_I_INV_TP 
+      MOVE #XBRIVGH_O_NB_INV    TO #XBRIVCZ_I_NB_INV 
+      MOVE #XBRIVGH_O_SER       TO #XBRIVCZ_I_SER 
+      MOVE #XBRIVGH_O_SSR       TO #XBRIVCZ_I_SSR 
+      MOVE #XBRIVGH_O_DT_ISS    TO #XBRIVCZ_I_DT_ISS 
+      MOVE #XBRIVGH_O_DT_ACC    TO #XBRIVCZ_I_DT_ACC 
+      MOVE '5'                  TO #XBRIVCZ_I_TP_MOV 
+      MOVE 'X'                  TO #XBRIVCZ_I_ST  /* X = ARQ. EM BRANCO 
+      CALLNAT 'XBRIVCZ0' ##HDR #XBRIVCZ_I 
+      IF ##RC <> 0 
+         INCLUDE GEMOCRCH 
+         ESCAPE ROUTINE 
+      END-IF 
+      MOVE '2' TO #XBRIVFT_O_ST /* SALVO COM ARQUIVO EM BRANCO 
+   WHEN NONE 
+      IGNORE 
+   
+END-DECIDE 
+
+
+* 
+* ------------------------------ * 
+DEFINE SUBROUTINE PROCESS_OBJECT 
+* ------------------------------ * 
+IF #DEL_DOC_PROC = ##FALSE       /* NAO E' UM PROCESSO DE EXCLUSAO
+*
+  RESET #XBRFCGY_I  #XBRFCGY_O        /* RECUPERACAO DO PROCESSO DE
+  MOVE #XBRIVFT_I_FCO       TO  #XBRFCGY_I_FCO  /* NUMERA??O DO DOC 
+  MOVE #XBRIVGH_O_ENT_GR    TO  #XBRFCGY_I_ENT_GR
+  MOVE #XBRIVGH_O_ENT_ID    TO  #XBRFCGY_I_ENT_ID
+  MOVE #XBRIVGH_O_ENT_SITE  TO  #XBRFCGY_I_ENT_SITE
+  MOVE #XBRIVGH_O_INV_TP    TO  #XBRFCGY_I_DOC_TP
+*
+  CALLNAT 'XBRFCGY0' ##HDR #XBRFCGY_I #XBRFCGY_O
+  IF ##RC NE 0
+    INCLUDE GEMOCRCH
+    ESCAPE ROUTINE
+  END-IF
+*
+  MOVE #XBRIVGH_O_NB_INV TO #XBRIVFT_O_NB_INV  /* CTMEL 
+  /*
+  IF #XBRIVGH_O_TP_MOV EQ '3' OR EQ '5' /*APROVA??O
+    /*
+    MOVE #XBRIVFT_I_FCO TO #FCODFGQ_I_ID 
+    CALLNAT 'FCODFGQ0' ##HDR #FCODFGQ_I #FCODFGQ_O
+    IF ##RC NE 0
+      INCLUDE GEMOCRCH
+      ESCAPE ROUTINE
+    END-IF
+    /*
+    /*  altera??o para chamar cobdtxs ou cobdtxt colocada
+    /*  provis?riamente para atender ND ou NFF quando n?o
+    /*  integra com contas a receber, verificar solu?ao para
+    /*  antender chamando s? um dos dois
+    /* 
+    IF  #XBRFCGY_O_PRC_TP    <> ##OPIHD_DOC_TP_REC001  /* REV001 ****
+     OR #BTRCFGA_O_REC NE '0'  /* n?o integra com contas a receber
+        IF #XBRFCGY_O_PRC_TP  = ##OPIHD_DOC_TP_REC001
+           RESET #COBDTXS_I #COBDTXS_O
+           MOVE #XBRFCGY_O_PRC_TP    TO #COBDTXS_I_ID      /* XBR001
+           MOVE #XBRIVFT_I_FCO       TO #COBDTXS_I_FCO 
+           MOVE #FCODFGQ_O_FYR       TO #COBDTXS_I_FYR
+           CALLNAT 'COBDTXS0' ##HDR #COBDTXS_I #COBDTXS_O
+        ELSE
+           MOVE #XBRFCGY_O_PRC_TP    TO #COBDTXT_I_ID      /* XBR001
+           MOVE #XBRIVFT_I_FCO       TO #COBDTXT_I_FCO 
+           MOVE #FCODFGQ_O_FYR       TO #COBDTXT_I_FYR
+           MOVE #XBRIVGH_O_ENT_SITE  TO #COBDTXT_I_SITE
+           CALLNAT 'COBDTXT0' ##HDR #COBDTXT_I #COBDTXT_O
+        END-IF
+        IF ##RC NE 0
+           IF ##RC EQ 8001 /* LOCKED
+              PERFORM TRY_AGAIN
+              IF ##RC NE 0 /* LOCKED
+                 INCLUDE GEMOCRCH
+                 ESCAPE ROUTINE
+              END-IF
+           ELSE
+              INCLUDE GEMOCRCH
+              ESCAPE ROUTINE
+           END-IF
+        END-IF
+    END-IF
+    /*
+  END-IF
+*
+END-IF
+* 
+END-SUBROUTINE 
+* ------------------------- *
+DEFINE SUBROUTINE TRY_AGAIN
+* ------------------------- *
+   FOR #ITA 1  10
+       RESET #COBDTXS_I #COBDTXS_O
+       MOVE #XBRFCGY_O_PRC_TP    TO #COBDTXS_I_ID      /* XBR001
+       MOVE #XBRIVFT_I_FCO       TO #COBDTXS_I_FCO 
+       MOVE #FCODFGQ_O_FYR       TO #COBDTXS_I_FYR
+       CALLNAT 'COBDTXS0' ##HDR #COBDTXS_I #COBDTXS_O
+       IF ##RC EQ 8001
+          IGNORE
+       ELSE
+          ESCAPE ROUTINE
+       END-IF
+   END-FOR
+END-SUBROUTINE
+*
+* -------------------------- *
+DEFINE SUBROUTINE GET_HEADER
+* -------------------------- *
+MOVE ##FALSE TO #DEL_DOC_PROC       /* PROCESSO DE EXCLUSAO
+*
+CALL 'LOGERROR' '@@@@@@@@@@@@@@@@@@ XBRIVFT0 @@@@@@@@@@@@@@@@@@@@@'
+COMPRESS ' XBRIVFT_I_FCO    = ' #XBRIVFT_I_FCO
+         ' XBRIVFT_I_DOC_TP = ' #XBRIVFT_I_DOC_TP
+         ' XBRIVFT_I_DOC_ID = ' #XBRIVFT_I_DOC_ID INTO #A
+CALL 'LOGERROR' #A         
+*
+RESET #XBRIVGH_I #XBRIVGH_O
+MOVE #XBRIVFT_I_FCO    TO #XBRIVGH_I_FCO 
+MOVE #XBRIVFT_I_DOC_TP TO #XBRIVGH_I_DOC_TP 
+MOVE #XBRIVFT_I_DOC_ID TO #XBRIVGH_I_DOC_ID 
+*
+CALLNAT 'XBRIVGH0' ##HDR #XBRIVGH_I #XBRIVGH_O
+IF ##RC NE 0
+  IF ##RC = 2001
+    MOVE ##TRUE TO #DEL_DOC_PROC   /* PROCESSO DE EXCLUSAO (JA EXCLUIU)
+    RESET ##RC
+  ELSE
+    INCLUDE GEMOCRCH
+  END-IF
+  ESCAPE ROUTINE
+END-IF
+*
+END-SUBROUTINE
+*
+* ----------------------------- *
+DEFINE SUBROUTINE FORMAT_NB_INV
+* ----------------------------- *
+*
+MOVE #XBRIVGH_O_NB_INV       TO #DOC_NUM_A
+MOVE RIGHT #XBRIVGH_O_NB_INV TO #DOC_NUM
+MOVE #DOC_NUM_N              TO #AUX_DOC_NUM
+MOVE #AUX_DOC_NUM            TO #DOC_NUM_N
+MOVE #DOC_NUM                TO #XBRIVFT_O_NB_INV 
+*
+END-SUBROUTINE
+*
+* --------------------------- *
+DEFINE SUBROUTINE SAVE_OBJECT
+* --------------------------- *
+*
+IF #XBRIVGH_O_TP_MOV EQ '3' OR EQ '5' /*APROVA??O
+  RESET #GEMOCOC_I
+  MOVE ##OC_SAVE                TO #GEMOCOC_I_CTRL
+  MOVE ##XBRIV_SC_ID            TO #GEMOCOC_I_CL
+  MOVE #XBRIVFT_I_FCO           TO #GEMOCOC_I_ID(1) 
+  MOVE #XBRIVGH_O_ENT_SITE      TO #GEMOCOC_I_ID(2)
+  MOVE #XBRIVFT_O_NB_INV        TO #GEMOCOC_I_ID(3) 
+  CALLNAT 'GEMOCOC0' ##HDR #GEMOCOC_I
+  IF ##RC NE 0
+     INCLUDE GEMOCOEH
+     ESCAPE ROUTINE
+  END-IF
+END-IF
+*
+IF #XBRIVGH_O_TP_MOV NE '7' AND #XBRIVGH_O_TP_MOV NE '9'/*<> DE CANC
+  RESET #GEMOCOC_I
+  MOVE ##OC_SAVE                TO #GEMOCOC_I_CTRL
+  MOVE ##XBRIV_SC_ID            TO #GEMOCOC_I_CL
+  MOVE #XBRIVFT_I_FCO           TO #GEMOCOC_I_ID(1) 
+  MOVE #XBRIVFT_I_DOC_TP        TO #GEMOCOC_I_ID(2) 
+  MOVE #XBRIVFT_I_DOC_ID        TO #GEMOCOC_I_ID(3) 
+  CALLNAT 'GEMOCOC0' ##HDR #GEMOCOC_I
+  IF ##RC NE 0
+    INCLUDE GEMOCOEH
+    ESCAPE ROUTINE
+  END-IF
+END-IF
+*
+END-SUBROUTINE
+* ------------------------------------ *
+DEFINE SUBROUTINE GET_BOOKKEEPING_RULE
+* ------------------------------------ *
+MOVE #CACH_GR_CFO_INTR TO #BTRCFGA_I_CFO_ID
+MOVE #CACH_DT_ISS      TO #BTRCFGA_I_DT            /* REV002
+CALLNAT 'BTRCFGA0' ##HDR #BTRCFGA_I #BTRCFGA_O
+IF ##RC NE  0
+   IF ##RC EQ 2001
+      MOVE 2018 TO ##RC  /* CFO CRITERIA DETAIL DOES NOT EXIST
+   ELSE
+      INCLUDE GEMOCRCH
+  END-IF
+  ESCAPE ROUTINE
+END-IF
+*
+END-SUBROUTINE
+*
+* ----------------------------- *
+DEFINE SUBROUTINE CANCEL_OBJECT
+* ----------------------------- *
+*
+RESET ##RC
+*
+RESET #GEMOCOC_I
+MOVE ##OC_CANCEL             TO #GEMOCOC_I_CTRL
+MOVE ##XBRIV_SC_ID           TO #GEMOCOC_I_CL
+CALLNAT 'GEMOCOC0' ##HDR #GEMOCOC_I
+IF ##RC NE 0
+  INCLUDE GEMOCOEH
+  ESCAPE ROUTINE
+END-IF
+*
+END-SUBROUTINE
+* ---------------------------- *
+DEFINE SUBROUTINE GET_CACH_VAR
+* ---------------------------- *
+MOVE #XBRIVFT_I_DOC_TP   TO #KEYH_DOC_TP 
+MOVE #XBRIVFT_I_DOC_ID   TO #KEYH_DOC_ID 
+*
+MOVE ##CONT1             TO #KEYH_CONT
+CALL 'GETCACH' #KEYH #CACH_CONT1
+COMPUTE ##RC = RET('GETCACH')
+IF ##RC NE 0
+  INCLUDE GEMOCOEH
+  ESCAPE ROUTINE
+END-IF
+*
+MOVE ##CONT2             TO #KEYH_CONT
+CALL 'GETCACH' #KEYH #CACH_CONT2
+COMPUTE ##RC = RET('GETCACH')
+IF ##RC NE 0
+  INCLUDE GEMOCOEH
+  ESCAPE ROUTINE
+END-IF
+*
+MOVE ##CONT3             TO #KEYH_CONT
+CALL 'GETCACH' #KEYH #CACH_CONT3
+COMPUTE ##RC = RET('GETCACH')
+IF ##RC NE 0
+  INCLUDE GEMOCOEH
+  ESCAPE ROUTINE
+END-IF
+*
+MOVE ##CONT4             TO #KEYH_CONT
+CALL 'GETCACH' #KEYH #CACH_CONT4
+COMPUTE ##RC = RET('GETCACH')
+IF ##RC NE 0
+  INCLUDE GEMOCOEH
+  ESCAPE ROUTINE
+END-IF
+*
+END-SUBROUTINE
+*
+* -------------------------- * 
+DEFINE SUBROUTINE OPEN_OBJECT 
+* -------------------------- * 
+* 
+RESET #GEMOCOC_I 
+MOVE ##OC_OPEN            TO #GEMOCOC_I_CTRL 
+MOVE ##XBRIV_SC_ID        TO #GEMOCOC_I_CL 
+MOVE #XBRIVGH_I_FCO       TO #GEMOCOC_I_ID(1) 
+MOVE #XBRIVGH_O_ENT_GR    TO #GEMOCOC_I_ID(2) 
+MOVE #XBRIVGH_O_ENT_ID    TO #GEMOCOC_I_ID(3) 
+MOVE #XBRIVGH_O_ENT_SITE  TO #GEMOCOC_I_ID(4) 
+MOVE #XBRIVGH_O_INV_TP    TO #GEMOCOC_I_ID(5) 
+MOVE #XBRIVGH_O_NB_INV    TO #GEMOCOC_I_ID(6) 
+MOVE #XBRIVGH_O_SER       TO #GEMOCOC_I_ID(7) 
+MOVE #XBRIVGH_O_SSR       TO #GEMOCOC_I_ID(8) 
+MOVE #XBRIVGH_O_DT_ACC    TO #GEMOCOC_I_ID(9) 
+* 
+CALLNAT 'GEMOCOC0' ##HDR #GEMOCOC_I 
+IF ##RC NE 0 
+   INCLUDE GEMOCOEH 
+   ESCAPE ROUTINE 
+END-IF 
+* 
+END-SUBROUTINE 
+* 
+* ---------------------------- * 
+  DEFINE SUBROUTINE UPD_NB_INV 
+* ---------------------------- * 
+UPDATE XBRIV SET 
+  XBRIV_NB_INV = #XBRIVGH_O_NB_INV 
+WHERE XBRIV_FCO = #XBRIVFT_I_FCO 
+  AND XBRIV_DOC_TP = #XBRIVFT_I_DOC_TP 
+  AND XBRIV_DOC_ID = #XBRIVFT_I_DOC_ID 
+* 
+END-SUBROUTINE 
+* 
+* ------------------------------- * 
+  DEFINE SUBROUTINE GET_ST_ESALES     /* REV003 
+* ------------------------------- * 
+MOVE #XBRIVFT_I_DOC_TP   TO #KEYH_DOC_TP 
+MOVE #XBRIVFT_I_DOC_ID   TO #KEYH_DOC_ID 
+MOVE ##CONT6             TO #KEYH_CONT 
+CALL 'GETCACH' #KEYH #CACH_CONT6 
+COMPUTE ##RC = RET('GETCACH') 
+IF ##RC NE 0 
+  IF ##RC EQ 3 
+    RESET ##RC 
+  ELSE 
+    INCLUDE GEMOCOEH 
+    ESCAPE ROUTINE 
+  END-IF 
+END-IF 
+* 
+END-SUBROUTINE 
+
+END
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

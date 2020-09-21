@@ -1,0 +1,153 @@
+********************************************************************************
+*                Copyright (c) 2011 AdvanSol Inc.
+********************************************************************************
+* OPERATION  : DDMTBLS             TYPE: PRIVATE
+* AUTHOR     : CTLRA               DATE: 27-JUL-2011
+* DESCRIPTION: GET TABLES LIST OF DATABASE
+********************************************************************************
+* RETURN CODES:
+* 0001 - DATABASE UNSUPPORTED
+********************************************************************************
+*
+DEFINE DATA
+LOCAL
+  1 #OWNER   (A30)
+  1 #FILTER  (A32) INIT <'*'>
+  1 #NEXT    (A62)
+  1 REDEFINE #NEXT
+    2 #NEXT_OWNER (A30)
+    2 #NEXT_TABLE (A32)
+  1 #NB_ROWS (I4)
+  1 #TABLE   (A32/1:30)
+  1 #CREATOR (A30/1:30)
+LOCAL
+  1 #DB_TP (I4)
+  1 #TABLENAME(A32)
+  1 #OWNERNAME(A30)
+  1 #COUNT (I4)
+  1 #TYPE(A1)
+END-DEFINE
+*
+RESET #NB_ROWS #TABLE #CREATOR
+INPUT (AD=MI) #FILTER
+*
+EXAMINE #FILTER FOR '*' REPLACE '%' GIVING NUMBER #COUNT
+IF #COUNT = 0 THEN
+  COMPRESS #FILTER '%' INTO #FILTER LEAVING NO SPACE
+END-IF
+*
+IF #OWNER = ' ' THEN
+  ASSIGN #OWNER := '%'
+END-IF
+*
+IF *MACHINE-CLASS = 'MAINFRAME' THEN
+  ASSIGN #DB_TP := 7
+ELSE
+  CALL 'DBTYPE' #DB_TP
+END-IF
+*
+DECIDE ON FIRST VALUE OF #DB_TP
+  VALUE 0   /* ORACLE
+    PERFORM EXEC_ORACLE
+  VALUE 7   /* DB2
+    PERFORM EXEC_DB2
+  VALUE 10  /* ADABAS-D
+    PERFORM  EXEC_ADABASD
+  VALUE 15  /* POSTGRESQL
+    PERFORM EXEC_POSTGRESQL
+  VALUE 12  /* SQL SERVER
+    PERFORM EXEC_SQLSERVER
+  NONE VALUE
+    ESCAPE ROUTINE
+END-DECIDE
+*
+********************************************************************************
+DEFINE SUBROUTINE EXEC_ORACLE
+*
+  SELECT table_name, owner INTO #TABLENAME, #OWNERNAME FROM all_tables
+  WHERE ( owner > #NEXT_OWNER OR ( owner = #NEXT_OWNER AND table_name >= #NEXT_TABLE ) )
+  AND owner LIKE #OWNER AND table_name LIKE #FILTER
+  UNION
+  SELECT view_name, owner FROM all_views
+  WHERE ( owner > #NEXT_OWNER OR ( owner = #NEXT_OWNER AND view_name >= #NEXT_TABLE ) )
+  AND owner LIKE #OWNER AND view_name LIKE #FILTER
+  ORDER BY 2,1
+    PERFORM LOAD_OUTPUT
+  END-SELECT
+*
+END-SUBROUTINE
+********************************************************************************
+DEFINE SUBROUTINE EXEC_DB2
+*
+  SELECT name, creator INTO #TABLENAME, #OWNERNAME FROM sysibm.systables
+  WHERE ( type = 'T' OR type = 'V' )
+  AND ( creator > #NEXT_OWNER OR ( creator = #NEXT_OWNER AND name >= #NEXT_TABLE ) )
+  AND creator LIKE #OWNER AND name LIKE #FILTER
+  ORDER BY 2,1
+    PERFORM LOAD_OUTPUT
+  END-SELECT
+* *
+END-SUBROUTINE
+********************************************************************************
+DEFINE SUBROUTINE EXEC_ADABASD
+*
+  SELECT tablename, owner INTO #TABLENAME, #OWNERNAME FROM tables
+  WHERE ( type = 'TABLE' OR type = 'VIEW' )
+  AND ( owner > #NEXT_OWNER OR ( owner = #NEXT_OWNER AND tablename >= #NEXT_TABLE ) )
+  AND owner LIKE #OWNER AND tablename LIKE #FILTER
+  ORDER BY 2,1
+    PERFORM LOAD_OUTPUT
+  END-SELECT
+*
+END-SUBROUTINE
+********************************************************************************
+DEFINE SUBROUTINE EXEC_POSTGRESQL
+*
+  SELECT UPPER( tablename ), tableowner INTO #TABLENAME, #OWNERNAME FROM pg_tables
+  WHERE ( tableowner > #NEXT_OWNER OR ( tableowner = #NEXT_OWNER AND UPPER( tablename ) >= #NEXT_TABLE ) )
+  AND tableowner LIKE #OWNER AND UPPER( tablename ) LIKE #FILTER
+  UNION
+  SELECT UPPER( viewname ), viewowner FROM pg_views
+  WHERE ( viewowner > #NEXT_OWNER OR ( viewowner = #NEXT_OWNER AND UPPER( viewname ) >= #NEXT_TABLE ) )
+  AND viewowner LIKE #OWNER AND UPPER( viewname ) LIKE #FILTER
+  ORDER BY 2,1
+    PERFORM LOAD_OUTPUT
+  END-SELECT
+* *
+END-SUBROUTINE
+********************************************************************************
+DEFINE SUBROUTINE EXEC_SQLSERVER
+*
+  SELECT TYPE , upper( a.name ), upper( b.name ) INTO #TYPE , #TABLENAME, #OWNERNAME
+  FROM sysobjects a, sysusers b
+  WHERE ( a.type = 'U' OR a.type = 'V' ) AND a.uid=b.uid
+  AND ( b.name > #NEXT_OWNER OR ( b.name = #NEXT_OWNER AND a.name >= #NEXT_TABLE ) )
+  AND b.name LIKE #OWNER AND a.name LIKE #FILTER
+  ORDER BY 2,1
+    PERFORM LOAD_OUTPUT
+  END-SELECT
+*
+END-SUBROUTINE
+********************************************************************************
+DEFINE SUBROUTINE LOAD_OUTPUT
+*
+DISPLAY #TYPE #OWNERNAME #TABLENAME
+IF #NB_ROWS < 30 THEN
+   RESET #NEXT
+   ADD 1 TO #NB_ROWS
+   ASSIGN #TABLE( #NB_ROWS ) = #TABLENAME
+   ASSIGN #CREATOR( #NB_ROWS) = #OWNERNAME
+ELSE
+   ASSIGN #NEXT_TABLE := #TABLENAME
+   ASSIGN #NEXT_OWNER := #OWNERNAME
+   ESCAPE BOTTOM
+END-IF
+*
+END-SUBROUTINE
+********************************************************************************
+END
+
+
+
+
+

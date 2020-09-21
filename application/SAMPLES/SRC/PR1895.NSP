@@ -1,0 +1,32 @@
+DEFINE DATA LOCAL
+01 #pOS_CD (A6)
+01 #POS_CD_SUFF (A1)
+01 #LOGON_ID (A8)
+01 #PID(A10)
+01 #NAME(A128)
+01 #PRICE(N20.2)
+01 #ADDR(A6)
+END-DEFINE
+
+* SELECT LOGON_ID, A.POS_CD, A.POS_CD_SUFF
+* INTO #LOGON_ID, #POS_CD, #POS_CD_SUFF
+* FROM ATP0001.IC_PERS_TBL A ,                                      
+*  ATP0001.IC_POS_CD B  ,                                                  
+* WHERE A.POS_CD = B.POS_CD AND A.POS_CD_SUFF=                             
+* B.POS_CD_SUFF   
+* AND LOGON_ID = 'FA120G7'
+* WRITE '=' #LOGON_ID '=' #POS_CD '=' #POS_CD_SUFF  
+* END-SELECT      
+
+                                              
+SELECT A.PID , A.NAME, A.PRICE, C.ADDR ,
+ INTO #PID, #NAME, #PRICE, #ADDR 
+ FROM IBMUSER.PRODUCT A ,                                      
+  IBMUSER.PRODUCTSUPPLIER B  ,
+  IBMUSER.SUPPLIERS C                                                  
+ WHERE A.PID = B.PID 
+   AND B.SID = C.SID 
+ WRITE '=' #PID '=' #NAME(AL=20) '=' #PRICE  '=' #ADDR
+END-SELECT                                                    
+                  
+END

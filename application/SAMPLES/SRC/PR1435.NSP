@@ -1,0 +1,28 @@
+* * * * ** PR1435   
+* * * * *
+* * * * RESET #H-ADDR-LINES(A165) #IN-CUST-LOC (A10)  
+* * * * REDEFINE #H-ADDR-LINES (#H-ADDR-LINE(A33))
+* * * * REDEFINE #IN-CUST-LOC (#IN-CUST-CODE(A7) #IN-LOC-CODE(A3))
+* * * * *
+* * * * assign #in-cust-loc = '0000001001'
+* * * * FD1.   FIND CUST-GENL-DATA WITH CIX-LOC = #IN-CUST-LOC
+* * * * FO1.         FOR #I(N2) = 1 TO 5     
+* * * * GT1.           GET SAME CUST-CHRG-TO-LINES (#I)          
+* * * *           MOVE INDEXED CUST-CHRG-TO-LINES(GT1./#I) TO #H-ADDR-LINE<#I>
+* * * *         LOOP(FO1.) 
+* * * * LOOP (FD1.)
+* * * * END
+
+PROCESS SQL TABLES << SET CURRENT SQLID='ADS' >>
+
+RESET #AX-LANG-ALL(A30) #IN-CUST-LOC (A10)  
+REDEFINE #AX-LANG-ALL (#LANG(A3))
+
+assign  #IN-CUST-LOC = '11100102'
+FD1.   FIND EMPLOYEES WITH PERSONNEL-ID = #IN-CUST-LOC
+FO1.         FOR #I(N2) = 1 TO 10    
+GT1.           GET SAME LANG (#I) 
+        MOVE INDEXED LANG(GT1./#I) TO #LANG<#I>
+        LOOP(FO1.) 
+LOOP (FD1.)
+END

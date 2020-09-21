@@ -1,0 +1,36 @@
+** PR1260 
+* * If you enter a FIND loops via the IF NO RECORDS FOUND clause with a view
+* *  that has MU’s define, trying to Reference *NUMBER after moving
+* *   a value to the MU field, results in an error 999. 
+* * 
+* * In the example program below, 
+* * The FD1. Loops works fine, no MU’s defined in the view.
+*********************************************************************
+DEFINE DATA 
+LOCAL 
+1 MYVIEW VIEW OF EMPLOYEES
+  2 PERSONNEL-ID
+  2 NAME
+  2 CITY
+  2 COUNTRY
+  2 JOB-TITLE
+   2 LANG(1:7)
+1 #IN-CUST-LOC(A10)
+END-DEFINE
+*
+SET KEY ALL
+PASSW='ADS'
+WRITE *PROGRAM
+assign  #IN-CUST-LOC = '2100102'
+FD1.   FIND MYVIEW WITH PERSONNEL-ID = #IN-CUST-LOC
+    IF NO RECORDS FOUND     
+       WRITE 'NOTHING'
+    END-NOREC
+    WRITE '=' MYVIEW.NAME
+    MOVE '1' TO    MYVIEW.LANG(1)
+    if *number(fd1.) = 0
+      WRITE *NUMBER(FD1.)
+    END-IF
+END-FIND
+END
+

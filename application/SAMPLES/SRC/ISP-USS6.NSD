@@ -1,0 +1,9 @@
+DB: 147   FILE: 025  - ISP-USS-SYSTEM-FILE-6              DEFAULT SEQUENCE:
+TYPE: INCORE
+
+T L DB Name                              F Leng  S D Remark
+- - -- --------------------------------  - ----  - - ------------------------
+  1 AA FIELD-1                           A 20    N D
+  1 AB FIELD-2                           A 70    N D
+M 1 AC FIELD-3                           A 250   N
+******DDM OUTPUT TERMINATED******

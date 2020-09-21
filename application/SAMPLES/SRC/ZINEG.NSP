@@ -1,0 +1,16 @@
+DEFINE DATA
+LOCAL
+1 #IN(A10/-10:10) INIT 
+ (-1)  <'OLA -1'>  
+ (-2)  <'OLA -2'>  
+ (-10) <'OLA -10'>  
+ (1) <'OLA 1'>
+ (2) <'OLA 2'>
+1 #I(I2) 
+END-DEFINE
+FOR #I = -8 TO -5 STEP 1
+ MOVE ALL 'X' TO #IN(#I)
+ PRINT #I #IN(#I)
+END-FOR
+PRINT #IN(*)
+END

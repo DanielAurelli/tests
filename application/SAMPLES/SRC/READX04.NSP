@@ -1,0 +1,27 @@
+** Example 'READX04': READ (in combination with FIND and the system
+**                    variables *NUMBER and *COUNTER)
+************************************************************************
+DEFINE DATA LOCAL
+1 EMPLOY-VIEW VIEW OF EMPLOYEES
+  2 PERSONNEL-ID
+  2 NAME
+  2 FIRST-NAME
+1 VEHIC-VIEW VIEW OF VEHICLES
+  2 PERSONNEL-ID
+  2 MAKE
+END-DEFINE
+*
+LIMIT 10
+RD. READ EMPLOY-VIEW BY NAME STARTING FROM 'JONES'
+  FD. FIND VEHIC-VIEW WITH PERSONNEL-ID = PERSONNEL-ID (RD.)
+    IF NO RECORDS FOUND
+      ENTER
+    END-NOREC
+    /*
+    DISPLAY NOTITLE
+            *COUNTER (RD.)(NL=8) NAME         (AL=15) FIRST-NAME (AL=10)
+            *NUMBER  (FD.)(NL=8) *COUNTER (FD.)(NL=8) MAKE
+  END-FIND
+END-READ
+END
+

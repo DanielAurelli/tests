@@ -1,0 +1,5 @@
+**DF          0   A10   1##G1                            /*GLOBAL
+**DF I1       0   A60   1+GAIV                           (1:2)
+**DR          0        R1+GAIV                           /* BEGIN REDEFINE: +GAIV
+**DFR         0   A30   2+AIV1
+**DFR         0   A30   2+AIV2

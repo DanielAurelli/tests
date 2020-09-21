@@ -1,0 +1,17 @@
+0010* Definiçao e inicializaçao de array em estrutura
+0020*
+0030DEFINE DATA LOCAL
+00401 #AREA
+0050  2 #FIELD1 (A10)  init <'abcdefjhij'>
+0060  2 #GROUP1 (1:10)
+0070     3 #FIELD2 (P2) INIT ALL <2>
+0080     3 #FIELD3 (N3/1:4) init (1,3) <13> (2,1) <21> (3,2) <32> (4,4) <44>
+0090                             (5,1) <51> (6,4) <64> (7,3) <73>
+0100                             (9,1) <91> (10,2) <102>
+0110END-DEFINE
+0120include incprog
+0130write notitle
+0140 #field1 //
+0150 #field2 (*) //
+0160 #field3 (*,*)
+0170END

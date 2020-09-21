@@ -1,0 +1,61 @@
+** Example 'ATBREX01': AT BREAK OF (with database field)
+************************************************************************
+DEFINE DATA 
+LOCAL USING IDBI---L  /**  INCORE       
+LOCAL 
+1 ISP-USS-SYSTEM-FILE-3 VIEW OF ISP-USS-SYSTEM-FILE-3     
+  2 FIELD-1     
+/*
+1 MYVIEW VIEW OF EMPLOYEES
+  2 NAME
+  2 CITY
+  2 COUNTRY
+  2 JOB-TITLE
+  2 SALARY (1:1)
+
+1 #WORK-RECORD      (A80)   
+1 REDEFINE #WORK-RECORD   
+  2 #W-CITY (A20)
+  2 #W-NAME (A20)
+  2 #W-COUNTRY (A3)
+  2 #W-JOB-TITLE (A25) 
+  2 #W-SALARY (P9.2) 
+    
+END-DEFINE
+*
+FORMAT PS=200
+PASSW='ADS'
+R1. READ(20) MYVIEW BY CITY WHERE COUNTRY = 'USA'
+  MOVE MYVIEW.NAME TO #W-NAME 
+  MOVE MYVIEW.CITY TO #W-CITY 
+  MOVE MYVIEW.COUNTRY TO #W-COUNTRY 
+  MOVE MYVIEW.JOB-TITLE TO #W-JOB-TITLE 
+  MOVE MYVIEW.SALARY(1) TO #W-SALARY  
+  /*
+
+  /* DISPLAY #W-CITY (AL=9) #W-NAME 'POSITION' #W-JOB-TITLE 'SALARY' #W-SALARY
+  /*
+  write 'before break' #W-CITY (AL=20)
+  /*perform break processing
+
+  AT BREAK OF CITY
+    WRITE /   OLD(CITY) (EM=X^X^X^X^X^X^X^X^X^X^X^X^X^X^X^X^X^X^X^X)
+          5X 'AVERAGE:' AVER(#W-SALARY) //
+              COUNT(#W-SALARY) 'RECORDS FOUND' /
+              // TOTAL(#W-SALARY)
+  END-BREAK
+  /*
+END-READ
+
+**
+**--------------------------------------**          
+DEFINE SUBROUTINE DELETE-INCORE-DATA    
+**--------------------------------------**          
+RESET INCORE-CTL INCORE-DATA
+ASSIGN ACTION = 'DELETE'    
+ASSIGN FILE-IDENTIFIER = 'L147' 
+CALLNAT INCORE USING INCORE-CTL INCORE-DATA         
+*   
+END-SUBROUTINE
+END
+

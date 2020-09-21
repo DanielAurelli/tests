@@ -1,0 +1,19 @@
+** PR0178   NATURAL V1 Sum Array (1-10)
+*
+LIMIT 10
+READ EMPLOYEES BY NAME
+  COMPUTE #SAL(P15,2) = 0 + EMPLOYEES.SALARY(1-3)
+  WRITE #SAL
+LOOP
+RESET #A (P3/1:10)
+RESET #I (P3)
+RESET #SUM (P5)
+FOR #I = 1 to 10
+  assign #A (#I) = #I
+LOOP
+DISPLAY #A (*)
+compute #SUM = 0 + #A (1-10)
+write #SUM   
+ADD #A(1-10) GIVING #SUM
+write #SUM   
+END

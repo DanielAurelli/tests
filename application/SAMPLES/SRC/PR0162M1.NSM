@@ -1,0 +1,38 @@
+* MAP2: PROTOTYPE              --- CREATED BY WNT 6.2.2 ---
+* INPUT USING MAP 'XXXXXXXX'
+FORMAT PS=024 LS=080 ZP=OFF SG=OFF KD=OFF IP=OFF
+* MAP2: MAP PROFILES *****************************        620***********
+* ,TTAAAMMOO   D I D I N D I D I        ?_)^&:+(                       *
+* 024079        N0NNUCN             X        01 SYSDBA  NR             *
+************************************************************************
+INPUT          (     IP=OFF                                           /*
+                                                                       )
+ 001T *DATU  (AD=DLOFHT' ' ) /*.01S008 A008 8          .
+ 027T 'Crew Dispatcher System'
+ 072T *APPLIC-ID  (AD=DLOFHT' ' ) /*.01S008 A008 8          .
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+/
+* MAP2: VALIDATION *****************************************************
+* MAP2: END OF MAP *****************************************************
+END

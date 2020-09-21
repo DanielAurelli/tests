@@ -1,0 +1,11 @@
+** PR1492   ENTER in IF NO RECORDS FOUND
+*
+move 'BX8735307'  to #1-ORDER-ITEM (a20)
+FD2.
+FIND EMPLOYEES WITH DEPT-PERSON = #1-ORDER-ITEM  
+     IF NO RECORDS FOUND ENTER
+* 
+  WRITE 'inside find' *number(FD2.)
+loop(fd2.)
+write *number(FD2.) 'outside find'
+end

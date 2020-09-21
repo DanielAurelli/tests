@@ -1,0 +1,13 @@
+DEFINE DATA LOCAL
+01 #TEST(A3/10)
+01 #POS_CD_SUFF (A1)
+01 #LOGON_ID (A8)
+01 #IX (N2)
+END-DEFINE
+FOR #IX= 1 TO 10   
+ WRITE '='        #TEST(#IX)(AL=10)
+
+END-FOR      
+                  
+
+END

@@ -1,0 +1,10 @@
+** PR1740    MOVE ALL works differently. No trailing blanks.
+DEFINE DATA                
+LOCAL                                                          
+  1 #C-INTR_LOC (A5) CONST <'*INT'>
+  1 #SUB_AREA_1(A15)               
+END-DEFINE
+*                       
+MOVE ALL #C-INTR_LOC TO #SUB_AREA_1     
+WRITE '=' #SUB_AREA_1                   
+END

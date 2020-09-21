@@ -1,0 +1,120 @@
+/*==================================================================*/
+/*          Copyright (C) 2015, Consist Business Software           */
+/*------------------------------------------------------------------*/
+/*                                                                  */
+/* Module:   SRXFEXT                                                */
+/* Function: Gera o extenso referente a um numero                   */
+/* Author:   Eduardo A D Namur                   Date: Aug, 17 2015 */
+/*                                                                  */
+/*==================================================================*/
+DEFINE DATA
+PARAMETER
+1  #NUM-ENTRA  (A15)
+1  #VL-EXTENSO (A70)
+LOCAL
+1  #TAB-UNID (A10/1:19) CONST <'UM', 'DOIS', 'TRES', 'QUATRO', 'CINCO', 'SEIS',
+                              'SETE', 'OITO', 'NOVE', 'DEZ', 'ONZE', 'DOZE',
+                              'TREZE', 'CATORZE', 'QUINZE', 'DEZESSEIS',
+                              'DEZESSETE', 'DEZOITO', 'DEZENOVE'>
+1  #TAB-DEZENA(A10/1:9) CONST <'DEZ', 'VINTE', 'TRINTA', 'QUARENTA', 'CINCOENTA',
+                              'SESSENTA', 'SETENTA', 'OITENTA', 'NOVENTA'>
+1  #TAB-CENT(A15/1:9) CONST <'CENTO', 'DUZENTOS', 'TREZENTOS', 'QUATROCENTOS',
+                            'QUINHENTOS', 'SEISCENTOS', 'SETECENTOS',
+                            'OITOCENTOS', 'NOVECENTOS'>
+1  #TAB-GROUPS(A13/1:4) CONST <'MIL', 'MILHAO', 'BILHAO' 'TRILHAO'>
+1  #TAB-GROUPP(A13/1:4) CONST <'MIL', 'MILHOES', 'BILHOES' 'TRILHOES'>
+1  #STR-ENTRA (A15)
+1  REDEFINE #STR-ENTRA
+2  #VAL-ENTRA (N15)
+1  #NUM-VALUE (N15)
+1  REDEFINE #NUM-VALUE
+2  #GRP-DIGITS (N3/1:5)
+1  #GRPID (N1)
+1  #GROUP-DIGS(N3)
+1  REDEFINE #GROUP-DIGS
+2  #CENTENA(N1)
+2  #OUTROS-DIG(N2)
+1  REDEFINE #GROUP-DIGS
+2  #CENT-DIG(N1)
+2  #DEZE-DIG(N1)
+2  #UNID-DIG(N1)
+1  #FINAL-RESULT(A260)
+1  #RESULT-GRP(A70)
+1  #RESULT-PART(A20)
+1  #EMPTY(L) INIT <TRUE>
+1  #PENDING-E(L) INIT <FALSE>
+1  #SV-PEND-E(L) INIT <FALSE>
+1  #GENERATED-E(L) INIT <FALSE>
+END-DEFINE
+MOVE RIGHT #NUM-ENTRA TO #STR-ENTRA
+MOVE #VAL-ENTRA TO #NUM-VALUE
+FOR #GRPID 5 1 -1
+  IF #GRP-DIGITS(#GRPID) <> 0 THEN
+    MOVE #PENDING-E TO #SV-PEND-E
+    MOVE #GRP-DIGITS(#GRPID) TO #GROUP-DIGS
+    IF #GROUP-DIGS = 1 THEN
+      IF #GRPID = 5 THEN
+        MOVE 'UM' TO #RESULT-GRP
+        MOVE TRUE TO #PENDING-E
+      ELSE
+        IF #GRPID = 4 THEN
+          MOVE 'MIL' TO #RESULT-GRP
+        ELSE
+          COMPRESS 'UM' #TAB-GROUPS(5 - #GRPID) INTO #RESULT-GRP
+        END-IF  
+      END-IF    
+    ELSE
+      PERFORM GERA-EXTENSO
+      IF #GRPID <> 5 THEN
+        COMPRESS #RESULT-GRP #TAB-GROUPP(5 - #GRPID) INTO #RESULT-GRP
+      END-IF  
+    END-IF
+    IF #EMPTY THEN
+      MOVE #RESULT-GRP TO #FINAL-RESULT
+    ELSE
+      IF #SV-PEND-E AND NOT #GENERATED-E THEN
+        COMPRESS #RESULT-GRP 'E' INTO #RESULT-GRP
+        MOVE TRUE TO #GENERATED-E
+      END-IF
+    COMPRESS #RESULT-GRP #FINAL-RESULT INTO #FINAL-RESULT
+    END-IF
+    MOVE FALSE TO #EMPTY
+  END-IF  
+END-FOR
+IF #EMPTY THEN
+  MOVE 'ZERO' TO #VL-EXTENSO
+ELSE
+  MOVE #FINAL-RESULT TO #VL-EXTENSO  
+END-IF
+
+* -------------------------------------------------------*
+* Generate the textual description of a group of digits  *
+* -------------------------------------------------------*
+DEFINE SUBROUTINE GERA-EXTENSO
+IF #OUTROS-DIG = 0 THEN
+  IF #CENTENA = 1 THEN
+    MOVE 'CEM' TO #RESULT-GRP
+  ELSE
+    MOVE #TAB-CENT(#CENTENA) TO #RESULT-GRP
+  END-IF
+  MOVE TRUE TO #PENDING-E    
+ELSE
+  IF #OUTROS-DIG < 20 THEN
+    MOVE #TAB-UNID(#OUTROS-DIG) TO #RESULT-PART
+  ELSE
+    MOVE #TAB-DEZENA(#DEZE-DIG) TO #RESULT-PART
+    IF #UNID-DIG <> 0 THEN
+      COMPRESS #RESULT-PART 'E' #TAB-UNID(#UNID-DIG) INTO #RESULT-PART
+    END-IF
+  END-IF  
+  IF #CENTENA <> 0 THEN
+    COMPRESS #TAB-CENT(#CENT-DIG) 'E' #RESULT-PART INTO #RESULT-GRP
+  ELSE
+    MOVE #RESULT-PART TO #RESULT-GRP
+    MOVE TRUE TO #PENDING-E
+  END-IF              
+END-IF
+END-SUBROUTINE      
+*
+END                             
+                           

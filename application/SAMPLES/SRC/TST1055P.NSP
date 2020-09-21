@@ -1,0 +1,299 @@
+/*  This program serves as example how to design a user-defined
+/*  program to call 'USR1055N'.
+/***********************************************************************
+DEFINE DATA
+LOCAL
+1 V                  (I01)  CONST <40>
+1 L                  (I01)  CONST <72>
+LOCAL
+1 USR1055L
+  2 OBJECT-KEY
+    3 LIBRARY        (A08)
+    3 OBJECT-FROM    (A33)
+    3 OBJECT-TO      (A33)
+    3 OBJECT-KIND    (A01)
+      /*
+  2 INPUTS
+    3 OPT-ACCESS     (A01)
+    3 OPT-TYPE-OP    (A01)
+    3 OPT-TYPE       (A24)
+    3 OPT-SCROLL     (A01)
+    3 OPT-WILDCARD   (A01)
+    3 OPT-ASTERISK   (A01)
+    3 OPT-AMOUNT     (I02)
+      /*
+  2 INPUT-OUTPUTS
+    3 INT-HANDLE     (I04)
+    3 NEXT-OBJ       (A32)
+  2 OUTPUTS
+    3 RETURNED       (I02)
+    3 LIST-OBJ       (A32/1:V)
+    3 LIST-TYPE-SRC  (A01/1:V)
+    3 LIST-TYPE-MOD  (A01/1:V)
+      /*
+1 USR1055N
+  2 VERSION          (I01)     INIT <2>
+  2 V1-NSC-CKECK     (A01)
+  2 V2-DBID          (N05)
+  2 V2-FNR           (N04)
+  2 V2-PSW           (A08)
+   2 V2-CIP           (N08)
+   2 V2-SYSFILE       (A01)
+ 1 REDEFINE USR1055N
+   2 EXTENDED-PARMS
+     3 EXTENDED-DATA  (A01/1:28)
+ /*
+
+1 USR1057L
+  2 OBJECT-KEY
+    3 LIBRARY        (A08)
+    3 OBJECT-NAME    (A32)
+    3 OBJECT-TYPE    (A02)
+      /*
+  2 INPUTS
+    3 OPT-ACCESS     (A01)
+    3 OPT-UNUSED-1   (L)
+    3 OPT-UNUSED-2   (A01)
+    3 OPT-LINE-NUM   (A01)
+    3 OPT-UNUSED-3   (L)
+    3 OPT-REDEF-DIR  (L)
+    3 OPT-UNUSED-4   (A01)
+    3 OPT-AMOUNT     (I02)
+    3 OPT-LINESIZE   (I02)
+      /*
+  2 INPUT-OUTPUTS
+    3 INT-HANDLE     (I04)
+    3 NEXT-SEQ       (I04)
+    3 NEXT-NUM       (I02)
+      /*
+  2 OUTPUTS
+    3 RETURNED       (I02)
+    3 SRC-NUM        (I02/1:V)
+    3 SRC-TEXT       (A01/1:V,1:L)
+    3 REDEFINE SRC-TEXT
+      4 SRC-GROUP    (1:V)
+        5 SRC-LINE   (A72)
+    3 REDEFINE SRC-TEXT
+      4 DIR-OBJNAME      (A32)    /* Object Name
+      4 DIR-LIBRARY      (A08)    /* Library ID
+      4 DIR-OBJTYPE      (A02)    /* Object Type
+      4 DIR-OBJKIND      (A01)    /* Source or Module
+      4 DIR-DBID         (A05)    /* DBID of System File
+      4 DIR-FNR          (A05)    /* FNR of System File
+      4 DIR-DATN         (A08)    /* Date in Format (YYYYMMDD)
+      4 DIR-TIMN         (A07)    /* Time in Format (HHIISST)
+      4 DIR-USERID       (A08)    /* User ID
+      4 DIR-PROGMODE     (A01)    /* Programming Mode
+      4 DIR-SRCSIZE      (A10)    /* Source Area Size
+      4 DIR-GPSIZE       (A10)    /* Size of Module
+      4 DIR-UNIQUE-ID    (A32)    /* Unique ID
+      4 DIR-DDM-DBID     (A05)    /* DBID the DDM is cataloged with
+      4 DIR-DDM-FNR      (A05)    /* FNR the DDM is cataloged with
+      4 DIR-NATVERS      (A04)    /* NATURAL Version
+      4 DIR-NATSM        (A02)    /* NATURAL SM Level
+      4 DIR-INIT-USER    (A08)    /* Init User ID
+      4 DIR-TID          (A08)    /* Terminal ID
+      4 DIR-TRANS-NAME   (A08)    /* TP Transcation Name
+      4 DIR-OPSYS        (A08)    /* Operating System
+      4 DIR-TPSYS        (A08)    /* TP System
+      4 DIR-USED-GDA     (A08)    /* Used GDA
+        /* End of directory attributes
+    3 SRC-SEQ        (I04/1:V)
+    3 SRC-LONG       (A01/1:V)
+      /*
+1 USR1057N
+  2 #57_VERSION          (I01)     INIT <3>
+  2 #57_V1-NSC-CKECK     (A01)
+  2 #57_V2-DBID          (N05)
+  2 #57_V2-FNR           (N04)
+  2 #57_V2-PSW           (A08)
+  2 #57_V2-CIP           (N08)
+  2 #57_V2-SYSFILE       (A01)
+  2 #57_V3-EMPTY-BLANK   (A1)    /* 'Y' = return empty lines on mainframe
+                             /*       with blank instead of H'00'
+  2 #57_EXTENDED-PARMS
+    3 #57_EXTENDED-DATA  (A01/1:29)
+/*
+LOCAL USING USR-MSG   /* Data for message exchange
+LOCAL USING USR-FLD   /* Description of the field in error
+/*
+LOCAL
+1 LOCAL-MSG          (A79)
+1 IX55                 (I02)
+1 IX57                 (I02)
+1 INPUT-55           (L)
+1 INPUT-57           (L)
+
+END-DEFINE
+ /*
+ FORMAT PS=30 LS=132
+ SET KEY ALL
+ /*
+ USR1055L.LIBRARY     := *LIBRARY-ID
+ OBJECT-FROM := 'USR*     '
+ OBJECT-TO   := '         '
+USR1055L.OBJECT-KIND := 'A'
+USR1055L.OPT-TYPE-OP := ' '
+USR1055L.OPT-TYPE    := 'PT      '
+USR1055L.OPT-SCROLL  := 'D'
+USR1055L.OPT-AMOUNT  := 20
+/*
+USR1055L.OPT-ACCESS := 'O'     /* Open
+NAD-FLD.FIELD-POSITION := 2
+/*
+REPEAT
+  INPUT-55 := FALSE
+  USR1055L.OPT-ACCESS := 'O'     /* Open
+  NAD-FLD.FIELD-POSITION := 2
+  INPUT (AD=MITL'_' IP=OFF)
+    TEXT NAD-MSG.MSG, MSG-DATA (1), MSG-DATA (2), MSG-DATA (3)
+    MARK NAD-FLD.FIELD-POSITION
+    / 18T 'List objects in a library:' (I)
+    / 18T '-' (26) (I) /
+    / 18T 'System file (U/N) .....' V2-SYSFILE
+    / 18T 'Library ...............' USR1055L.LIBRARY
+    / 18T 'DBID of library .......' V2-DBID
+    / 18T 'FNR of library ........' V2-FNR
+    / 18T 'PSW of library ........' V2-PSW (AD=N)
+    / 18T 'CIPERCODE of library ..' V2-CIP
+    / 18T 'Object from ...........' USR1055L.OBJECT-FROM  (AL=9)
+    / 18T 'Object to .............' USR1055L.OBJECT-TO    (AL=9)
+    / 18T 'Type operator .........' USR1055L.OPT-TYPE-OP
+    / 18T 'Object types ..........' USR1055L.OPT-TYPE
+    / 18T 'Kind ..................' USR1055L.OBJECT-KIND
+    / 18T 'Amount of objects .....' USR1055L.OPT-AMOUNT
+    / 18T 'Wildcard ..............' USR1055L.OPT-WILDCARD
+    / 18T 'Asterisk ..............' USR1055L.OPT-ASTERISK
+    /// 18T 'Press any PF-key to stop.'
+/*
+  IF *PF-KEY NE 'ENTR'
+      USR1055L.OPT-ACCESS := 'C'     /* Close
+      CALLNAT 'USR1055N' USR1055L  USR1055N.EXTENDED-PARMS
+                                   NAD-MSG   NAD-FLD
+    ESCAPE ROUTINE
+  END-IF
+/*
+  IF USR1055L.OPT-AMOUNT > V
+    COMPRESS 'The maximum for the amount is' V
+
+      'in this example program.' INTO LOCAL-MSG
+    NAD-MSG.MSG := LOCAL-MSG
+    NAD-FLD.FIELD-POSITION := 7
+    ESCAPE TOP
+  END-IF
+/*
+  REPEAT
+  CALLNAT 'USR1055N' USR1055L  USR1055N.EXTENDED-PARMS
+    NAD-MSG   NAD-FLD
+  /*
+  IF MSG-NR NE 0
+      IF NOT INPUT-55 AND USR1055L.RETURNED = 0
+        ESCAPE BOTTOM
+      ELSE
+        INPUT-55:=TRUE
+      END-IF
+  END-IF
+  /*
+  USR1055L.OPT-ACCESS := 'R'   /* Read
+  /*
+  FOR IX55 = 1 TO USR1055L.RETURNED
+    WRITE IX55 LIST-OBJ (IX55) (AL=8)
+      LIST-TYPE-SRC (IX55)    LIST-TYPE-MOD (IX55)
+    /*  
+    IF LIST-TYPE-SRC (IX55) = ' '
+      ESCAPE TOP
+    END-IF
+    WRITE '='(70)
+    /*
+     RESET NAD-MSG USR1057L 
+     USR1057L.LIBRARY       := USR1055L.LIBRARY
+     USR1057L.OBJECT-NAME   := LIST-OBJ (IX55)
+     USR1057L.OPT-LINE-NUM  := 'Y'
+     USR1057L.OPT-REDEF-DIR := TRUE
+     USR1057L.OPT-AMOUNT    := V
+     USR1057L.OPT-LINESIZE  := L
+     /*
+     USR1057L.OPT-ACCESS   := 'O'
+     /*
+     PERFORM LIST-SOURCE-1057
+  END-FOR
+  /*
+  IF INPUT-55
+    ESCAPE BOTTOM
+  END-IF
+  END-REPEAT
+  /*
+  USR1055L.OPT-ACCESS := 'C'     /* Close
+  CALLNAT 'USR1055N' USR1055L  USR1055N.EXTENDED-PARMS
+                                   NAD-MSG   NAD-FLD
+  IF *DEVICE='BATCH' ESCAPE BOTTOM END-IF
+END-REPEAT
+*
+DEFINE SUBROUTINE LIST-SOURCE-1057
+/*
+  REPEAT
+    /*
+    CALLNAT 'USR1057N' USR1057L  USR1055N.EXTENDED-PARMS
+      NAD-MSG   NAD-FLD
+    /*
+    IF USR1057L.OPT-ACCESS = 'O' AND OPT-REDEF-DIR /* AND MSG-NR = 0
+      WRITE (AD=OIL) 'Back with message number:' MSG-NR /
+        / '=' DIR-OBJNAME
+        / '=' DIR-LIBRARY
+        / '=' DIR-OBJKIND
+        / '=' DIR-OBJTYPE
+        / '=' DIR-DATN
+        / '=' DIR-TIMN
+        / '=' DIR-USERID
+        / '=' DIR-PROGMODE
+        / '=' DIR-SRCSIZE
+        / '=' DIR-GPSIZE
+/* Mainframe specific:
+        // '=' DIR-NATVERS
+        / '=' DIR-NATSM
+        / '=' DIR-INIT-USER
+        / '=' DIR-TID
+        / '=' DIR-TRANS-NAME
+        / '=' DIR-OPSYS
+        / '=' DIR-TPSYS
+        / '=' DIR-USED-GDA
+    END-IF
+    /*
+    USR1057L.OPT-ACCESS := 'R'
+    /*
+    FOR IX57 = 1 TO USR1057L.RETURNED
+      WRITE (ZP=ON) SRC-NUM  (IX57) (NL=4)
+        SRC-LONG (IX57)
+        SRC-LINE (IX57) (AL=80)
+    END-FOR
+    /*
+    IF *PF-KEY NE 'ENTR'
+      USR1057L.OPT-ACCESS := 'C'
+      CALLNAT 'USR1057N' USR1057L  USR1055N.EXTENDED-PARMS
+        NAD-MSG   NAD-FLD
+      Escape Routine
+    END-IF
+    /*
+    IF MSG-NR NE 0
+      IF NOT INPUT-57 AND USR1057L.RETURNED = 0
+        ESCAPE BOTTOM
+      ELSE
+        WRITE (AD=LI)
+          / 'Message number ....' NAD-MSG.MSG-NR
+          / 'Message ...........' NAD-MSG.MSG (AL=59)
+          / 'Message type ......' NAD-MSG.MSG-TYPE
+          / 'Message data ......' NAD-MSG.MSG-DATA (1:3)
+          // 'Field structure ...' NAD-FLD.FIELD-STRUCTURE
+          / 'Field name ........' NAD-FLD.FIELD-NAME
+          / 'Field position ....' NAD-FLD.FIELD-POSITION
+          / 'Field index .......' NAD-FLD.FIELD-INDEX1
+          NAD-FLD.FIELD-INDEX2
+          NAD-FLD.FIELD-INDEX3
+        Escape Routine
+      END-IF
+    END-IF
+    /*
+    INPUT-57 := TRUE    /* All parameter checks are done
+  END-REPEAT
+END-SUBROUTINE
+END

@@ -1,0 +1,24 @@
+0010DB: 222 FILE: 001  - VW_CSI_PESSOA_VINCULADA          DEFAULT SEQUENCE:
+0020TYPE: SQL
+0030
+0040T L DB Name                              F Leng  S D Remark
+0050- - -- --------------------------------  - ----  - - ------------------------
+0060  1 AA TX_SIGLA_SISTEMA                  A   30    D
+0070  1 I_ L@CD_TIPO_VINCULO                 I    2
+0080  1 AB CD_TIPO_VINCULO                   A    2    D VARCHAR2(2)
+0090  1 AC CD_MATRICULA_PESSOA               N  8,0    D
+0100  1 AD EINOTEID                          F    8  N D
+0110  1 I_ N@EINOTEID                        I    2
+0120  1 AE EIUNID                            A   32  N D
+0130  1 I_ N@EIUNID                          I    2
+0140  1 AF EIMODIFIED                        A   14  N D DATE
+0150  1 I_ N@EIMODIFIED                      I    2
+0160  1 I_ L@EINOTEPROPS                     I    4
+0170  1 AG EINOTEPROPS                       B       N D BLOB(4000)
+0180       DY
+0190       SQLTYPE=BLOB
+0200  1 I_ N@EINOTEPROPS                     I    2
+0210  1 I_ L@TX_NOME_LINGUAGEM               I    2
+0220  1 AH TX_NOME_LINGUAGEM                 A   20  N D VARCHAR2(20)
+0230  1 I_ N@TX_NOME_LINGUAGEM               I    2
+0240******DDM OUTPUT TERMINATED******

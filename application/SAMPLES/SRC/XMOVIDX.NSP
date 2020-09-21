@@ -1,0 +1,45 @@
+*****************************************************************
+*
+*  INFONAVIT
+*
+*  CONSULTA DE CODIGOS POSTALES POR ESTADO MUNICIPIO
+*
+*  23-FEB-2005                           IAM
+*
+*****************************************************************
+DEFINE DATA LOCAL
+
+01 #TAB-AUX                  (A70)
+01 TAB                      (A70/1:150)
+01 REDEFINE TAB
+  02 RED-TAB                (1:150)
+    03 COD-POS              (N05)
+    03 COD-DES              (A65)
+
+01 I                        (I2)
+
+01 CODPO                    (N5)
+* * * *
+END-DEFINE
+*
+*
+move 54185 to codpo
+INPUT 'ENTER VALUE NEW TEST:' #TAB-AUX
+
+         ADD 1 TO I                             /* MUEVE A TABLA
+         MOVE I         TO COD-POS(I)
+         MOVE #TAB-AUX TO COD-DES(I)
+WRITE COD-POS(I) COD-DES(I)
+  / TAB(I)
+*
+*                                                                       
+* ------------------------------                                        
+ON ERROR                                                                
+* ------------------------------                                        
+* ------------------------------                                        
+   WRITE 'Error en Programa.........' *PROGRAM                          
+     /   '    Error.................' *ERROR-NR                         
+     /   '    LINEA.................' *ERROR-LINE                       
+END-ERROR                                                               
+* ------------------------------   
+END

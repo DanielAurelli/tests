@@ -1,0 +1,6 @@
+0010format ls=133 PS=50
+0020WRITE NOTITLE
+0030'*' /
+0040'*' /
+0050'*'  '*PROG >>> ' *PROGRAM / '*' /
+0060'*'

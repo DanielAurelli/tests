@@ -1,0 +1,17 @@
+define data local  
+1   emp view of employees
+2   personnel-id
+2   sex
+2   NAME
+end-define
+
+find emp with personnel-id > '11111111'
+   where sex = 'M' AND CITY = 'RIYADH'
+ DISPLAY *ISN NAME
+END-FIND
+find emp with personnel-id > '11111111'
+   retain as 'EMPSET'
+   where sex = 'M' AND CITY = 'RIYADH'
+ DISPLAY *ISN NAME
+END-FIND
+end

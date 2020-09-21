@@ -1,0 +1,21 @@
+**** ISSUE 1412 
+*** 
+
+FORMAT ZP=ON
+ASSIGN #KEY1 (A17) = 'BARCELONA'                                
+REDEFINE #KEY1 ( #AA (A1) #AB (A1) #AC (A3) #AD (A6) #AE (A6) )         
+ASSIGN #KEY2 (A17) = 'MADRID'                                
+ASSIGN #DT2 (A8) = 'TECH02'                                           
+FD2. FIND (10) EMPLOYEES WITH CITY = #KEY1 OR = #KEY2   
+       WHERE DEPT EQ #DT2  AND LANG = 'FRA'                                         
+    DISPLAY (ZP=ON)                                                     
+           'AA' PERSONNEL-ID                                                 
+           'AB' NAME                                                 
+           'AC' CITY                                             
+           'AD' DEPT
+LOOP (FD2.)                                                             
+WRITE 'END OF REPORT'                                                   
+     / *NUMBER (FD2.) 'RECORDS MEET WITH'                               
+     / *COUNTER (FD2.) 'RECORDS MEET WHERE'                             
+END
+

@@ -1,0 +1,6 @@
+**PR1763 in CTZ5484
+reset #a(a5) move 'steve' to #a
+write (1) (sg=off) 'ola'
+DISPLAY(1) (SG=OFF ZP=OFF) 
+     '/'            #a
+End

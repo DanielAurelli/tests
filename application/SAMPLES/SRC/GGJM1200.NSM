@@ -1,0 +1,35 @@
+* MAP2: PROTOTYPE
+* INPUT USING MAP 'XXXXXXXX'
+*
+DEFINE DATA
+PARAMETER
+ 1 #OPTION2 (N002)
+ 1 #OPTOUT1 (A070)
+END-DEFINE
+FORMAT PS=23 LS=80 ZP=ON SG=OFF KD=OFF IP=OFF
+* MAP2: MAP PROFILES *****************************        200***********
+* .TTAAAMMOO   D I D I N D I D I        ?_)^&:+(   '        '          *
+* 023079        N1NNUCN____         X        01 NCST    YL           1 *
+************************************************************************
+INPUT(IP=OFF)
+ 021T 'British Lorries Database - Application Menu'
+/
+/
+ 002T #OPTOUT1   (AD=O CD=YE)
+/
+/
+ 002T 'Enter 0 or click on PF3 button to terminate Application menu'
+/
+/
+ 011T ' 1 - INSERT RECORDS INTO TABLE'
+/
+/
+ 011T ' 0 - EXIT'
+/
+/
+/
+ 004T 'ENTER OPTION ==>'
+ 021T #OPTION2   
+* MAP2: VALIDATION *****************************************************
+* MAP2: END OF MAP *****************************************************
+END

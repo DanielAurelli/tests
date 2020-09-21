@@ -1,0 +1,316 @@
+DB: 200 FILE: 164  - EM-PERS-TRANS                    DEFAULT SEQUENCE:   
+TYPE: ADABAS
+
+T L DB Name                              F Leng  S D Remark
+- - -- --------------------------------  - ----  - - ------------------------
+  1 AZ EMP-SOC-SEC-NUM                   N  9.0    D 
+       HD=SOC SEC/NUMBER
+       EM=999-99-9999
+  1 AX CNTL-DT                           N  7.0    D 
+       HD=CNTL/DATE
+  1 AY CNTL-TIME                         N  6.0      
+       HD=CNTL/TIME
+  1 AV APP-IND                           A    1    D 
+       HD=APP/IND
+  1 AJ LOCATION                          A    3  N D 
+       HD=B2/LOC/CODE
+  1 EN NEW-LOC                           A    3  N D 
+       HD=NEW/LOC/CODE
+  1 AW DIV-CODE-ENG                      A    3    D 
+       HD=DIV/CODE/ENG
+  1 CV PROP-DIV-CD                       A    3      
+       HD=PRO/DIV/CD
+  1 ZS JOB-MASTER-DIV                    A    3    D 
+       HD=JOB/MASTER/DIV
+  1 RA DEPT-CD                           A    2  N D 
+       HD=DEPT/CD
+  1 RB ADMIN-CD                          A    2  N   
+       HD=ADMIN/CD
+  1 RC ORG-ID-CD                         A    2  N   
+       HD=ORGID/CD
+  1 RF WKS-DEPT                          A    2  N   
+       HD=WKS/DEPT
+G 1 D5 EMP-NAME                                      
+       HD=EMPLOYEE NAME
+  2 BF LAST-NAME                         A   14    D 
+       HD=LAST NAME
+  2 BE INITIALS                          A    2      
+       HD=EMP/INIT
+  1 OO FIRST-NAME                        A   11      
+       HD=FIRST NAME
+  1 BA EMP-NUM                           N  6.0      
+       HD=EMP/NUM
+  1 CG APPROVAL-DT                       N  8.0    D 
+       HD=APP/DATE
+       EM=9999/99/99
+  1 CH CORP-SERV-DATE                    N  8.0      
+       HD=CORP/SERV/DATE
+       EM=9999/99/99
+  1 BN BIRTH-DATE                        N  8.0      
+       HD=EMP/BIRTH/DATE
+       EM=9999/99/99
+  1 FM BASE-EFF-DATE                     N  6.0      
+       HD=BASE/EFFECT/DATE
+       EM=99/99/99
+  1 FN PROP-BASE-EFF-DT                  N  6.0      
+       HD=PRO-BASE/EFF-DTE
+G 1 JQ POSTN-DT                                      
+       HD=POSTN/DATE
+  2 JX POSTN-YR                          A    2  N   
+       HD=POS/YR
+  2 JY POSTN-MTH                         A    2  N   
+       HD=POS/MTH
+  2 JZ POSTN-DA                          A    2  N   
+       HD=POS/DAY
+G 1 XA RESIDENCE                                     
+       HD=EMPLOYEE RESIDENCE
+  2 D1 STREET-ADDR                       A   27      
+       HD=STREET ADDRESS
+  2 D2 CITY                              A   17      
+       HD=CITY
+  2 D3 STATE                             A    2      
+       HD=STATE
+  2 D4 ZIP-CODE                          A    5      
+       HD=ZIP CODE
+G 1 B3 EMP-TELEPHONE-NUM                             
+       HD=EMP TELEPHONE NO.
+  2 EF EMP-AREA-CODE                     N  3.0      
+       HD=AREA/CODE
+  2 EG EMP-PHONE-NUM                     N  7.0      
+       HD=EMP PHONE
+       EM=999-9999
+  1 BP STATE-RES-CODE                    A    2      
+       HD=STATE/RES/CODE
+  1 BG EMP-SEX-INDIC                     A    1      
+       HD=EMP/SEX/IND
+  1 BH MARIT-STAT-INDIC                  A    1      
+       HD=MARIT/STAT/INDIC
+P 1 SA SAL-INC-DATA                                  
+       HD=SAL-INC/DATA
+G 2 SB SAL-INC-DT                                    
+       HD=SAL-INC/DATE
+  3 SC SAL-INC-MO                        A    2  N   
+       HD=SAL/MTH
+  3 SD SAL-INC-DY                        A    2  N   
+       HD=SAL/DAY
+  3 SE SAL-INC-YR                        A    2  N   
+       HD=SAL/YR
+  2 SF SAL-INC-AMT                       N  6.2  N   
+       HD=SAL-INC/AMOUNT
+  2 SG SAL-INC-CD                        A    1  N   
+       HD=SAL/CD
+  2 SH SAL-INC-PCT                       N  0.3  N   
+       HD=SAL/PER
+  1 SI PREV-SAL-INC-CODE                 A    1  N   
+       HD=PREV/SAL-INC/CD
+  1 SJ PREV-SAL-INC-PCT                  N  0.3  N   
+       HD=PREV/SAL-INC/PCT
+G 1 SK PREV-SAL-INC-DT                               
+       HD=PREV/SAL-INC/DATE
+  2 SM PREV-SAL-INC-YR                   A    2  N   
+       HD=PREV/SAL-INC/YEAR
+  2 SO PREV-SAL-INC-MO                   A    2  N   
+       HD=PREV/SAL-INC/MONTH
+  2 SN PREV-SAL-INC-DA                   A    2  N   
+       HD=PREV/SAL-INC/DAY
+  1 OB SAL-RNG-MO-MIN                    N  6.0      
+       HD=MIN
+  1 OC SAL-RNG-MO-MID                    N  6.0      
+       HD=MID
+  1 OD SAL-RNG-MO-MAX                    N  6.0      
+       HD=MAX
+  1 OE PROP-SAL-RNG-MO-MIN               N  6.0      
+       HD=PRO-MIN
+  1 OF PROP-SAL-RNG-MO-MID               N  6.0      
+       HD=PRO-MID
+  1 OG PROP-SAL-RNG-MO-MAX               N  6.0      
+       HD=PRO-MAX
+  1 BI MINORITY-GRP                      A    2      
+       HD=MINORITY/GROUP/INDIC
+  1 RG POS-DESC                          A   30  N   
+       HD=POSITION/DESCRIPTION
+  1 RH DEPT-DESC                         A   25  N   
+       HD=DEPT/DESC
+  1 RI ADMIN-ORG-DESC                    A   25  N   
+       HD=ADMIN/ORG/DESC
+  1 RJ ORG-DESC                          A   25  N   
+       HD=ORG/DESC
+  1 RK WKS-DEPT-DESC                     A   25  N   
+       HD=WORKS/DEPT/DESC
+  1 CX JOB-TITLE                         A   16      
+       HD=JOB TITLE
+  1 CY PROP-JOB-TITLE                    A   16      
+       HD=PRO/JOB/TITLE
+  1 YN BASE-PAY                          N  6.2      
+       HD=BASE PAY
+  1 IB AREA-ENG                          A   25      
+       HD=AREA
+  1 CU COST-CENTER                       A    6      
+       HD=COST/CENTER
+  1 WO PROP-CC                           A    6      
+       HD=PRO-COST/CENTER
+  1 CK POSITION-CODE                     A   10      
+       HD=POSITION/CODE
+  1 CW JOB-CLASS                         A    3      
+       HD=JOB/CLASS
+G 1 ZZ TRANSACTION-DATA                              
+       HD=TRANSACTION DATA
+  2 AI TRANS-CODE                        A    3      
+       HD=TRANS/CODE
+  2 AH TRANS-EFF-DATE                    N  6.0      
+       HD=TRANS/EFFECT/DATE
+       EM=99/99/99
+  2 AL PROP-TRAN-CD                      A    3      
+       HD=PRO/TRAN/CD
+  2 AM PROP-TRANS-EFF-DT                 N  6.0      
+       HD=PRO-TR/EFF-DT
+       EM=99/99/99
+  2 CS TRANS-CODE-GROUP                  A    3      
+       HD=TRANS/CODE/GROUP
+  1 IJ TRAN-DESC                         A   16  N   
+       HD=TRAN/DESC
+  1 IK PROP-SAL-GRD                      A    3      
+       HD=PRO-SAL/GRADE/CODE
+  1 WW SALARY-GRADE                      A    3      
+       HD=SALARY/GRADE/CODE
+  1 IL PROP-BASE-SAL                     N  6.2  N   
+       HD=PRO-BASE/SALARY
+  1 IM PREV-SAL-CHG                      N  6.2  N   
+       HD=PREV-SAL/CHANGE
+  1 IN PROP-POS                          A   10  N   
+       HD=PRO/POSITION/CODE
+  1 QA REMARK-CD-SPEC                    A    3  N   
+       HD=REMARKS/CODE/SPEC
+  1 QB REMARK-CD-1                       A    3  N   
+       HD=REMARKS/CODE/1
+  1 QC REMARKS-1                         A  234  N   
+       HD=REMARKS
+  1 QD REMARKS-2                         A  156  N   
+       HD=REMARKS-2
+  1 QE REMARKS-3                         A  240  N   
+       HD=REMARKS-3
+  1 AN EMP-CLASS                         A    1  N   
+       HD=EMP/CLS
+  1 AO BARG-UNIT                         A    3  N   
+       HD=BARG/UNIT
+G 1 JJ MGT-TRNG-DT                                   
+       HD=MGMT/TRNG/DATE
+  2 JK MGT-TRNG-MTH                      A    2  N   
+       HD=MGT/TRN/MTH
+  2 JL MGT-TRNG-YR                       A    2  N   
+       HD=MGT/TRN/YR
+G 1 JM MGT-DATE                                      
+       HD=MGMT/DATE
+  2 JN MGT-YR                            A    2  N   
+       HD=MGT/YR
+  2 JO MGT-MTH                           A    2  N   
+       HD=MGT/MTH
+  2 JP MGT-DAY                           A    2  N   
+       HD=MGT/DAY
+  1 KW WRK-ADDR-1                        A    6  N   
+       HD=WRK ADD
+  1 KY EEO-CD-1                          A    2  N   
+  1 CJ PREV-COST-CTR-NAME                A   40  N   
+       HD=PREV/COST/CTR
+  1 CL COST-CTR-NAME                     A   40  N   
+       HD=COST/CTR/NAME
+P 1 P1 HIST-GROUP                                    
+       HD=HISTORY GROUP
+  2 PA HIST-SEQ                          A    4  N   
+       HD=HIST/SEQ
+  2 PB HIST-DESIG-CD                     A    1  N   
+       HD=DSN/CDE
+  2 PC HIST-DIV                          A    3  N   
+       HD=DIV
+  2 PD HIST-DEPT                         A    2  N   
+       HD=DPT
+  2 PE HIST-ADMIN-ORG                    A    2  N   
+       HD=ADM/ORG
+  2 PF HIST-ORG-ID                       A    2  N   
+       HD=ORG/ID
+  2 PS HIST-COST-CENTER                  A    5  N   
+       HD=HIST/COST/CENTER
+  2 PG HIST-POS-CD                       A    6  N   
+       HD=POS/CODE
+  2 PI HIST-TRANS-DTE                    A    6  N   
+       HD=TRANS/DATE
+  2 PJ HIST-TRANS-CD                     A    3  N   
+       HD=TRN/CDE
+  2 PK HIST-TRANS-DESC                   A   16  N   
+       HD=TRANSACTIONDESC
+  2 PL HIST-DEPT-DESC                    A    6  N   
+       HD=DEPT/DESC
+  2 PM HIST-ADMIN-ORG-DESC               A   18  N   
+       HD=ADMINISTRATIVEORG
+  2 PN HIST-ORG-DESC                     A   16  N   
+       HD=ORGANIZATION
+  2 PO HIST-POS-DESC                     A   30  N   
+       HD=POSITION
+  2 PP HIST-SAL-GRD                      A    2  N   
+       HD=SL/GR
+  2 PQ HIST-BASE-SALARY                  N  6.2  N   
+       HD=BASE/SALARY
+  1 EE EMP-LAST-WRK-DATE                 N  6.0  N   
+       HD=LAST/WORKED/DATE
+       EM=99/99/99
+  1 EH PAY-THRU-DT                       N  6.0  N   
+       HD=PAY/THRU/DATE
+       EM=99/99/99
+  1 IO EMP-SERVICE                       N  3.2  N   
+       HD=EMP/SERV/AMT
+  1 ZW EXCLUSIVE-SERVICE                 N  6.0  N   
+       HD=EXCLUSIVE/SERVICE
+       EM=99/99/99
+  1 OA POSTN-CLASS-CD                    A    3  N   
+       HD=POS/CLS
+  1 MJ POSTN-CLASS                       A   10  N   
+       HD=POSITION/  CLASS
+G 1 TQ PROP-POSTN-DT                                 
+       HD=PROP/POSTN/DATE
+  2 TX PROP-POSTN-YR                     A    2  N   
+       HD=PROP/POSTN/YR
+  2 TY PROP-POSTN-MTH                    A    2  N   
+       HD=PROP/POSTN/MTH
+  2 TZ PROP-POSTN-DA                     A    2  N   
+       HD=PROP/POSTN/DAY
+  1 TU EXC-IND-FLAG                      A    1  N   
+       HD=EXC/IND/FLG
+  1 TV SP-CHG-FLAG                       A    1  N   
+       HD=SP/CHG/FLAG
+  1 TW ACPT-FLAG                         A    1  N   
+       HD=ACPT/FLAG
+  1 VV NEW-CORP-CODE                     A    1  N D 
+       HD=CORP/CODE
+  1 VW NEW-CORP-CODE-ENGLISH             A   30  N   
+       HD=CORP/CODE/ENGLISH
+  1 AP PREV-EMP-CLASS                    A    1  N   
+       HD=PREV/EMP/CLS
+  1 CM PLT-APP-DT                        N  6.0      
+       HD=PLT/APP/DT
+  1 CN HQ-APP-DT                         N  6.0      
+       HD=HDQ/APP/DT
+  1 CP SPCL-PYMNT                        N  7.2  N   
+       HD=SPCL/PYMNT
+  1 CQ SPCL-PYMNT-CD                     A    1  N   
+       HD=SPCL/PYMNT/CD
+  1 CR PROM-TIME-FLAG                    A    1  N   
+       HD=PROM/TIME/FLAG
+  1 CT CNCL-FLAG                         A    1  N   
+       HD=CNCL/FLAG
+  1 KS LVL-CD                            A    1  N   
+       HD=LVL/CD
+  1 KV SAL-PLN                           A    2  N   
+       HD=SAL/PLN
+  1 KX PREV-WRK-ADDR                     A    6  N   
+       HD=PREV/WRK/ADDR
+  1 KZ SEC-CD                            A    1  N   
+       HD=SEC/CD
+  1 SL SSN-KEY                           B   22    S 
+       HD=SSN-KEY
+  1 TA PREV-POSTN-CLASS-CD               A    3  N   
+       HD=PREV/POSTN/CLASS
+  1 TB PREV-SAL-PLN                      A    2  N   
+       HD=PREV/SAL/PLN
+  1 TC SAL-RED-AMT                       N  6.2  N   
+  1 TD PROP-SAL-RED-AMT                  N  6.2  N   
+******DDM OUTPUT TERMINATED******

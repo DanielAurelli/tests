@@ -1,0 +1,37 @@
+0001* MAP2: PROTOTYPE
+0002* INPUT USING MAP 'XXXXXXXX'
+0003*
+0004DEFINE DATA
+0005PARAMETER
+0006 1 #FIELD_0 (N005)
+0007 1 #FIELD_1 (N005)
+0008 1 #FIELD_2 (A050)
+0009 1 #FIELD_3 (A050)
+0010END-DEFINE
+0011FORMAT PS=23 LS=80 IP=OFF KD=OFF SG=OFF ZP=OFF
+0012* MAP2: MAP PROFILES *****************************        200***********
+0013* .TTAAAMMOO   D I D I N D I D I        ?_)^&:+(   '        '          *
+0014* 023079        N1NNUCN____         X        01 NCST    YL           1 *
+0015************************************************************************
+0016INPUT(IP=OFF)
+0017/
+0018/
+0019 003T 'Num1'
+0020 009T #FIELD_0   (AD=M)
+0021 025T 'Num2'
+0022 031T #FIELD_1   (AD=M PM=I)
+0023/
+0024/
+0025/
+0026/
+0027/
+0028 003T 'Alfa1'
+0029 010T #FIELD_2   (AD=M)
+0030/
+0031/
+0032/
+0033 003T 'Alfa2'
+0034 010T #FIELD_3   (AD=M PM=I)
+0035* MAP2: VALIDATION *****************************************************
+0036* MAP2: END OF MAP *****************************************************
+0037END

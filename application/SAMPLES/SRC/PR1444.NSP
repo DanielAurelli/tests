@@ -1,0 +1,7 @@
+** PR1444  Driver Program
+Reset  +VAR1 (a20)
+compress 'WRITE*' '''ME%26YOU''' into +var1 leaving no
+examine full +var1 for '*' replace ' ' 
+write '=' +VAR1
+RUN 'PR1444B' 
+END

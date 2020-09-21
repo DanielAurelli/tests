@@ -1,0 +1,37 @@
+DEFINE DATA
+LOCAL
+1 #nme(a15) INIT <'STEPHEN'>
+END-DEFINE
+*
+set key all
+FORMAT KD=OFF
+repeat until *pf-key = 'PF3'
+  SET CONTROL 'WB'
+  SET CONTROL 'N'
+*  INPUT USING MAP 'PR0162M1'
+   INPUT          (     IP=OFF    )
+   001T *DATU  (AD=DLOFHT' ' ) 
+   027T 'Crew Dispatcher System'
+   072T *APPLIC-ID  (AD=DLOFHT' ' )    
+   /
+     SET CONTROL 'N'
+    SET CONTROL 'WL52C17B5/29F'
+*  INPUT USING MAP 'PR0162M2'
+  INPUT          (     IP=OFF      )
+  005T 'Standing        Hdr '(NE) 
+  /
+  005T #NME  (AD=VO CD=BL )
+  /
+  /
+  /
+  SET CONTROL 'WB'
+  SET CONTROL 'WL29C15B6/0F'
+  INPUT (IP=OFF)
+    'Name'
+    'Acct' //
+    'Pos.'  //
+    'Hdr.'  //
+    'ASDF'
+END-REPEAT
+end
+

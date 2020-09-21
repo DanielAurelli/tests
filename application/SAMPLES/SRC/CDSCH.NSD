@@ -1,0 +1,62 @@
+DB: 000 FILE: 096  - CDSCH                            DEFAULT SEQUENCE:   
+TYPE: ADABAS
+
+T L DB Name                              F Leng  S D Remark
+- - -- --------------------------------  - ----  - - ------------------------
+*      Generation started
+*      at 2004-08-02 11:38:48
+*      by user DBA81
+*      
+  1 AA ROAD                              A    2  N   
+       HD=ROAD
+  1 AB LOCATION                          A    2  N   
+  1 CA DEPARTMENT                        A    2  N   
+  1 AC ASSIGNMENT-SCH-NO                 A    7  N   
+  1 AE ASSIGNMENT-TYPE                   A    3  N   
+  1 AF START-DATE                        A    8  N   
+  1 AG START-TIME                        A    4  N   
+  1 AH STOP-DATE                         A    8  N   
+  1 AI STOP-TIME                         A    4  N   
+P 1 AJ ASSIGNMENT-POSITIONS                          PE = 6
+  2 BA BOARD                             A    4  N   
+  2 BB BULLETIN-NO                       P  5.0  N   
+M 2 BC ACCTNO                            A    9      MU = 5
+M 2 BG ACQUIRE-STATUS                    A    3      MU = 5
+  2 BJ VACANCY-ACCUM                     P  3.0  N   
+  2 BK EXTRA-ACCUM                       P  3.0  N   
+M 2 BL DAYS-RELIEF                       A   18  N   COMPOSITE FIELD OF D
+M 2 BM JOB-DESCRIPTION                   A   80  N   MU = 5
+M 1 BN LOCOMOTIVE-NOS                    A    4  N   MU = 6
+  1 BP REPORTING-CODE                    A    1  N   
+  1 DA PUT-ON-DATE                       A    8  N   
+  1 DB MEAL-PERIOD                       A   20  N   
+  1 DC RELIEF-DESCRIPTION                A   30  N   
+  1 ZA SCH-ASSIGNMENT                    A   21  N S 
+*      -------- SOURCE FIELD(S) -------
+*      ROAD(1-2)
+*      ASSIGNMENT-SCH-NO(1-7)
+*      START-TIME(1-4)
+*      START-DATE(1-8)
+P 1 ZB SCH-EMPLOYEE                      A   11  N S 
+*      -------- SOURCE FIELD(S) -------
+*      ROAD(1-2)
+*      ACCTNO(1-9)
+P 1 ZC SCH-STATUS                        A    9  N S 
+*      -------- SOURCE FIELD(S) -------
+*      ROAD(1-2)
+*      BOARD(1-4)
+*      ACQUIRE-STATUS(1-3)
+P 1 ZE ADV-BULLETIN                      A    9  N S 
+*      -------- SOURCE FIELD(S) -------
+*      ROAD(1-2)
+*      BOARD(1-4)
+*      BULLETIN-NO(1-3)
+P 1 ZF SCH-BOARD                         A    6  N S 
+*      -------- SOURCE FIELD(S) -------
+*      ROAD(1-2)
+*      BOARD(1-4)
+P 1 ZG SCH-RELIEF                        A    9  N S 
+*      -------- SOURCE FIELD(S) -------
+*      ROAD(1-2)
+*      DAYS-RELIEF(3-9)
+******DDM OUTPUT TERMINATED******

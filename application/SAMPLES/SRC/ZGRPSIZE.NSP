@@ -1,0 +1,40 @@
+DEFINE DATA 
+LOCAL
+1 #DETALHE                        (A01/1:3000)
+1 REDEFINE #DETALHE
+  2 #D-CHAVE                      (A17)
+  2 REDEFINE #D-CHAVE
+    3 #D-TP-REG                   (A01)
+    3 #D-COD-ESTAB                (A04)
+    3 #D-COD-FOLHA                (A02)
+    3 #D-NOME-REDUZ               (A10)
+  2 #D-CH-FUN                     (A14)
+  2 #D-DOT-ORCA                   (N05)
+  2 #D-GRP-ATV                    (A03)
+  2 #D-PRONTUARIO                 (N10)
+  2 #TB-VRB-S                     (1:100)
+    3 #TP-VRB-S                   (A01)
+    3 #CD-VRB-S                   (N04)
+    3 #TE-VRB-S                   (N05.4)
+    3 #VL-VRB-S                   (N011.2)
+  2 #AREA                         (A250)
+1 #TB-VRB                         (1:100)
+  2 #TP-VRB                       (A01)
+  2 #CD-VRB                       (N04)
+*   2 #DE-VRB                       (A30)
+  2 #TE-VRB                       (N05.4)
+  2 #VL-VRB                       (N11.2)
+*   2 #PD-VRB                       (A01)
+1 #I(N4)
+END-DEFINE
+MOVE ALL 'X' TO #AREA
+FOR #I = 1 TO 100
+  MOVE #I TO #CD-VRB(#I)
+END-FOR
+MOVE #CD-VRB(*)       TO #CD-VRB-S (*)
+FOR #I = 1 TO 100
+  DISPLAY #I #CD-VRB (#I) #CD-VRB-S(#I) 
+END-FOR
+INPUT 'FIM'
+/*
+END

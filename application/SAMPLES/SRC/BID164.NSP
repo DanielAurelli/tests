@@ -1,0 +1,31 @@
+0010** BID164
+0020************************************************************************
+0030DEFINE DATA LOCAL
+004001 #linha (a70)
+005001 #i (n2)
+0060end-define
+0070include incprog
+0080move 'aaa aaab cttt' to #linha
+0090write '=' #linha
+0100examine #linha for 'aaa' with delimiter  giving number #i
+0110write
+0120 'examine #linha for ''aaa'' with delimiter giving number #i'
+0130   /   '=' #i //
+0140move 'aaa aaab' to #linha
+0150write '=' #linha
+0160examine #linha for 'aaa' with delimiter giving number #i
+0170write 'examine #linha for ''aaa'' with delimiter giving number #i'
+0180    /  '=' #i
+0190*
+0200MOVE 'AAAB   AAA B C   .AAA' TO #LINHA
+0210write // '=' #LINHA
+0220EXAMINE #LINHA FOR 'AAA' WITH DELIMITER GIVING NUMBER #I
+0230write 'EXAMINE #LINHA FOR ''AAA'' WITH DELIMITER GIVING NUMBER #I'
+0240    / '=' #I
+0250MOVE 'AAA B C   .AAA AAAB' TO #LINHA
+0260write // '=' #LINHA
+0270EXAMINE #LINHA FOR 'AAA' WITH DELIMITER GIVING NUMBER #I
+0280write 'EXAMINE #LINHA FOR ''AAA'' WITH DELIMITER GIVING NUMBER #I'
+0290    / '=' #I
+0300*
+0310END

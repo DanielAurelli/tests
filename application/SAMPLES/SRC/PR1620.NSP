@@ -1,0 +1,49 @@
+DEFINE DATA LOCAL
+
+1 #FIND-KEY(P9)
+1 #COMP-NAME (A30)
+    
+1 #VIEW2 VIEW OF EMPLOYEES       
+  2 NAME
+
+**----------------------------          
+END-DEFINE      
+**----------------------------   
+PROCESS SQL TABLES << SET CURRENT SQLID='ADS' >>  
+
+    move 34500 to #FIND-KEY
+    PERFORM GET-NAME-FROM-MASTER        
+    WRITE 'Company name is ' #COMP-NAME
+    
+    move 34500 to #FIND-KEY
+    PERFORM GET-NAME-FROM-MASTER   
+    WRITE 'Now the Company name is ' #COMP-NAME 
+*   
+********************************************        
+DEFINE SUBROUTINE GET-NAME-FROM-MASTER  
+RESET #COMP-NAME 
+FIND #VIEW2 WITH SALARY = #FIND-KEY
+  IF NO RECORDS FOUND  
+    input 'nothing was found, try again'     
+    ESCAPE BOTTOM           
+  END-NOREC   
+  input (Ad=mi) ' did I find something'   
+  ASSIGN #COMP-NAME = #VIEW2.NAME           
+END-FIND        
+END-SUBROUTINE  
+********************************************        
+*
+********************************************        
+DEFINE SUBROUTINE GET-NAME-FROM-MASTER2 
+FIND #VIEW2 WITH SALARY = #FIND-KEY
+  IF NO RECORDS FOUND  
+    input 'nothing was found, try again'     
+    ESCAPE BOTTOM           
+  END-NOREC   
+  input (Ad=mi) ' did I find something'   
+  ASSIGN #COMP-NAME = #VIEW2.NAME           
+END-FIND        
+END-SUBROUTINE  
+********************************************  
+*   
+END

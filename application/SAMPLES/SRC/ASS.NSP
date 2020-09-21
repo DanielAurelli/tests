@@ -1,0 +1,11 @@
+DEFINE DATA
+LOCAL
+1 #SAVED-FIELDS (60)        
+ 2 #CDE-SECT          (N3)  
+ 2 #NME-SECT          (A20) 
+ 2 #PIO               (N5)  
+ 2 #STL               (N5)  
+1 #IDX(N5)
+END-DEFINE
+#IDX := #PIO(*) := #STL(*) := 0  
+END

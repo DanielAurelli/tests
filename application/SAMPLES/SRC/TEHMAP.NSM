@@ -1,0 +1,92 @@
+0001* MAP2: PROTOTYPE
+0002* INPUT USING MAP 'XXXXXXXX'
+0003*
+0004DEFINE DATA
+0005PARAMETER
+0006 1 ##ROAD (A004)
+0007 1 #FUNC (A001)
+0008 1 #GROUP-ID (A008)
+0009 1 #MSG (A035)
+0010 1 GROUP-PRT.PRINTER-ID (A008/00001:00020)
+0011LOCAL
+0012 1 #I (N007)
+0013END-DEFINE
+0014FORMAT PS=21 LS=81 ZP=OFF SG=OFF KD=OFF IP=OFF
+0015* MAP2: MAP PROFILES *****************************        200***********
+0016* .TTAAAMMOO   D I D I N D I D I        ?_)^&:+(   '        '          *
+0017* 023079        N1NNUCN____         X        01 NCST    YL           1 *
+0018************************************************************************
+0019INPUT(IP=OFF)
+0020 002T *DATU   (AD=IO CD=NE)
+0021 014T *PROGRAM   (AD=DO)
+0022 030T 'CREW DISPATCH SYSTEM'(AD=I CD=NE)
+0023 072T *APPLIC-ID   (AD=IO CD=NE)
+0024/
+0025 003T *TIME   (AD=IO CD=NE AL=5)
+0026 014T *PROGRAM   (AD=DO)
+0027 038T ##ROAD   (AD=ILO CD=NE)
+0028 072T *PROGRAM   (AD=IO CD=NE)
+0029/
+0030 003T *PROGRAM   (AD=O CD=RE)
+0031 014T *USER   (AD=O CD=NE EM=XXX-X(4))
+0032 028T 'GROUP PRINTER ASSIGNMENT'(AD=I CD=NE)
+0033/
+0034/
+0035 002T 'Function'(CD=NE)
+0036 016T #FUNC   (AD=DMT'_' CD=TU)
+0037 019T '(A,I,C,D,Y,E)'(CD=NE)
+0038/
+0039/
+0040/
+0041 002T 'Group Printer'(CD=NE)
+0042 016T #GROUP-ID   (AD=DMT'_' CD=TU)
+0043/
+0044/
+0045 002T 'Printer Table'(CD=NE)
+0046 016T GROUP-PRT.PRINTER-ID (1+0)  (AD=DLMT'_' CD=TU HE='G469H008','GROUP-PRT.PRINTER-ID                                             ')
+0047 028T GROUP-PRT.PRINTER-ID (1+1)  (AD=DLMT'_' CD=TU HE='G469H008','GROUP-PRT.PRINTER-ID                                             ')
+0048 040T GROUP-PRT.PRINTER-ID (1+2)  (AD=DLMT'_' CD=TU HE='G469H008','GROUP-PRT.PRINTER-ID                                             ')
+0049 052T GROUP-PRT.PRINTER-ID (1+3)  (AD=DLMT'_' CD=TU HE='G469H008','GROUP-PRT.PRINTER-ID                                             ')
+0050 064T GROUP-PRT.PRINTER-ID (1+4)  (AD=DLMT'_' CD=TU HE='G469H008','GROUP-PRT.PRINTER-ID                                             ')
+0051/
+0052/
+0053 016T GROUP-PRT.PRINTER-ID (1+5)  (AD=DLMT'_' CD=TU HE='G469H008','GROUP-PRT.PRINTER-ID                                             ')
+0054 028T GROUP-PRT.PRINTER-ID (1+6)  (AD=DLMT'_' CD=TU HE='G469H008','GROUP-PRT.PRINTER-ID                                             ')
+0055 040T GROUP-PRT.PRINTER-ID (1+7)  (AD=DLMT'_' CD=TU HE='G469H008','GROUP-PRT.PRINTER-ID                                             ')
+0056 052T GROUP-PRT.PRINTER-ID (1+8)  (AD=DLMT'_' CD=TU HE='G469H008','GROUP-PRT.PRINTER-ID                                             ')
+0057 064T GROUP-PRT.PRINTER-ID (1+9)  (AD=DLMT'_' CD=TU HE='G469H008','GROUP-PRT.PRINTER-ID                                             ')
+0058/
+0059/
+0060 016T GROUP-PRT.PRINTER-ID (1+10)  (AD=DLMT'_' CD=TU HE='G469H008','GROUP-PRT.PRINTER-ID                                             ')
+0061 028T GROUP-PRT.PRINTER-ID (1+11)  (AD=DLMT'_' CD=TU HE='G469H008','GROUP-PRT.PRINTER-ID                                             ')
+0062 040T GROUP-PRT.PRINTER-ID (1+12)  (AD=DLMT'_' CD=TU HE='G469H008','GROUP-PRT.PRINTER-ID                                             ')
+0063 052T GROUP-PRT.PRINTER-ID (1+13)  (AD=DLMT'_' CD=TU HE='G469H008','GROUP-PRT.PRINTER-ID                                             ')
+0064 064T GROUP-PRT.PRINTER-ID (1+14)  (AD=DLMT'_' CD=TU HE='G469H008','GROUP-PRT.PRINTER-ID                                             ')
+0065/
+0066/
+0067 016T GROUP-PRT.PRINTER-ID (1+15)  (AD=DLMT'_' CD=TU HE='G469H008','GROUP-PRT.PRINTER-ID                                             ')
+0068 028T GROUP-PRT.PRINTER-ID (1+16)  (AD=DLMT'_' CD=TU HE='G469H008','GROUP-PRT.PRINTER-ID                                             ')
+0069 040T GROUP-PRT.PRINTER-ID (1+17)  (AD=DLMT'_' CD=TU HE='G469H008','GROUP-PRT.PRINTER-ID                                             ')
+0070 052T GROUP-PRT.PRINTER-ID (1+18)  (AD=DLMT'_' CD=TU HE='G469H008','GROUP-PRT.PRINTER-ID                                             ')
+0071 064T GROUP-PRT.PRINTER-ID (1+19)  (AD=DLMT'_' CD=TU HE='G469H008','GROUP-PRT.PRINTER-ID                                             ')
+0072/
+0073/
+0074/
+0075/
+0076/
+0077 002T #MSG   (AD=IO CD=NE)
+0078* MAP2: VALIDATION *****************************************************
+0079RULEVAR F00*PF-KEY          
+0080INCDIC                                 ;
+0081IF *PF-KEY = 'PF3' ESCAPE ROUTINE END-IF
+0082RULEVAR F01GROUP-PRT.PRINTER-ID         
+0083INCDIC                                 ;
+0084FOR #I = 1 TO 20
+0085  IF NOT(&(#I) EQ 'A' THRU 'Q' OR &(#I) EQ ' ')   
+0086    REINPUT         
+0087    'FIELD VALUES MUST BE IN RANGE FROM: A TO: Q  ' 
+0088     MARK *&(#I)
+0089  END-IF   
+0090END-FOR
+0091* MAP2: END OF MAP *****************************************************
+0092END

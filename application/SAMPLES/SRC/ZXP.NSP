@@ -1,0 +1,26 @@
+DEFINE DATA LOCAL
+1 #A(A8)
+1 #B(A40)
+1 #R(I4)
+END-DEFINE
+SET KEY ALL
+REPEAT
+  INPUT 
+  / 2X "This program calls an external subroutine named ZXPTO" (IBL)
+  / 2X "The subroutine is configured in the ADS CICS Connector as RPC" (IBL)
+  /
+  / 4X "ENTER PARAMETER VALUES TO PASS:" 
+  / 10X #A (AD=MI) 55T '(A8)'
+  / 10X #B (AD=OI) 55T '(A40)'
+  / "<PF3> STOP"
+  IF *PF-KEY='PF3' ESCAPE BOTTOM END-IF
+  CALL 'ZXPTO' #A #B
+  COMPUTE #R = RET('ZXPTO')
+  INPUT 
+  ///// 'RETURNING AFTER CALL'
+  /  2x 'CODE :' #R (AD=ILO ZP=ON CD=RE) 
+  /  2x 'PARM1:' #A (AD=ILO CD=GR)
+  /  2x 'PARM2:' #B (AD=ILO CD=GR)
+END-REPEAT
+WRITE 'END OF PROGRAM'
+END

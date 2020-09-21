@@ -1,0 +1,18 @@
+** PR1466   
+INPUT 'before loop'
+FD1.
+FIND FIRST MR-ACTIVE-ORDER WITH  
+   ORDITM-KEY = 'BX98691'
+   ORDITM = 'BX98691'
+*   IF NO RECORDs FOUND DO 
+*     INPUT 'In loop No Record Found'
+*     Assign ORDITM = 'STEPHEN'  
+*   DOEND
+  STORE MR-ACTIVE-ORDER USING SAME RECORD(FD1.)
+  WRITE ORDITM ITM ORDITM-KEY 
+/* LOOP (FD1.)
+write 'out of loop' *NUMBER(FD1.) 'Records Found'
+BACKOUT TRANSACTION
+STOP
+write 'End of Program' *program
+END

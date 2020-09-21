@@ -1,0 +1,85 @@
+* MAP2: PROTOTYPE           
+* INPUT USING MAP 'XXXXXXXX'
+*     #USS_ORD  
+DEFINE DATA PARAMETER       
+1 #USS_ORD (A007)           
+END-DEFINE      
+FORMAT PS=024 LS=044 ZP=OFF SG=OFF KD=OFF IP=OFF    
+* MAP2: MAP PROFILES *****************************        410***********    
+* .TAMOTAMOAMO D D D D I I I I N N N    >;<?):(^+= 'HTOM0AAB',=        *    
+* 024044        N1NNUCN____         X        01 SYSDBA  NL           1 *    
+************************************************************************    
+INPUT          (     IP=OFF      HE='HTOM0AAB',=                      /*    
+                                                                       )    
+ 001T *PROGRAM  (AD=OD ) /*.01S008 A008 .           
+ 013T 'MCKEESPORT ORDER INQUIRE'(I)     
+/   
+/   
+ 001T 'TYPE DESIRED ORDER BELOW'(I)     
+/   
+/   
+/   
+ 002T #USS_ORD  (AD=MDT'_' ) /*.99U007 A007 .       
+/   
+/   
+/   
+/   
+/   
+/   
+/   
+/   
+/   
+/   
+/   
+/   
+/   
+/   
+/   
+/   
+/   
+ 001T 'F1=HELP   F3=EXIT'   
+/   
+* MAP2: VALIDATION *****************************************************    
+RULEVAR F00*PF-KEY          
+INCDIC                                 ;
+DECIDE ON EVERY VALUE OF &  
+   VALUE 'ENTR'  IGNORE     
+   VALUE 'PF1'   ESCAPE ROUTINE IMMEDIATE           
+   VALUE 'PF3'   ESCAPE ROUTINE IMMEDIATE           
+   NONE VALUE REINPUT *6000 
+END-DECIDE      
+RULEVAR F25#USS_ORD         
+INCDIC                                 ;
+DEFINE DATA LOCAL           
+ 01 #PROCR    (A04)         
+ 01 #PLANT    (A04)         
+ 01 #ORDER    (A07)         
+ 01 REDEFINE #ORDER         
+   02 #PFX    (A02)         
+   02 #SFX    (A05)         
+END-DEFINE      
+SELECT PROCR, PLANT_ABBRV   
+INTO #PROCR, #PLANT         
+FROM ATO0001-OE_USS_ORDERS  
+WHERE USS_ORD = #USS_ORD    
+END-SELECT      
+IF #PROCR = 'FFLD'          
+  IF #PLANT = 'NATL' OR= 'NAPL'         
+    IGNORE      
+  ELSE          
+**  REINPUT 'NOT A CAMPHILL ORDER' /*dds 07-26-11   
+    REINPUT 'NOT A MCKEESPORT ORDER' /*dds 07-26-11 
+  END-IF        
+ELSE
+  IF #PROCR = 'LORA'        
+    REINPUT 'NOT A FAIRFIELD ORDER'     
+  ELSE          
+    REINPUT 'ORDER NOT ON FILE'         
+  END-IF        
+END-IF          
+MOVE #USS_ORD TO #ORDER     
+IF #PFX = 'DC'  
+  REINPUT 'DC ORDERS CAN NOT BE VIEWED' 
+END-IF          
+* MAP2: END OF MAP *****************************************************    
+END 

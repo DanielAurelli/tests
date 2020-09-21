@@ -1,0 +1,24 @@
+DB: 222   FILE: 001  - VW_CSI_PESSOA_VIN                  DEFAULT SEQUENCE:
+TYPE: SQL
+
+T L DB Name                              F Leng  S D Remark
+- - -- --------------------------------  - ----  - - ------------------------
+  1 AA TX_SIGLA_SISTEMA                  A 30      D
+  1 I_ L@CD_TIPO_VINCULO                 I 2
+  1 AB CD_TIPO_VINCULO                   A 2       D VARCHAR2(2)
+  1 AC CD_MATRICULA_PESSOA               N 8,0     D
+  1 AD EINOTEID                          F 8     N D
+  1 I_ N@EINOTEID                        I 2
+  1 AE EIUNID                            A 32    N D
+  1 I_ N@EIUNID                          I 2
+  1 AF EIMODIFIED                        A 14    N D DATE
+  1 I_ N@EIMODIFIED                      I 2
+  1 I_ L@EINOTEPROPS                     I 4
+  1 AG EINOTEPROPS                       B       N D BLOB(4000)
+*      DY
+*      SQLTYPE=BLOB
+  1 I_ N@EINOTEPROPS                     I 2
+  1 I_ L@TX_NOME_LINGUAGEM               I 2
+  1 AH TX_NOME_LINGUAGEM                 A 20    N D VARCHAR2(20)
+  1 I_ N@TX_NOME_LINGUAGEM               I 2
+******DDM OUTPUT TERMINATED******

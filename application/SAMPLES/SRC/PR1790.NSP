@@ -1,0 +1,24 @@
+define data 
+local 
+  1 neg-dollars       (N9.2)        
+  1 pos-dollars       (n9.2)
+  1 small-pos-doll    (n6.2)
+  1 small-neg-doll    (n6.2)
+  1 filler-1          (a3)
+end-define
+FORMAT LS=133
+  move -123456789.12 to neg-dollars
+  move 'aaa' to filler-1
+  move 123456789.12 to pos-dollars
+  move -123456.78 to small-neg-doll
+  move 123456.78 to small-pos-doll
+  display 
+    'heading bigger pos num'    pos-DOLLARS (EM=-ZZZ.99)       
+    'fil'        filler-1           
+    'heading bigger neg num'    neg-DOLLARS (EM=-ZZZ.99)
+    'fil'        filler-1       
+    'small/header'              neg-dollars (EM=-zzz,zzZ,ZZZ.99)       
+    'fil'        filler-1
+    'small/header'              pos-dollars (em=-zzz,zzz,zzz.99)
+    'fil'        filler-1 
+End

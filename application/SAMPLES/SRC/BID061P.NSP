@@ -1,0 +1,13 @@
+0010*
+0020* mapa com campo redefinido
+0030* Bid 061
+0040DEFINE DATA local
+00501 #gr (a10)
+00601 redefine #gr
+0070 2 #campo1 (a4)
+0080END-DEFINE
+0090include incprog
+0100move 'xpto' to #campo1
+0110write using map 'BID061M'
+0120end
+0130

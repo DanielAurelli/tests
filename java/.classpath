@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v8.0"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="C:/Work/java/libs/tomcat-juli.jar"/>
+	<classpathentry kind="lib" path="C:/Work/java/libs/icu4j-62_1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFx"/>
+	<classpathentry kind="lib" path="C:/Work/ads/2.0.9/builds/latest/adsCommons.jar" sourcepath="/adsCommons/src"/>
+	<classpathentry kind="lib" path="C:/Work/ads/2.0.9/builds/latest/adsFx.jar"/>
+	<classpathentry kind="lib" path="C:/Work/ads/2.0.9/builds/latest/adsRI.jar" sourcepath="/adsRI/src"/>
+	<classpathentry kind="lib" path="C:/Work/ads/2.0.9/builds/latest/adswui.jar"/>
+	<classpathentry kind="lib" path="C:/Work/ads/2.0.9/builds/latest/awi.jar"/>
+	<classpathentry kind="lib" path="C:/Work/ads/2.0.9/builds/latest/cwabase.jar"/>
+	<classpathentry kind="lib" path="C:/Work/ads/2.0.9/builds/latest/obvius.jar"/>
+	<classpathentry kind="lib" path="C:/Work/ads/2.0.9/builds/latest/runtime.jar"/>
+	<classpathentry kind="lib" path="C:/Work/ads/2.0.9/builds/latest/ads.jar"/>
+	<classpathentry kind="lib" path="C:/Work/java/libs/commons-text-1.8/commons-text-1.8.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/cwa"/>
+	<classpathentry kind="lib" path="C:/Work/ads/2.0.9/builds/latest/editor.jar"/>
+	<classpathentry kind="lib" path="C:/Work/ads/2.0.9/builds/latest/adsRepository.jar" sourcepath="/adsRepository/src"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

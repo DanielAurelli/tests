@@ -1,0 +1,23 @@
+DB: 000   FILE: 001  - PRODUCT                            DEFAULT SEQUENCE:
+TYPE: SQL
+
+T L DB Name                              F Leng  S D Remark
+- - -- --------------------------------  - ----  - - ------------------------
+  1 AA PID                               A 10
+  1 AB L@PID                             I 2
+  1 AC NAME                              A 128   N
+  1 AD L@NAME                            I 2
+  1 AE N@NAME                            I 2
+  1 AF PRICE                             P 28.2  N
+  1 AG N@PRICE                           I 2
+  1 AH PROMOPRICE                        P 28.2  N
+  1 AI N@PROMOPRICE                      I 2
+  1 AJ PROMOSTART                        A 10    N
+  1 AK N@PROMOSTART                      I 2
+  1 AL PROMOEND                          A 10    N
+  1 AM N@PROMOEND                        I 2
+  1 AN DESCRIPTION                       A 6     N
+  1 AO N@DESCRIPTION                     I 2
+  1 AP DB2_GENERATED_DOCID_FOR_XML       A 8     N
+  1 AQ N@DB2_GENERATED_DOCID_FOR_XML     I 2
+******DDM OUTPUT TERMINATED******

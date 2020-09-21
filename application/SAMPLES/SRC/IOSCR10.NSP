@@ -1,0 +1,26 @@
+DEFINE WINDOW POPUP
+SIZE 20*60
+BASE 02/05
+SET KEY PF5 = "%H" NAMED 'PRINT'
+FORMAT PS=40 LS=160
+INPUT "REPORT PRINTING. WITHIN WINDOW?" #W(A1)
+IF #W NE ' '
+  SET WINDOW 'POPUP'
+FOR #I = 1 TO 120
+WRITE
+  '0 .......1.........2.........3.........4.........5'
+- '.........6.........7.........8.........9.........0'
+- '.........1.........2.........3.........4.........5'
+/ '1'  #I   30T 'PAGE:' *PAGE-NUMBER 100T 'PAGE:' *PAGE-NUMBER
+/ '2' 150T '2'
+/ '3' 150T '3'
+/ '4' 150T '4'
+/ '5' 150T '5'
+/ '6' 150T '6'
+/ '7' 150T '7'
+/ '8' 150T '8'
+/ '9' 150T '9'
+LOOP
+SET WINDOW OFF
+INPUT 'END OF PROGRAM'
+END

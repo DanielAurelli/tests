@@ -1,0 +1,16 @@
+define data 
+/* global using PR1443G
+INDEPENDENT
+  1 +IF (A30/1:60)
+  1 REDEFINE +IF
+    2 +IF1 (A30)
+    2 +IF2 (A30)
+end-define
+MOVE 'WRITE "MY FAVORITE THIS TO DO "' TO +IF1
+MOVE 'WRITE "MY FAVORITE THIS TO DO "' TO +IF2
+format ls=132
+write '=' +if1
+'=' +if2
+'steve'
+RUN 'PR1443B'
+END

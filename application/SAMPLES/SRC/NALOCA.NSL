@@ -1,0 +1,23 @@
+**DV          0        V1IC_OUT_MNFST                    ATP0001-IC_OUT_MNFST
+**DD          0   A30   2CARRIER_NAME                    /* NOT NULL WITH DEF.
+**DD          0   A10   2CARRIER_ID
+**DD          0   I2    2N@CARRIER_ID                    /* NULL IND. OF CARRIER_ID
+**DD          0   A6    2TRAF_JOB_NO                     /* NOT NULL WITH DEF.
+**DD          0   A10   2DELETE_DT                       /* DATE
+**DD          0   A9    2OTM_NUMBER                      /* NOT NULL WITH DEF.
+**DD          0   A10   2SCHD_SHIP_DT                    /* DATE
+**DD          0   I2    2N@SCHD_SHIP_DT                  /* NULL IND. OF SCHD_SHIP_
+**DD          0   A8    2SCHD_SHIP_TM                    /* TIME
+**DD          0   I2    2N@SCHD_SHIP_TM                  /* NULL IND. OF SCHD_SHIP_
+**DD          0   A10   2SHIPD_DT                        /* DATE
+**DD          0   I2    2N@SHIPD_DT                      /* NULL IND. OF SHIPD_DT
+**DD          0   A1    2LOAD_STAT
+**DD          0   I2    2N@LOAD_STAT                     /* NULL IND. OF LOAD_STAT
+**DD          0   A4    2TRANS_MODE
+**DD          0   I2    2N@TRANS_MODE                    /* NULL IND. OF TRANS_MODE
+**DD          0   A4    2SCAC_CODE                       /* NOT NULL WITH DEF.
+**DV          0        V1IC_CARRIER                      ATP0001-IC_CARRIER
+**DD          0   A7    2CARRIER_ID
+**DD          0   A3    2CARRIER_CD                      /* NOT NULL WITH DEF.
+**DD          0   A30   2CARRIER_NAME                    /* NOT NULL WITH DEF.
+**C               *****TAA1-15-09 DEL F2CROO-XRRT01SG-          

@@ -1,0 +1,161 @@
+/*  This program serves as example how to design a user-defined
+/*  program to call 'USR1055N'.
+/***********************************************************************
+DEFINE DATA
+LOCAL
+1 V                  (I01)  CONST <20>
+LOCAL
+1 USR1055L
+  2 OBJECT-KEY
+    3 LIBRARY        (A08)
+    3 OBJECT-FROM    (A33)
+    3 OBJECT-TO      (A33)
+    3 OBJECT-KIND    (A01)
+      /*
+  2 INPUTS
+    3 OPT-ACCESS     (A01)
+    3 OPT-TYPE-OP    (A01)
+    3 OPT-TYPE       (A24)
+    3 OPT-SCROLL     (A01)
+    3 OPT-WILDCARD   (A01)
+    3 OPT-ASTERISK   (A01)
+    3 OPT-AMOUNT     (I02)
+      /*
+  2 INPUT-OUTPUTS
+    3 INT-HANDLE     (I04)
+    3 NEXT-OBJ       (A32)
+  2 OUTPUTS
+    3 RETURNED       (I02)
+    3 LIST-OBJ       (A32/1:V)
+    3 LIST-TYPE-SRC  (A01/1:V)
+    3 LIST-TYPE-MOD  (A01/1:V)
+      /*
+1 USR1055N
+  2 VERSION          (I01)     INIT <2>
+  2 V1-NSC-CKECK     (A01)
+  2 V2-DBID          (N05)
+  2 V2-FNR           (N04)
+  2 V2-PSW           (A08)
+   2 V2-CIP           (N08)
+   2 V2-SYSFILE       (A01)
+ 1 REDEFINE USR1055N
+   2 EXTENDED-PARMS
+     3 EXTENDED-DATA  (A01/1:28)
+ /*
+ LOCAL USING USR-MSG   /* Data for message exchange
+ LOCAL USING USR-FLD   /* Description of the field in error
+ /*
+ LOCAL
+ 1 LOCAL-MSG          (A79)
+ 1 IX                 (I02)
+ 1 INPUT-OK           (L)
+ 1 #COUNT             (I4)
+ 1 #RPT-NO             (A2)  
+ 1 #PROG (A8)
+ 1 #IDENTIFIER (A8)
+
+ LOCAL USING IDBI---L  /**  INCORE       
+
+ END-DEFINE
+ /*
+ FORMAT PS=30
+ SET KEY ALL
+ /*
+ LIBRARY     := *LIBRARY-ID
+ OBJECT-FROM := 'USR*     '
+ OBJECT-TO   := '         '
+OBJECT-KIND := 'A'
+OPT-TYPE-OP := ' '
+OPT-TYPE    := 'PT      '
+OPT-SCROLL  := 'D'
+OPT-AMOUNT  := 20
+/*
+OPT-ACCESS := 'O'     /* Open
+NAD-FLD.FIELD-POSITION := 2
+/*
+MOVE '03' TO #RPT-NO 
+DEFINE PRINTER (03) OUTPUT 'INCORE'     
+FORMAT(03) LS=132 PS=20     
+REPEAT
+  OPT-ACCESS := 'O'     /* Open
+  NAD-FLD.FIELD-POSITION := 2
+  INPUT (AD=MITL'_' IP=OFF)
+    TEXT NAD-MSG.MSG, MSG-DATA (1), MSG-DATA (2), MSG-DATA (3)
+    MARK NAD-FLD.FIELD-POSITION
+    / 18T 'List objects in a library:' (I)
+    / 18T '-' (26) (I) /
+    / 18T 'System file (U/N) .....' V2-SYSFILE
+    / 18T 'Library ...............' LIBRARY
+    / 18T 'DBID of library .......' V2-DBID
+    / 18T 'FNR of library ........' V2-FNR
+    / 18T 'PSW of library ........' V2-PSW (AD=N)
+    / 18T 'CIPERCODE of library ..' V2-CIP
+    / 18T 'Object from ...........' OBJECT-FROM  (AL=9)
+    / 18T 'Object to .............' OBJECT-TO    (AL=9)
+    / 18T 'Type operator .........' OPT-TYPE-OP
+    / 18T 'Object types ..........' OPT-TYPE
+    / 18T 'Kind ..................' OBJECT-KIND
+    / 18T 'Amount of objects .....' OPT-AMOUNT
+    / 18T 'Wildcard ..............' OPT-WILDCARD
+    / 18T 'Asterisk ..............' OPT-ASTERISK
+    /// 18T 'Press any PF-key to stop.'
+/*
+  RESET #COUNT
+  IF *PF-KEY NE 'ENTR'
+      OPT-ACCESS := 'C'     /* Close
+      CALLNAT 'USR1055N' USR1055L  USR1055N.EXTENDED-PARMS
+                                   NAD-MSG   NAD-FLD
+    ESCAPE ROUTINE
+  END-IF
+/*
+  IF OPT-AMOUNT > V
+    COMPRESS 'The maximum for the amount is' V
+
+      'in this example program.' INTO LOCAL-MSG
+    NAD-MSG.MSG := LOCAL-MSG
+    NAD-FLD.FIELD-POSITION := 7
+    ESCAPE TOP
+  END-IF
+/*
+  REPEAT
+  CALLNAT 'USR1055N' USR1055L  USR1055N.EXTENDED-PARMS
+    NAD-MSG   NAD-FLD
+  /*
+  OPT-ACCESS := 'R'   /* Read
+  /*
+  ADD RETURNED TO #COUNT
+  FOR IX = 1 TO RETURNED
+    DISPLAY(3) IX LIST-OBJ (IX) (AL=8)
+      LIST-TYPE-SRC (IX)    LIST-TYPE-MOD (IX)
+  END-FOR
+  /*
+  /*
+  IF MSG-NR NE 0
+      WRITE(3) (AD=LI)
+        / 'Records retrieved..' #COUNT
+        / 'Message number ....' NAD-MSG.MSG-NR
+        / 'Message ...........' NAD-MSG.MSG (AL=59)
+        / 'Message type ......' NAD-MSG.MSG-TYPE
+        / 'Message data ......' NAD-MSG.MSG-DATA (1:3)
+        // 'Field structure ...' NAD-FLD.FIELD-STRUCTURE
+        / 'Field name ........' NAD-FLD.FIELD-NAME
+        / 'Field position ....' NAD-FLD.FIELD-POSITION
+        / 'Field index .......' NAD-FLD.FIELD-INDEX1
+        NAD-FLD.FIELD-INDEX2
+        NAD-FLD.FIELD-INDEX3
+        /*
+      OPT-ACCESS := 'C'     /* Close
+      CALLNAT 'USR1055N' USR1055L  USR1055N.EXTENDED-PARMS
+                                   NAD-MSG   NAD-FLD
+      ESCAPE BOTTOM
+*     END-IF
+  END-IF
+  END-REPEAT
+  /*
+COMPRESS 'REPORT' #RPT-NO INTO #IDENTIFIER LEAVING NO      
+
+INPUT (AD=OI) 'ENTERING REPORT VIEWER' #IDENTIFIER 
+CALLNAT 'ZINREPO' #RPT-NO      /** ON-LINE VIEWING SUBPROGRAM  
+  INPUT-OK := TRUE    /* All parameter checks are done
+END-REPEAT
+END

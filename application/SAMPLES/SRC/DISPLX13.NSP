@@ -1,0 +1,20 @@
+** Example 'DISPLX13': DISPLAY (compare with WRITEX08 using WRITE)
+************************************************************************
+DEFINE DATA LOCAL
+1 EMPLOY-VIEW VIEW OF EMPLOYEES
+  2 PERSONNEL-ID
+  2 FIRST-NAME
+  2 NAME
+  2 SALARY (2)
+  2 BONUS  (2,2)
+  2 CITY
+END-DEFINE
+*
+READ(20) EMPLOY-VIEW BY NAME WHERE CITY = 'CHAPEL HILL' AND BONUS(1,1) NE 0
+  /*
+  DISPLAY 'PERS/ID' PERSONNEL-ID  NAME / FIRST-NAME
+          '**' '=' SALARY(1) 'BONUS' BONUS(1,1) CITY (AL=15)
+  /*
+  SKIP 1
+END-READ
+END

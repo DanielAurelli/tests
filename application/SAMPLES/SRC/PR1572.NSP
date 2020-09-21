@@ -1,0 +1,37 @@
+DEFINE DATA LOCAL
+1 EM-PERS-SUM VIEW OF EMPLOYEES
+  2 PERSONNEL-ID
+  2 REDEFINE PERSONNEL-ID
+     3 #ALPHA-SSN(A8)  
+  2 NAME
+  2 CITY
+  2 SEX
+  2 DEPT
+1 PAY-EMPLOYEE VIEW OF EMPLOYEES
+  2 PERSONNEL-ID
+  2 NAME
+  2 CITY
+  2 SEX
+  2 INCOME(1:3)
+    3 CURR-CODE
+    3 SALARY
+END-DEFINE
+READ EM-PERS-SUM BY CITY = 'BOSTON'
+  IF ((DEPT = 'TECH10' OR=   /* DELRAY CONNECTING RAILROAD - ROAD 03       
+              'TECH20' OR=   /* LAKE TERMINAL RAILROAD     - ROAD 04       
+              'TECH30' OR=   /* TRANSTAR                   - ROAD 06       
+              'TECH40' OR=   /* UNION RAILROAD             - ROAD 08       
+              'TECH50' OR=   /* GARY RAILWAY               - ROAD 11       
+              'TECH60' )     /* LORAIN NORTHERN            - ROAD 19       
+    AND         
+      (SEX = 'M' OR= 'F'))   /* WAGE EMPLOYEES
+  READ PAY-EMPLOYEE BY PERSONNEL-ID starting from #ALPHA-SSN
+    INPUT(AD=MI)
+    PERSONNEL-ID
+    NAME
+    update 
+    end transaction
+  end-read
+end-if
+end-read
+end

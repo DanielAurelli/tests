@@ -1,0 +1,16 @@
+0010* RESIZE de variável dinâmica
+0020DEFINE DATA
+0030LOCAL
+0040    1 #dyn  (A) dynamic
+0050END-DEFINE
+0060include incprog
+0070*
+0080resize size of dynamic #dyn to 15
+0090write '=' #dyn (al=20) *length(#dyn)
+0100expand size of dynamic #dyn to 15
+0110write '=' #dyn (al=20) *length(#dyn)
+0120move 'aaaa' to #dyn
+0130write '=' #dyn (al=20)  *length(#dyn)
+0140move 'bnbnbnbnbbb' to #dyn
+0150write '=' #dyn (al=20)  *length(#dyn)
+0160end

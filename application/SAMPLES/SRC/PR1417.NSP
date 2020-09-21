@@ -1,0 +1,17 @@
+* * * ** PR1417   Runtime Error 1 on MU
+* * * MOVE 12 TO #MM(N2)
+* * * LB1.   STORE MR-MKT-DEVL-DETAIL WITH         
+* * *           REC-NO(LB1.)     = 98765432
+* * *           SHIP-TONS(#MM) = 5
+** PR1417   Runtime Error 1 on MU
+
+PROCESS SQL TABLES << SET CURRENT SQLID='ADS'>> 
+*
+MOVE 12 TO #MM(N2)
+R1. READ EMPLOYEES 
+  OBTAIN LANG(1:12)
+LB1.   STORE employees USING SAME RECORD (R1.) WITH         
+          personnel-id     = 9999999
+          lang(#MM) = 5
+BACKOUT TRANSACTION
+end
