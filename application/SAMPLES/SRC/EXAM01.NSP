@@ -1,0 +1,15 @@
+DEFINE DATA
+LOCAL
+  1 #VAR    (A30)
+  1 #a      (a4)
+END-DEFINE
+*
+include incprog
+MOVE '2--B--C--8--' TO #VAR
+*
+*
+EXAMINE FULL #VAR FOR '--' REPLACE FULL '  '
+#A:='OLA'
+write  notitle nohdr '=' #VAR '=' #var (em=hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh)
+*
+END

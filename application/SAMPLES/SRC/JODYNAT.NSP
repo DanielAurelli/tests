@@ -1,0 +1,68 @@
+************************************************************************    
+**   OBJECT: JODYNAT        
+**   Author: IMBROGNO J A   
+**  Written: Jun 19, 2000   
+**     Mode: BATCH / ON-LINE / BATCH OR ON-LINE     
+** FUNCTION: USED AS AN EXAMPLE OF INCORE - DURING ADVANCED NATURAL         
+**           TRAINING       
+** Maintained:  
+************************************************************************    
+DEFINE DATA     
+LOCAL USING IDBI---L        
+LOCAL           
+1 EMPLOYEES                        VIEW OF EMPLOYEES
+  2 PERSONNEL-ID /* Descriptor          
+  2 FULL-NAME /* Group      
+    3 FIRST-NAME
+    3 MIDDLE-I  
+    3 NAME /* Descriptor    
+  2 MAR-STAT    
+  2 SEX         
+  2 BIRTH /* Descriptor     
+  2 FULL-ADDRESS /* Group   
+    3 ADDRESS-LINE (1:8) /* Multi-value field       
+    3 CITY /* Descriptor    
+    3 ZIP       
+    3 COUNTRY   
+  2 TELEPHONE /* Group      
+    3 AREA-CODE 
+    3 PHONE     
+  2 DEPT /* Descriptor      
+  2 JOB-TITLE /* Descriptor 
+  2 LEAVE-DATA /* Group     
+    3 LEAVE-DUE 
+    3 LEAVE-TAKEN           
+/* End of view for file EMPLOYEES       
+1 ISP-USS-SYSTEM-FILE-1            VIEW OF ISP-USS-SYSTEM-FILE-1
+  2 FIELD-1 /* Descriptor   
+  2 FIELD-2 /* Descriptor   
+  2 FIELD-3 /* Descriptor   
+*   2 FIELD-4 (1:10) /* Multi-value field 
+END-DEFINE      
+/* End of view for file ISP-USS-SYSTEM-FILE-1       
+RESET INCORE-CTL INCORE-DATA  /*DELETE EMPTY INCORE FILE        
+ASSIGN ACTION     = 'DELETE'
+ASSIGN FILE-IDENTIFIER = 'ID1'          
+CALLNAT INCORE USING INCORE-CTL INCORE-DATA         
+END TRANSACTION 
+*** 
+READ(20) EMPLOYEES          
+  MOVE NAME TO FIELD-1      
+  MOVE FIRST-NAME TO FIELD-2
+  MOVE PHONE TO FIELD-3     
+  STORE RECORD IN FILE ISP-USS-SYSTEM-FILE-1 IDENTIFIER = 'ID1'    
+END-READ        
+*** 
+RESET INCORE-CTL INCORE-DATA  /*DELETE EMPTY INCORE FILE        
+ASSIGN ACTION     = 'BROWSE'
+ASSIGN FILE-IDENTIFIER = 'ID1'          
+CALLNAT INCORE USING INCORE-CTL INCORE-DATA         
+WRITE 'THIS IS READ BY FIELD-1'       
+READ ISP-USS-SYSTEM-FILE-1 IDENTIFIER = 'ID1' BY FIELD-1      
+  DISPLAY FIELD-1 FIELD-2 FIELD-3     
+END-READ      
+  WRITE 'THIS IS READ BY FIELD-2'     
+  READ ISP-USS-SYSTEM-FILE-1 IDENTIFIER = 'ID1' BY FIELD-2    
+    DISPLAY FIELD-1 FIELD-2 FIELD-3   
+  END-READ    
+END 

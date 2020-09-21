@@ -1,0 +1,59 @@
+DEFINE DATA LOCAL
+01 #pOS_CD (A6)
+01 #POS_CD_SUFF (A1)
+01 #LOGON_ID (A8)
+01 #PID(A10)
+01 #NAME(A128)
+01 #PRICE(N20.2)
+01 #ADDR(A6)
+END-DEFINE
+
+* SELECT LOGON_ID, A.POS_CD, A.POS_CD_SUFF
+* INTO #LOGON_ID, #POS_CD, #POS_CD_SUFF
+* FROM ATP0001.IC_PERS_TBL A ,                                      
+*  ATP0001.IC_POS_CD B  ,                                                  
+* WHERE A.POS_CD = B.POS_CD AND A.POS_CD_SUFF=                             
+* B.POS_CD_SUFF   
+* AND LOGON_ID = 'FA120G7'
+* WRITE '=' #LOGON_ID '=' #POS_CD '=' #POS_CD_SUFF  
+* END-SELECT      
+
+SELECT A.PID , A.NAME
+INTO #PID, #NAME 
+    FROM IBMUSER.PRODUCT A 
+    INNER JOIN IBMUSER.PRODUCTSUPPLIER B
+ ON A.PID = B.PID
+ <<:T:#ADDR>>
+ END-SELECT
+ 
+SELECT R.PID, R.NAME, SUM(R.PRICE)   
+ INTO #PID, #NAME, #PRICE
+FROM
+(                                           
+ SELECT A.PID , A.NAME, A.PRICE, C.ADDR 
+ FROM IBMUSER.PRODUCT A ,                                      
+  IBMUSER.PRODUCTSUPPLIER B  ,
+  IBMUSER.SUPPLIERS C , 
+  (SELECT CATEGORY_ID, DESCRIPTION
+    FROM ADS.CATEGORIES
+    ) AS D                                                 
+ WHERE A.PID = B.PID 
+   AND B.SID = C.SID 
+   AND A.PID = D.CATEGORY_ID
+ UNION ALL  
+ SELECT A.PID , A.NAME, A.PRICE, C.ADDR 
+ FROM IBMUSER.PRODUCT A ,                                      
+  IBMUSER.PRODUCTSUPPLIER B  ,
+  IBMUSER.SUPPLIERS C , 
+  (SELECT CATEGORY_ID, DESCRIPTION
+    FROM ADS.CATEGORIES
+    ) AS D                                                 
+ WHERE A.PID = B.PID 
+   AND B.SID = C.SID 
+   AND A.PID = D.CATEGORY_ID
+) AS R
+ ORDER BY R.PID
+ WRITE '=' #PID '=' #NAME(AL=20) '=' #PRICE  '=' #ADDR
+END-SELECT                                                    
+                  
+END

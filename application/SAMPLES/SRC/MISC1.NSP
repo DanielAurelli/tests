@@ -1,0 +1,19 @@
+0010define data local
+002001 #campo (a15)
+003001 redefine #campo
+004002 #num (n3/5)
+005001 #aux (a50)
+006001 #i (p3)
+0070end-define
+0080include incprog
+0090move '111222333' to #campo
+0100for #i 1 to 5
+0110compress 'indice (' #i ') valor tabela (' #num(#i) ')' into #aux leaving no
+0120write #aux
+0130end-for
+0140if #num (5) eq 0
+0150 write '#num (5) eh zero' #num (5)
+0160else
+0170 write '#num (5) not zero' #num (5)
+0180end-if
+0190end

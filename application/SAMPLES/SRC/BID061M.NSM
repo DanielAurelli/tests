@@ -1,0 +1,20 @@
+0001* MAP2: PROTOTYPE
+0002* INPUT USING MAP 'XXXXXXXX'
+0003*
+0004DEFINE DATA
+0005PARAMETER
+0006 1 #GR.#CAMPO1 (A004/00001:00003)
+0007 1 #I (N007)
+0008END-DEFINE
+0009FORMAT PS=24 LS=80 ZP=OFF SG=OFF KD=OFF IP=OFF
+0010* MAP2: MAP PROFILES *****************************        200***********
+0011* .TTAAAMMOO   D I D I N D I D I        ?_)^&:+(   '        '          *
+0012* 023079        N1NNUCN____         X        01 NCST    YL           1 *
+0013************************************************************************
+0014WRITE(AD=D)
+0015 001T #GR.#CAMPO1 (#I+0)  (AD=DLOFHT' ')
+0016 006T #GR.#CAMPO1 (#I+1)  (AD=DLOFHT' ')
+0017 011T #GR.#CAMPO1 (#I+2)  (AD=DLOFHT' ')
+0018* MAP2: VALIDATION *****************************************************
+0019* MAP2: END OF MAP *****************************************************
+0020END

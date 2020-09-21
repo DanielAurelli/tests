@@ -1,0 +1,17 @@
+DEFINE DATA LOCAL
+01 #TITULO1          (A35) CONST <'*****   I N F O N A V I T   *****'>
+01 #TITULO2          (A39) CONST
+                             <'CONSULTA DE CODIGOS POSTALES Y COLONIAS'>
+* * * 
+01 CTE-EDO-DEL   (A2/32)
+  CONST <'AA','BB','CC','DD','EE','FF','GG','HH','II','JJ','KK',
+  'LL','MM','NN','OO','PP','QQ','RR','SS','TT','UU','VV',
+  'WW','XX','YY','ZZ','00','11','22','33','44','55'>
+01 I(I2)
+END-DEFINE
+WRITE #TITULO2
+for i = 1 to 32
+  write cte-edo-del(i)
+end-for
+end  
+

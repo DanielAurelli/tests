@@ -1,0 +1,101 @@
+CTDAA *LANGUAGE=11
+0001
+6023
+0001E INGRESE OPCION CORRECTA                                     
+0002E TECLA DE FUNCION INVALIDA                                  
+0003E FUNCION NO DISPONIBLE PARA ESTE GRUPO                      
+0004E :1: INEXISTENTE                                            
+0005E FUNCION NO HABILITADA                                      
+0006E COMANDO INCORRECTO                                         
+0007E USUARIO INCORRECTO                                         
+0008E PASSWORD INCORRECTA                                        
+0009E USUARIO NO AUTORIZADO A INGRESAR AL SISTEMA ELEGIDO        
+0010E CAMPO :1: ES DE INGRESO OBLIGATORIO                        
+0011E CAMPO :1: INEXISTENTE                                      
+0012E DEBE INGRESAR :1:                                          
+0013E :1: NO COMPATIBLE CON :2:                                  
+0014E :1: NO AUTORIZADO A OPERAR EN DOLARES                      
+0015E ALTA DE :1: :2: REALIZADA                                  
+0016E :1: YA EXISTENTE EN EL ARCHIVO                             
+0017E BAJA DE :1: :2: REALIZADA                                  
+0018E MODIF. DE :1: :2: REALIZADA                                
+0019E INGRESE ALGUNA DE LAS OPCIONES ESPECIFICADAS               
+0020E USUARIO YA CONECTADO EN OTRA TERMINAL                      
+0021E :1: INVALIDA                                               
+0022E :1: INVALIDO                                               
+0023E :1: DEBE SER NUMERICO                                      
+0024E CAMBIO DE :1: :2: REALIZADA                                
+0025E FIN DEL ARCHIVO DE :1:                                     
+0026E HAY MAS DATOS DE :1:                                       
+0027E NO EXISTE INFORMACION PARA LA CONSULTA                     
+0028E CAMPO :1: DEBE SER MENOR QUE CAMPO :2:                     
+0029E SISTEMA NO IMPLEMENTADO PARA DICHO PAIS                    
+0030E IMPOSIBLE CARGAR:1:- AVISE A A.Y P.                        
+0031E RANGO ENTRE :1: Y :2: INVALIDO                             
+1000E EXISTE OTRA TARJ. TIT. PARA ESTA CUENTA                    
+1000E EXISTE OTRA TARJ. TIT. PARA ESTA CUENTA                    
+1001E ESTE NRO. DE CUENTA YA FUE DADO DE BAJA                    
+1002E ESTE NRO. DE TARJETA YA FUE DADO DE BAJA                   
+1003E INGRESE POR BAJA DE CTA. PARA BAJAR UN TIT.                
+1004E OPCION INCORRECTA PARA ALTA DE TARJ. :1:                   
+1005E ESTA CUENTA NO PUEDE SER RENOVADA                          
+1006E NO PUEDE :1: DEBIDO A SU ESTADO                            
+1007E OPCION INCORRECTA PARA :1: DE :2:                          
+1008E CAMBIO DE NRO. TARJ. :1: :2: REALIZADO                     
+1009E RENOV. DE :1: :2: REALIZADA                                
+1010E ESTA TARJ. NO PUEDE SER RENOV. :1:                         
+1011E DEBE :1: TARJETA :2:                                       
+1012E ANUL. DE RENOV. DE :1: :2: REALIZADA                       
+1013E NINGUNA :1: CUMPLE LAS CONDICIONES NECESARIAS              
+1014E POR SER CTA. EMPRESA, LA DENOM. DEBE TENER 26 POS.         
+1015E TARJETA NO PERTENECIENTE A PRODUCTO EMPRESA                
+1016E LIMITE DE COMPRA SUPERIOR AL DE LA CUENTA                  
+1017E CBIO DE RADICACION DE CTA :1: REALIZADA                    
+1018E :1: ES OBLIGATORIO CON :2:                                 
+1019E EL CAMPO :1: OBLIGA A INGRESAR :2: O :3:                   
+1020E EL USUARIO NO TIENE CUOTAS PENDIENTES                      
+1021E EL :1: NO EXISTE EN EL BANCO DEL SOCIO                     
+1022E NO PUEDE :1: POR ESTAR :2:                                 
+1023E LAS CUENTAS NO PUEDEN CAMBIAR DE NUMERO                    
+1024E ALGUNA/S TARJ. NO CUMPLEN LAS CONDIC. NECESARIAS           
+2000E RUBRO SECUNDARIO IGUAL AL RUBRO PRINCIPAL                  
+2001E OPCION INCORRECTA PARA ALTA DE CASA CENTRAL                
+2002E OPCION INCORRECTA PARA MODIF. DE CASA CENTRAL              
+2003E OPCION INCORRECTA PARA MODIF. DE SUCURSAL                  
+2004E :1: DE COMERCIOS :2: REALIZADA                             
+2005E FUNCION INVALIDA PARA UNA SUCURSAL                         
+2006E EL COMERCIO :1: ESTA INHABILITADO                          
+2007E PRODUCTO:1:NO PUEDE DARSE DE BAJA PUES ES EL ULT.          
+2008E PRODUCTO YA EXISTENTE PARA DICHO COMERCIO                  
+2009E ULT. PROD. EN SUC :1: , INGRESE POR BAJA DE SUCURSAL       
+2010E EL PROD. -C...- YA EXISTE Y DEBE SER UNICO                 
+2011E EL PROD. -C...- DEBE SER UNICO Y YA EXISTE OTRO            
+2012E NO PUEDE DAR DE BAJA, COMERCIO CON CUOTAS                  
+2013E NO PUEDE DAR DE BAJA, COMERCIO CON MOVIMIENTOS             
+5001E :1: INEXISTENTE PARA LA CASA MATRIZ                        
+5002E BAJA NO POSIBLE :1: TIENE CUENTAS ASOCIADAS                
+5003E BAJA NO POSIBLE :1: TIENE COMERCIOS ASOCIADOS              
+5004E DEBE SER MODIFICADA PRIMERO LA TABLA 021 (LIQ-USUARIOS)    
+6001E LOS ULTIMOS CUATRO DIGITOS DEBEN SER NUMERICOS             
+6002E EL PRIMER CARACTER DEBE SER ALFABETICO                     
+6003E PARA CONFIRMAR OPERACION PRESIONE "PF5"                    
+6004E CAMPO :1: NO DISPONIBLE PARA EL ACCESO                     
+6005E EL PRODUCTO NO EXISTE PARA DICHO RUBRO                     
+6006E EL PRODUCTO YA EXISTE PARA DICHO RUBRO                     
+6007E EL PRODUCTO  DEBE SER INGRESADO PRIMERO                    
+6008E PARA DAR DE BAJA TODO EL RUBRO INGRESE "BAJA" EN PRODUCTO  
+6009E EL PRODUCTO NO PUEDE SER DADO DE BAJA                      
+6010E TABLA NO GENERADA                                          
+6011E LA TABLA YA HA SIDO GENERADA                               
+6012E PARA ALTA/BAJA DE CALENDARIO EL MES DEBE SER "01"          
+6013E LA MARCA DE FERIADO DEBE SER "S"                           
+6014E NO PUEDE INGRESAR PRODUCTO GENERICO                        
+6015E DIA NO VALIDO PARA UNA PRESENTACION SHOPPING               
+6016E FECHA SUPERIOR A LA SIGUIENTE O INFERIOR A LA ANTERIOR     
+6017E LA FECHA EN ESTADO :1: NO PUEDE SER DADA DE BAJA           
+6018E DICHO PLAZO PARA ESTA FECHA YA HA SIDO LIQUIDADO           
+6019E FECHA DE CLEARING MENOR A LA VIGENTE ACTUAL .              
+6020E LA TABLA 024 SE GENERA Y SE BORRA A TRAVES DE LA TABLA 020 
+6021E :1: NO HABIL                                               
+6022E BAJA DEL COMERCIO DENEGADA, DAR DE BAJA POR PRODUCTO       
+6023E INGRESAR DATOS                                             

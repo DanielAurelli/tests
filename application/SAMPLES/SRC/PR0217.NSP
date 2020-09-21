@@ -1,0 +1,27 @@
+** PR0217B   Issue #0217 - MASK function in WHERE Clause
+DEFINE DATA     
+  LOCAL         
+1 EM-PERS-HEALTH                   VIEW OF EMPLOYEES     
+  2 PERSONNEL-ID
+  2 NAME
+  2 SEX
+  2 CITY
+/* End of view for file EM-PERS-HEALTH  
+1 #ARG(A3)
+
+END-DEFINE    
+MOVE 'MAD' TO #ARG  
+find em-pers-health with PERSONNEL-ID = '1001432'
+  WHERE
+    PERSONNEL-ID = MASK(..NN)
+    AND
+    CITY NE MASK(XXX) #ARG
+    OR CITY = MASK(XXX..'LONA') 'BAR'
+*   REJECT  IF  CITY NE MASK(X..) 'B'
+*   IF 
+*    CITY NE MASK(X..) 'C..'
+*    ESCAPE TOP
+*   end-if   
+   display NAME SEX CITY          
+end-find
+end

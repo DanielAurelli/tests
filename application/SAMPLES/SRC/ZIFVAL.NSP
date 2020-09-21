@@ -1,0 +1,18 @@
+DEFINE DATA LOCAL
+1 #A(A2)
+1 #B(A2)
+1 GRP
+  2 #C(N4)
+END-DEFINE
+IF #A = ' '
+  MOVE 3 TO #A
+  MOVE 2 TO #B
+END-IF
+* IF VAL(#A) GE VAL(#B)
+*   #C:=VAL(#B) + 1
+* END-IF
+IF VAL(#A) GE VAL(#B)
+  GRP.#C:=VAL(#B) + 1
+END-IF
+WRITE #A #B #C
+END

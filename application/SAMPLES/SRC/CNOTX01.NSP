@@ -1,0 +1,35 @@
+** Example 'CNOTX01': C* Notation
+************************************************************************
+DEFINE DATA LOCAL
+1 EMPL-VIEW VIEW OF EMPLOYEES
+  2 NAME
+  2 CITY
+  2 C*INCOME
+  2 INCOME
+    3 SALARY  (1:5)
+    3 C*BONUS (1:2)
+    3 BONUS   (1:2,1:2)
+  2 C*LANG
+  2 LANG      (1:2)
+*
+1 #I (N1)
+END-DEFINE
+*
+LIMIT 2
+READ EMPL-VIEW BY CITY
+  /*
+  WRITE NOTITLE 'NAME:' NAME /
+       'NUMBER OF LANGUAGES SPOKEN:' C*LANG 5X
+       'LANGUAGE 1:' LANG (1) 5X
+       'LANGUAGE 2:' LANG (2)
+  /*
+  WRITE 'SALARY DATA:'
+  FOR #I FROM 1 TO C*INCOME
+    WRITE 'SALARY' #I SALARY (1.#I)
+  END-FOR
+  /*
+  WRITE 'THIS YEAR BONUS:' C*BONUS(1)  BONUS (1,1) BONUS (1,2)
+      / 'LAST YEAR BONUS:' C*BONUS(2)  BONUS (2,1) BONUS (2,2)
+  SKIP 1
+END-READ
+END

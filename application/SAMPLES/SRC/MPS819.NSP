@@ -1,0 +1,73 @@
+*  MAP-LAYOUT FROM ONLINE MAPPING UTILITY
+* DELIMITERS:  IN:& OUT:@  OI:|   I:? IIN:> IOU:< IOI::  FILL:_   ADI:I
+*             BIN:& BOU:% BOI:$ NIN:^     { DEC:   FIXNAME: IFELD ADT:M
+************************************************************************
+**?P?R?O?D?E?B   ?SISTEMA ?ESTADUAL ?DE ?PROTOCOLO ?- ?S?E?P    <XXXXXXXXXXXXXXX
+** MPSP819
+**
+**        ?C?O?N?T?R?O?L?E   ?D?E   ?D?O?C?U?M?E?N?T?O?S   ?O?F?I?C?I?A?I?S
+**
+**
+**               ?CONSULTA ?POR ?INTERVALO ?DE ?DATAS ?DE ?ENTRADA
+**
+**                        ?(PERIODO?MAXIMO?TRINTA?DIAS)
+**
+**                          ?ENTRE  ?COM ?AS   ?DATAS
+**
+**                         ?DATA?INICIAL    ?DATA?FINAL
+**                         >99?/>99?/>99   >99?/>99?/>99
+**
+**
+**
+**
+**
+**
+**
+**
+**        ?PF3 - ENCERRA      ?PF7 - ANTERIOR      ?ENTER - EXECUTA
+**
+************************************************************************
+*
+INPUT (IP=OFF SG=OFF AD=MIL'_')
+      02T 'P R O D E B'(I)
+      17T 'SISTEMA'(I)
+      26T 'ESTADUAL'(I)
+      36T 'DE'(I)
+      40T 'PROTOCOLO'(I)
+      51T '-'(I)
+      54T 'S E P'(I)
+      64T  IFELD001 (A15)  (AD=OIL)
+/     02T 'MPSP819'
+//    10T 'C O N T R O L E'(I)
+      29T 'D E'(I)
+      36T 'D O C U M E N T O S'(I)
+      59T 'O F I C I A I S'(I)
+///   17T 'CONSULTA'(I)
+      27T 'POR'(I)
+      32T 'INTERVALO'(I)
+      43T 'DE'(I)
+      47T 'DATAS'(I)
+      54T 'DE'(I)
+      58T 'ENTRADA'(I)
+//    26T '(PERIODO MAXIMO TRINTA DIAS)'(I)
+//    28T 'ENTRE'(I)
+      36T 'COM'(I)
+      41T 'AS'(I)
+      47T 'DATAS'(I)
+//    27T 'DATA INICIAL'(I)
+      44T 'DATA FINAL'(I)
+/     27T  IFELD002 (N02)  (AD=AIL)
+      30T '/'(I)               IFELD003 (N02)  (AD=AIL)
+      35T '/'(I)               IFELD004 (N02)  (AD=AIL)
+      43T  IFELD005 (N02)  (AD=AIL)
+      46T '/'(I)               IFELD006 (N02)  (AD=AIL)
+      51T '/'(I)               IFELD007 (N02)  (AD=AIL)
+/////
+////  10T 'PF3'(I)
+      14T '- ENCERRA      '
+      30T 'PF7'(I)
+      34T '- ANTERIOR      '
+      51T 'ENTER'(I)
+      57T '- EXECUTA'
+END
+

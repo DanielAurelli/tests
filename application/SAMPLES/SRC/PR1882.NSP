@@ -1,0 +1,29 @@
+DEFINE DATA                                             
+LOCAL                                                   
+1 INCORE VIEW ISP-USS-SYSTEM-FILE-1                     
+  2 FIELD-1                                             
+  2 REDEFINE FIELD-1                                    
+    3 #TEST_CD(A2)                                      
+    3 #SEQ_NUM (N2)                                     
+1 #COUNTER(N2)                                          
+END-DEFINE                                              
+READ INCORE                                             
+DELETE                                                  
+END-READ                                                
+COMPRESS 'EM' '01' INTO FIELD-1 LEAVING NO            
+STORE INCORE                                             
+COMPRESS 'EM' '02' INTO FIELD-1 LEAVING NO            
+STORE INCORE                                             
+READ INCORE BY FIELD-1                                   
+IF #COUNTER = 0                                          
+WRITE 'COUNTER'                                          
+ADD 1 TO #COUNTER                                        
+END-IF                                                   
+  AT BREAK OF #SEQ_NUM                                   
+    WRITE 'BREAK SEQ-NUM' #TEST_CD #SEQ_NUM              
+      OLD(#SEQ_NUM)                                      
+    RESET #COUNTER                                       
+  END-BREAK                                              
+  WRITE  #TEST_CD #SEQ_NUM                               
+END-READ                                                 
+END        

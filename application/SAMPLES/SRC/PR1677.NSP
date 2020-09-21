@@ -1,0 +1,39 @@
+define data local
+1 #WORK-INCORE      VIEW OF ISP-USS-SYSTEM-FILE-3   
+  2 FIELD-1     
+  2 REDEFINE FIELD-1        
+    3 #WI-SUB (A2)          
+    3 #WI-LOC (A3)          
+    3 #WI-INC-CD (A9)       
+    3 #WI-CALC-GRP (A3)     
+    3 #WI-APPL-CD (A9)      
+    3 #WI-APPL-DESC (A31)   
+    3 #WI-LOC-NM (A16)      
+    3 #WI-IPP (A3/5)        
+    3 #WI-IPP-D (N3)        
+    3 #WI-HRS (N7)          
+    3 #WI-ANNUAL (N8) 
+end-define
+move '01' to #wi-sub
+move 'A10' to #wi-loc
+move 'INDIRECT' TO #WI-INC-CD
+STORE #WORK-INCORE IDENTIFIER = 'RPT3'
+STORE #WORK-INCORE IDENTIFIER = 'RPT3'
+STORE #WORK-INCORE IDENTIFIER = 'RPT3'
+move '02' to #wi-sub
+move 'A10' to #wi-loc
+move 'INDIRECT' TO #WI-INC-CD
+STORE #WORK-INCORE IDENTIFIER = 'RPT3'
+READ #WORK-INCORE IDENTIFiER = 'RPT3' BY FIELD-1
+write 'read a record'
+* PERFORM BREAK PROCESSING
+AT BREAK OF #WI-inc-cd
+write 'break'
+DISPLAY #WI-SUB #WI-LOC #WI-INC-CD /* OLD(#WI-INC-CD)
+end-break
+END-READ
+READ #WORK-INCORE IDENTIFIER = 'RPT3'
+DELETE
+END-READ
+END
+

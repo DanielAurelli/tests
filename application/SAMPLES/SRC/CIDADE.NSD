@@ -1,0 +1,29 @@
+DB: 000 FILE: 126  - CIDADE                           DEFAULT SEQUENCE: 
+TYPE: ADABAS 
+ 
+T L DB Name                              F Leng  S D Remark 
+- - -- --------------------------------  - ----  - - -------------------- 
+*      Generation started 
+*      at 2009-01-08 08:23:44 
+*      by user U853759 
+* 
+  1 AA STATUS-CADASTRO-CIDADE-ESTADO     N 11.0  N D 
+G 1 AB DADOS-CIDADE 
+  2 AC CEP-CIDADE                        N  5.0  N D 
+  2 AK COD-COMPLEMENTO-CEP               N  3.0  N 
+  2 AD NOME-CIDADE                       A   30  N D 
+  2 AE SIGLA-ESTADO-CIDADE               A    2  N D 
+  2 AF CODIGO-DDD                        N  4.0  N 
+       HD=CODIGO/DDD 
+  2 AG CODIGO-TELEX                      N  4.0  N 
+  1 AP SIGLA-CIDADE                      A    5  N 
+  1 AN INDIC-LOCAL-VIAGEM                A    1  N 
+  1 AQ COD-TIPO-LOCALIDADE               N  1.0  N 
+  1 AR NOME-CIDADE-CARACTER-ESPECIAL     A   30  N D 
+M 1 AS COD-AREA-ATUACAO                  N  3.0  N 
+  1 AT COD-MUNICIPIO-SCDP                N  5.0  N 
+  1 AV INDIC-AREA-MANUTENCAO             A    1  N 
+  1 AO SUP-LOCAL-VIAGEM                  A    6  N S 
+*        -------- SOURCE FIELD(S) ------- 
+*        SIGLA-CIDADE(1-5) 
+*        INDIC-LOCAL-VIAGEM(1-1) 

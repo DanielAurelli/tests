@@ -1,0 +1,81 @@
+/*==================================================================*/
+/*          Copyright (C) 2010, Advansol Technologies Inc.          */
+/*------------------------------------------------------------------*/
+/*                                                                  */
+/* Module:   NFWERRTA                                               */
+/* Function: ADS ERRTA Default                                      */
+/* Author:   Clauder Balzano                      Date: Oct, 6 2010 */
+/*                                                                  */
+/*==================================================================*/
+define data local
+1 err-number  (n5)
+1 err-line    (n4)
+1 err-status  (a1)
+1 err-program (a8)
+1 err-level   (n2)
+1 #err-code   (i4)
+1 #err-lang   (i4)
+1 #err-msg    (A512)
+1 REDEFINE #err-msg
+  2 #msg      (A55)
+1 #return     (i4)
+1 db-error    (i4)
+1 db-msg      (a180)
+1 redefine db-msg
+2 db-msg1     (a45)
+2 db-msg2     (a45)
+2 db-msg3     (a45)
+2 db-msg4     (a45)
+end-define
+SET KEY PF12 NAMED 'INFO' 
+input err-number
+      err-line
+      err-status
+      err-program
+      err-level
+/* 
+if NOT err-number = 3500 THRU 3599
+  ASSIGN #err-code = - err-number
+  ASSIGN #err-lang = *LANGUAGE
+  ASSIGN #err-msg = 'message not found.' 
+  write notitle
+   "          _______       " /
+   "    _____| ERROR |_____ " /
+   "   |                   |"                   '_' (55) /
+   "   | PROGRAM:" err-program               "|" /
+   "   | ERROR:  " err-number (em=____ZZZZ9) "|" #msg (AD=I CD=RE) /
+   "   | LINE:   " err-line   (em=_____ZZZ9) "|"  /
+   "   | LEVEL:  " err-level  (em=_______Z9) "|" '_' (55)/
+   "   |___________________|" 
+else
+  write notitle
+  "          _______                                __________" /
+  "    _____| ERROR |_____       __________________| DB-ERROR |_________________ " /
+  "   |                   |     |                                               |" /
+  "   | PROGRAM:" err-program               "|     |" db-msg1 (AD=I CD=RE)"|" /
+  "   | ERROR:  " err-number (em=____ZZZZ9) "|     |" db-msg2 (AD=I CD=RE)"|" /
+  "   | LINE:   " err-line   (em=_____ZZZ9) "|     |" db-msg3 (AD=I CD=RE)"|" /
+  "   | LEVEL:  " err-level  (em=_______Z9) "|     |" db-msg4 (AD=I CD=RE)"|" /
+  "   |___________________|     |_______________________________________________|"
+end-if
+write notitle
+  "                             ,##+         ,########+        ,#########+"
+ /"                            ,####.       .###########+.    ############:"
+ /"                           ,######:      +####''''.#####  ####:"
+ /"                          ,###'####.     ####'     ':#### ####."
+ /"                         ,###, ####:     ####'      ,#### +########+'."
+ /"                        ,###,  :####.   .####       ;####  '###########+"
+ /"                       ,###,    ####:   +###'      ,####;          :####:"
+ /"                      ,###,##########:..####'.....,+####...........;####"
+ /"            .........,###,......;#####::##############;:::############; ..."
+ /"  .......:::::::;''''###;''':::::+####+:+##########+'::::'+#########+':::::'"
+ /"                                 ''::::::::;'''''';;:::::;'''''''';;;::::'"
+ /"                                      ':::::::::::::::::::::::::::::::."
+ /"        Advanced Development Solution   .::::::::::::::::::::::::,'"
+ /"                                       ,:::::::::::::::::::,'"
+ /"                                  ,::::::::::::::::,''"
+ /"                   ..........,:::::::::::,''"
+
+/*
+end
+

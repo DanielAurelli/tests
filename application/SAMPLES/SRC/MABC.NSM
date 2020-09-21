@@ -1,0 +1,24 @@
+* MAP2: PROTOTYPE
+* INPUT USING MAP 'XXXXXXXX'
+*
+DEFINE DATA
+PARAMETER
+ 1 #FIELD_0 (A015)
+END-DEFINE
+FORMAT PS=23 LS=80 ZP=ON SG=OFF KD=ON IP=OFF
+* MAP2: MAP PROFILES *****************************        200***********
+* .TTAAAMMOO   D I D I N D I D I        ?_)^&:+(   '        '          *
+* 023079        N1NNUCN____         X        01 NCST    YL           1 *
+************************************************************************
+INPUT(IP=OFF)
+/
+ 004T 'A'
+/
+ 004T 'B'(CD=RE)
+/
+ 004T 'C'(CD=GR)
+/
+ 004T #FIELD_0   
+* MAP2: VALIDATION *****************************************************
+* MAP2: END OF MAP *****************************************************
+END

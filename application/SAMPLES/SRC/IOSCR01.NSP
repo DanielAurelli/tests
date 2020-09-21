@@ -1,0 +1,81 @@
+DEFINE DATA LOCAL
+1 #CAMPOA(A20) INIT <'MUNDO!'>
+1 #CAMPOB(A20) INIT <'MUNDO!'>
+1 #CAMPOC(A20) INIT <'MUNDO!'>
+1 #CAMPOD(A20) INIT <'MUNDO!'>
+1 #CAMPOE(A20) INIT <'MUNDO!'>
+1 #CAMPOF(A20) INIT <'MUNDO!'>
+1 #MSG(N4)
+1 #LANG(N2)INIT <1>
+1 #A (A10/10)
+1 #N (N10/10)
+
+END-DEFINE
+MOVE #CAMPOA (PM=I) TO #CAMPOB
+MOVE RIGHT #CAMPOB (PM=I) TO #CAMPOC
+SET KEY PF3 NAMED 'STOP'
+REPEAT
+  MOVE #LANG TO *LANGUAGE
+  INPUT (AD=a'_') WITH TEXT *#MSG 'message number' #MSG 
+  'language code:' *LANGUAGE 'New code:' #LANG (AD=M SG=OFF)
+ / "OLA"
+ / 'NORMAL  NEUTRAL '(NE)   'NORMAL   GREEN' (GR)  'NORMAL  BLUE' (BL)  'NORMAL   RED' (RE)
+ / 'INTENSE NEUTRAL '(INE)  'INTENSE  GREEN' (IGR) 'INTENSE BLUE' (IBL) 'INTENSE  RED' (IRE)
+ / 'REVERSE NEUTRAL '(VNE)  'REVERSE  GREEN' (VGR) 'REVERSE BLUE' (VBL) 'REVERSE  RED' (VRE)
+ / 'BLINKIN NEUTRAL '(BNE)  'BLINKIN  GREEN' (BGR) 'BLINKIN BLUE' (BBL) 'BLINKIN  RED' (BRE)
+ / 'NORMAL  NO COLOR'       'NORMAL  YELLOW' (YE)  'NORMAL  TURQ' (TU)  'NORMAL  PINK' (PI)
+ / 'INTENSE NO COLOR'(I)    'INTENSE YELLOW' (IYE) 'INTENSE TURQ' (ITU) 'INTENSE PINK' (IPI)
+ / 'REVERSE NO COLOR'(V)    'REVERSE YELLOW' (VYE) 'REVERSE TURQ' (VTU) 'REVERSE PINK' (VPI)
+ / 'REVERSE NO COLOR'(B)    'BLINKIN YELLOW' (BYE) 'BLINKIN TURQ' (BTU) 'BLINKIN PINK' (BPI)
+ //
+ / 'NORMAL INPUT FILLER #' #campoa(AD=a'#') 
+ / 'NORMAL MODIFIABLE    ' #campoA(AD=M )      'OUTPUT NORMAL '    #campoA(AD=O) 
+ / 'INTENSE MODIFIABLE   '(I) #campoB(AD=MI )  'OUTPUT INTENSE'(I) #campoB(AD=OI) 
+ / 'NORMAL UNDERLINED    ' #campoA(AD=MU )      'OUTPUT NORMAL '    #campoA(AD=OU) 
+ / 'INTENSE UNDERLINED   '(I) #campoB(AD=MIU )  'OUTPUT INTENSE'(I) #campoB(AD=OIU) 
+ / 'I,M PM=I             '(I) #campoC(AD=MI PM=I) 
+ / 'I,M PM=C             '(I) #campoD(AD=MI PM=C) 
+ / 'I,M PM=D             '(I) #campoE(AD=M PM=D) 
+ / 'I,M PM=N             '(I) #campoF(AD=M PM=N)
+ // '<PF3> TO EXIT'(I) 'or <ENTER> to test SET CONTROL'(INE)
+ / 
+ IF *PF-KEY='PF3'
+    ESCAPE BOTTOM
+ END-IF
+ SET CONTROL 'M=PI'
+            '=N'
+            '=TD=NE,TI=YE'
+            '=AD=BL,AI=GR'
+            '=MD=TU,MI=PI'
+            '=OD=YE,OI=RE'
+            '=TC=GR'
+            'MB'
+SET KEY ALL
+MOVE ALL '#' TO #A(*)
+MOVE 9999 TO #N(*)
+REPEAT
+INPUT 'ATTRIBUTES TEST USING' 'SET CONTROL'(I)
+/   25X         'M=PI'
+/   25X         '=N'
+/   25X         '=TD=NE,TI=YE'
+/   25X         '=AD=BL,AI=GR'
+/   25X         '=MD=TU,MI=PI'
+/   25X         '=OD=YE,OI=RE'
+/   25X         '=TC=GR'
+/   25X         'MB'
+/ 'TD: TEXT DEFAULT' 'TI: TEXT INTENSE'(I)
+/ 'AD:' #A(1) (AD=AD) #N(1) (AD=AD)   'BLUE'(BL)   'BLUE'(IBL)  'BLUE'(BLB)
+/ 'AI:' #A(2) (AD=AI) #N(2) (AD=AI)   'GREEN'(GR)  'GREEN'(IGR) 'GREEN'(GRB)
+/ 'MD:' #A(3) (AD=MD) #N(3) (AD=MD)   'TUR'(TU)    'TUR'(ITU)   'TUR'(TUB)  
+/ 'MI:' #A(4) (AD=MI) #N(4) (AD=MI)   'PIN' (PI)   'PIN'(IPI)   'PIN'(PIB)
+/ 'OD:' #A(5) (AD=OD) #N(5) (AD=OD)   'YEL' (YE)   'YEL' (IYE)  'YEL' (YEB)
+/ 'OI:' #A(6) (AD=OI) #N(6) (AD=OI)   'RED'(RE)    'RED'(IRE)   'RED'(REB)
+/ 'CV:' #A(7) (AD=MBI CD=RE) #N(7) (AD=MBI CD=PI)
+// '<PF3> STOP'(C)
+IF *PF-KEY='PF3' ESCAPE BOTTOM END-IF
+END-REPEAT
+  
+END-REPEAT
+END
+
+

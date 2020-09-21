@@ -1,0 +1,145 @@
+************************************************************************    
+**   OBJECT: NICSEC2        
+**   AUTHOR: BOEHM SL       
+**  Written: Dec 08, 2003   
+**     Mode: BATCH / ON-LINE / BATCH OR ON-LINE     
+** Function: for a given library, list special linked users and 
+**           their corresponding security profiles  
+** Maintained:  
+**  
+************************************************************************    
+DEFINE DATA     
+LOCAL
+1 #LIBRARY (A8)   /* LIBRARY TO REPORT ON           
+LOCAL           
+* NSCXR PARMS   
+01 POBJ-TYPE (A2)           
+01 POBJ-ID (A54)
+01 REDEFINE POBJ-ID         
+  02 PLIBRARY-ID(A8)        
+01 PLINKID (A8) 
+01 PRC               (N4)   
+01 SUBFUNC            (A2)  
+01 PPARM             (A20)  
+01 REDEFINE PPARM           
+  02 PNOMAP          (L)    
+  02 PSLINES    (B1)        
+  02 PRCOUNT    (B3)        
+  02 PPFKEY (N2/1:4)        
+  02 PCLASSID    (A2)       
+  02 PDUMMY      (A5)       
+01 PPARM2 (A80/1:21)        
+* 01 REDEFINE PPARM2          
+*     02 PFILEID     (A32/1:21)    
+*     02 PSTATUS     (A6/1:21)     
+*     02 PFNR        (N5/1:21)     
+*     02 PDBID       (N5/1:21)     
+*     02 PLINKSTATUS  (A6/1:21)    
+*     02 PPARM2-DUMMY (A26/1:21)   
+* 01 REDEFINE PPARM2              
+*     02 PUSERID     (A8/1:21)     
+*     02 PUSERNAME   (A32/1:21)    
+*     02 PDEFAP      (A8/1:21)     
+*     02 PUSERTYPE   (A2/1:21)     
+*     02 PCGROUP     (N5/1:21)     
+*     02 PLINKTYPE   (A2/1:21)     
+*     02 PPARM2-DUMMY1(A23/1:21)   
+1 WITHMAP        (A1)       
+1 DISPLAY-OUTPUT (A1)       
+1 #I             (P3)       
+1 #J             (P3)       
+1 #PSLINES       (N2)       
+1 #PRCOUNT       (N3)       
+1 START-USERID   (A8)       
+**  
+************************************************************************    
+** Variables for NICLSTLG in lib USXSYS 
+************************************************************************    
+1 #NICLSTLG-PARMS           
+  2 #USER     (A8)     /* passed from caller        
+  2 #LIBRARY2 (A8)     /* returned to caller        
+  2 #LAST-LOGON (A10)  /* returned to caller        
+*   
+1 #USER-ID (A8) 
+1 #LIB-ID  (A8) 
+1 #PASSWORD (A8)
+1 #USER-IDS (A8)
+1 #USERNAMES (A32)          
+1 #LINKTYPE  (A15)          
+1 #USER-CT (P4) 
+1 #FILE (A40)   
+1 #TEMP-LINE (A79)          
+1 #FIRST (L)    
+1 #MORE (L)     
+ 1 #LINK-DESC(A12)          
+END-DEFINE      
+**----------------------------------------------------------------------    
+FORMAT LS=132 PS=60         
+SET KEY ALL     
+* 
+PROCESS SQL TABLES << SET CURRENT SQLID='ADS' >>  
+MOVE 'USXSYS' TO #LIBRARY PLIBRARY-ID 
+WRITE TITLE LEFT *PROGRAM 35T 'Library Access report'  70T *DATU
+            /             35T 'For library' #LIBRARY   70T *TIMX
+            //  
+*   
+MOVE 'USXSYS' TO #LIBRARY
+* PERFORM GET-LINKED-USERS    
+* WRITE #USER-CT 'USERS LINKED'           
+* **----------------------------------------------------------------------    
+* DEFINE GET-LINKED-USERS     
+* **----------------------------------------------------------------------    
+PSLINES := 0    
+DISPLAY-OUTPUT := 'Y'       
+WITHMAP := 'N'  
+SUBFUNC := 'US' 
+POBJ-TYPE := 'LI'           
+MOVE PSLINES TO #PSLINES    
+MOVE TRUE TO PNOMAP         
+RESET #USER-IDS    #USERNAMES           
+#USER-CT := 0   
+#MORE := FALSE  
+*   
+* LB1. REPEAT          
+*   MOVE PUSERID (21)  TO START-USERID    
+*   MOVE #PSLINES TO PSLINES  
+*   MOVE START-USERID  TO PUSERID (21)    
+  CALLNAT 'NSCXR' POBJ-TYPE POBJ-ID PLINKID PRC SUBFUNC PPARM  PPARM2(*)    
+  for #I = 1 TO 21
+    DISPLAY PPARM2(#I) (AL=60)
+  END-FOR
+*   
+*   ASSIGN #PRCOUNT = PRCOUNT 
+*   FOR #I := 1 TO #PRCOUNT   
+*     IF #MORE AND #I = 1     
+*       ESCAPE TOP
+*     END-IF      
+* *     write '=' PLINKTYPE(#I) '=' PUSERID(#I)  
+* **WRITE PPARM2 (#I) (AL=60)
+*     IF PLINKTYPE(#I) = 'SL' OR= 'LK' or= '  '
+*       IF PUSERID(#I) = MASK('#'*)       
+*          ESCAPE TOP         
+*       END-IF    
+*       ADD 1 TO #USER-CT     
+*       #USER-IDS  := PUSERID(#I)         
+*       #USERNAMES := PUSERNAME (#I)      
+*       #LINKTYPE  := PLINKTYPE (#I)      
+* *       PERFORM WRITE-PROFILES
+*     END-IF      
+*   END-FOR       
+*   IF #PRCOUNT < 21          
+*     ESCAPE BOTTOM (LB1.)    
+*   ELSE          
+*     #MORE := TRUE           
+*   END-IF        
+* END-REPEAT      
+* * IF *DEVICE NE 'BATCH'       
+* *   IF #USER-CT = 0           
+* *     REINPUT 'No special links found in this library'
+* *   END-IF        
+* * END-IF          
+* *   
+* **WRITE '=' #USER-CT        
+* END-SUBROUTINE  
+ 
+END

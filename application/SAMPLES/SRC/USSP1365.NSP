@@ -1,0 +1,26 @@
+define data
+local 
+1 #i (p2)
+1 #old (a8)
+1 usx-master-rgstr view of EMPLOYEES
+  2 PERSONNEL-ID
+  2 NAME
+1 usx-sub-rgstr view of VEHICLES
+  2 PERSONNEL-ID
+  2 MODEL
+end-define
+LB1. read usx-master-rgstr
+at break of PERSONNEL-ID
+  /* assign #old = old (SYS-ID) /* EJM Workaround
+  Find usx-sub-rgstr with PERSONNEL-ID =  old (USX-master-rgstr.PERSONNEL-ID)
+  if no records found 
+     /* write 'this is the old ' #old /* EJM Workaround
+     write 'this is the old ' old (LB1.)(USX-master-rgstr.PERSONNEL-ID)
+     old (USX-master-rgstr.PERSONNEL-ID)
+     ESCAPE BOTTOM
+  end-norec
+  DISPLAY old (LB1.)(USX-master-rgstr.PERSONNEL-ID) NAME MODEL
+end-find
+end-break
+end-read
+end

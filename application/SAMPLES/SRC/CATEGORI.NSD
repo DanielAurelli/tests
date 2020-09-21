@@ -1,0 +1,16 @@
+DB: 105   FILE: 001  - CATEGORIES                         DEFAULT SEQUENCE:
+TYPE: SQL
+
+T L DB Name                              F Leng  S D Remark
+- - -- --------------------------------  - ----  - - ------------------------
+  1 AA CATEGORY_ID                       I 4     N D
+  1 I_ N@CATEGORY_ID                     I 2
+  1 AB CATEGORY_NAME                     A 16    N D
+  1 I_ N@CATEGORY_NAME                   I 2
+  1 AC DESCRIPTION                       A 153   N D
+  1 I_ N@DESCRIPTION                     I 2
+  1 AD PICTURE                           A 153   N D
+  1 I_ N@PICTURE                         I 2
+  1 AE PROCESS                           A 2       D
+  1 AF VAL                               A 2       D
+******DDM OUTPUT TERMINATED******

@@ -1,0 +1,4 @@
+read employees by name
+  where city = 'MADRID' AND SEX = 'F'
+DISPLAY *ISN NAME CITY SEX ADDRESS-LINE(1)
+END

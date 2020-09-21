@@ -1,0 +1,51 @@
+0001* Homologação
+0002*
+0003fetch return 'arr1d01'
+0004newpage
+0005fetch return 'arr2d01'
+0006newpage
+0007fetch return 'arr3d01'
+0008newpage
+0009fetch return 'arrgr01'
+0010newpage
+0011fetch return 'exam01'
+0012newpage
+0013fetch return 'exmex1'
+0014newpage
+0015fetch return 'exmex2'
+0016newpage
+0017fetch return 'bid164'
+0018newpage
+0019fetch return 'init1'
+0020newpage
+0021fetch return 'init5'
+0022newpage
+0023fetch return 'misc1'
+0024newpage
+0025fetch return 'movpos01'
+0026newpage
+0027fetch return 'movpos02'
+0028newpage
+0029fetch return 'redef'
+0030newpage
+0031fetch return 'sep01'
+0032newpage
+0033fetch return 'sepex1'
+0034newpage
+0035fetch return 'sepex2'
+0036newpage
+0037fetch return 'sepex3'
+0038newpage
+0039fetch return 'zpoff01'
+0040newpage
+0041fetch return 'dyn01'
+0042newpage
+0043fetch return 'bid061p'
+0044newpage
+0045fetch return 'bid00701'
+0046newpage
+0047fetch return 'bid079'
+0048newpage
+0049fetch return 'resize'
+0050newpage
+0051end

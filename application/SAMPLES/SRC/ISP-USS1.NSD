@@ -1,0 +1,10 @@
+DB: 147   FILE: 016  - ISP-USS-SYSTEM-FILE-3              DEFAULT SEQUENCE:
+TYPE: INCORE
+
+T L DB Name                              F Leng  S D Remark
+- - -- --------------------------------  - ----  - - ------------------------
+*      Generation started
+*      at 95-11-03 09:42:10
+*      by user WB109J7
+  1 AA FIELD-1                           A 250   N D
+******DDM OUTPUT TERMINATED******

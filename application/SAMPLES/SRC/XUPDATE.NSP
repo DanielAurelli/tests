@@ -1,0 +1,12 @@
+** Example update DE super
+************************************************************************
+*
+F1. FIND EMPLOYEES WITH DEPT='ADMA01'
+  WRITE *ISN DEPT SEX CITY
+  UPDATE RECORD IN STATEMENT (F1.)
+   SET
+   CITY='SAO PAULO'
+   SALARY(1) = 3001.55
+   DEPT='ADS'
+  END TRANSACTION
+end

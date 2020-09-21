@@ -1,0 +1,151 @@
+************************************************************************    
+** DESCRIPTION:  SUBPROGRAM TO SET-UP AND PROCESS ON-LINE VIEWING FOR       
+**               A REPORT.  
+**  
+** PROGRAM:  NGLMVIEW       
+**  AUTHOR:  CHRISTEN FISCHL
+**    DATE:  09/20/02       
+**  
+** MAINTENANCE: 
+** DATE - INITIALS - DESCRIPTION OF CHANGE          
+** ---------------------------------------------------------------------    
+** 11/21/02  CLR  ADDED SET KEY PF12 FOR PRINTER WINDOW AND SET KEYS        
+**                PF1, PF3, PF4 TO BLANKS.          
+************************************************************************    
+DEFINE DATA     
+LOCAL
+1 #RPT-NO       (A2)        
+*   
+LOCAL USING IDBI---L  /** INCORE        
+LOCAL           
+1 REPORT-FILE VIEW ISP-INCORE-REPORT    
+  2 LINE        
+  2 REDEFINE LINE           
+    3 #LINE-FF     (A1)  /* HOLDS FORM FEED CONTROL-CHARACTER   
+    3 #LINE-DATA   (A131)   
+*   
+LOCAL           
+1 #ERR-MESS        (A9)  /* RETURNS EITHER 'FOUND' OR 'NOT FOUND'           
+  /* FOR NICDPSCK           
+1 #LTERM           (A8)     
+1 #IDENTIFIER      (A8)     
+1 #LINE            (A132)   
+1 REDEFINE #LINE
+  2 #LINE-DATA2    (A131)   
+  2 #LINE-FF2      (A1)     
+END-DEFINE      
+*   
+FORMAT(10) LS=133 PS=59     
+*   
+COMPRESS 'REPORT' #RPT-NO INTO #IDENTIFIER LEAVING NO           
+*   
+DEFINE WINDOW WIN1      /* WINDOW FOR ENTERING LTERM FOR PRINTING           
+  SIZE 6*40     
+  TITLE 'PRINT REPORT'      
+*   
+PERFORM STRIP-CONTROL-CHAR  
+*   
+PERFORM SET-UP-FOR-ONLINE-VIEW          
+*   
+SET CONTROL 'ENTR'      /* RESET THE *PF-KEY AFTER RETURNING TO PROGRAM     
+*   
+DECIDE ON FIRST VALUE OF RETURN-MAIN-COMMAND        
+  VALUE 'PRINT'  /* RETURN-MAIN-COMMAND IS THE      
+    /* COMMAND USED TO EXIT BROWSE      
+    SET KEY PF12
+    CALLNAT 'NIC9915' #LTERM
+    SET WINDOW 'WIN1'       
+    INPUT 'PLEASE ENTER YOUR LTERM' #LTERM (AD=MI'_')           
+      //  'PRESS PF12 TO EXIT' (AD=I)   
+*   
+    IF *PF-KEY = 'PF12'     
+      SET WINDOW OFF        
+      ESCAPE ROUTINE IMMEDIATE          
+    END-IF      
+*   
+    CALLNAT 'NICDPSCK' #LTERM #ERR-MESS /* CALL TO VERIFY PRINTER           
+    IF #ERR-MESS = 'NOT FOUND'          
+      REINPUT 'INVALID PRINTER'         
+    END-IF      
+*   
+    SET WINDOW OFF          
+    DEFINE PRINTER (10) OUTPUT #LTERM   
+    READ REPORT-FILE IDENTIFIER = #IDENTIFIER       
+      MOVE LINE TO #LINE    
+      DECIDE FOR FIRST CONDITION        
+        WHEN #LINE-FF2 = H'FF'          
+          NEWPAGE(10)       
+        WHEN NONE           
+          IGNORE
+      END-DECIDE
+      WRITE (10) NOTITLE NOHDR #LINE-DATA2          
+    END-READ    
+    NEWPAGE (10)
+    END TRANSACTION         
+    CLOSE PRINTER (10)      
+    ESCAPE ROUTINE IMMEDIATE
+*   
+  VALUE 'CANCL','ENTR'      
+    IF *PF-KEY = 'PF12' OR= 'ENTR'      
+      SET WINDOW OFF        
+**       CALLNAT 'NSSMVDEL' #RPT-NO     
+      ESCAPE ROUTINE IMMEDIATE          
+    END-IF      
+  NONE          
+    IGNORE      
+END-DECIDE      
+*   
+** CALLNAT 'NSSMVDEL' #RPT-NO       /** PURGE INCORE REPORT DATA
+*   
+************************************************************************    
+DEFINE SUBROUTINE SET-UP-FOR-ONLINE-VIEW
+************************************************************************    
+SET KEY ALL     
+SET KEY PF1=DATA  '     '  NAMED '     '
+SET KEY PF2=DATA  'PRINT'  NAMED 'PRINT'
+SET KEY PF3=DATA  '     '  NAMED '     '
+SET KEY PF4=DATA  '     '  NAMED '     '
+SET KEY PF5=DATA  'RFIND'  NAMED 'RFIND'
+SET KEY PF6=DATA  'TOP'    NAMED 'TOP'  
+SET KEY PF7=DATA  'UP'     NAMED 'UP'   
+SET KEY PF8=DATA  'DOWN'   NAMED 'DOWN' 
+SET KEY PF9=DATA  'BOTTOM' NAMED 'BOT'  
+SET KEY PF10=DATA 'LEFT'   NAMED 'LEFT' 
+SET KEY PF11=DATA 'RIGHT'  NAMED 'RIGHT'
+SET KEY PF12=DATA 'QUIT'   NAMED 'CANCL'
+*   
+/*STRUCT OFF    
+ASSIGN KEYS-TYPE            = 'ON'  /* TURN ON PF KEYS IN REPORT
+ASSIGN ACTION               = 'BROWSE'  
+ASSIGN SCROLL               = 'CSR'     
+ASSIGN FILE-IDENTIFIER      = #IDENTIFIER           
+ASSIGN ESCAPE-MAIN-COMMANDS = 'QUIT EXIT PRINT'  /* LIST VALID EXIT         
+                                                 /* COMMANDS    
+ASSIGN HORIZONTAL-SCROLL    = 'YES' /* ALLOW LEFT AND RIGHT SCROLLING       
+CALLNAT INCORE USING INCORE-CTL INCORE-DATA         
+/*STRUCT ON     
+END-SUBROUTINE  
+*   
+************************************************************************    
+DEFINE SUBROUTINE STRIP-CONTROL-CHAR    
+************************************************************************    
+** STRIP CONTROL CHARACTER FROM BEGINNING OF RECORD AND MOVE    
+** TO END OF RECORD AS AN UNPRINTABLE CHARACTER.  THIS WILL     
+** ELIMINATE THE DISPLAY OF THE CONTROL CHARACTER WITHIN THE    
+** ON-LINE VIEW.
+*   
+##L1370. READ REPORT-FILE IDENTIFIER = #IDENTIFIER  
+  MOVE #LINE-DATA TO #LINE-DATA2        
+  DECIDE FOR FIRST CONDITION
+    WHEN #LINE-FF = '1'           /* TOP OF PAGE  (FORM FEED)   
+      ASSIGN #LINE-FF2 = H'FF'   /* HIGH-VALUES     
+    WHEN NONE   
+      ASSIGN #LINE-FF2 = ' '     /* LOW-VALUES      
+  END-DECIDE    
+  MOVE #LINE TO LINE        
+  UPDATE(##L1370.)          
+  END TRANSACTION           
+END-READ        
+END-SUBROUTINE  
+*   
+END 

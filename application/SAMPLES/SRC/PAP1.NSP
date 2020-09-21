@@ -1,0 +1,16 @@
+** PR0178   NATURAL V1 Sum Array (1-10)
+*
+LIMIT 10
+RESET #A (P3/1:10)
+RESET #I (P3)
+RESET #SUM (P5)
+FOR #I = 1 to 10
+  assign #A (#I) = #I
+LOOP
+compute #SUM = #A (1:10) + 0 
+DISPLAY #SUM #A (*)
+compute #SUM = 0 + #A (1:10)
+DISPLAY #SUM #A (*)
+compute #SUM = #A (1:10) + #A (1:10)
+DISPLAY #SUM #A (*)
+END

@@ -1,0 +1,15 @@
+define data local
+1 EM-PERS-TRANS-VIEW               VIEW OF EM-PERS-TRANS             
+  2 SAL-INC-DATA (1:2) /* Periodic Group
+    3 SAL-INC-DT /* Group   
+      4 SAL-INC-MO (A2)     
+      4 SAL-INC-DY (A2)     
+      4 SAL-INC-YR (A2)     
+end-define
+* Read (1) em-pers-trans-view
+write EM-PERS-TRANS-VIEW.SAL-INC-YR(1)
+* write SAL-INC-DT.sal-inc-yr(1)
+write em-pers-trans-view.sal-inc-yr(1)
+write sal-inc-yr(1)
+Display sal-inc-data(1) SAL-INC-MO(1)  SAL-INC-YR(1)
+end

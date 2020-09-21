@@ -1,0 +1,22 @@
+DEFINE DATA LOCAL
+1 employees VIEW employees
+  2 name
+  2 personnel-id 
+  2 salary
+1 #NUM1 (N5)
+1 #REM  (N5.2)
+1 #I    (N5)
+1 #NUM2  (N8)
+1 #TOTAL (N8)
+END-DEFINE
+PASSW='ADS'
+
+RD. READ employees WITH PERSONNEL-ID = 10 
+  AT BREAK OF NAME
+    ESCAPE BOTTOM /* IMMEDIATE
+  END-BREAK
+  WRITE 'FOUND ONE'
+END-READ
+WRITE 'END OF PROGRAM'
+END
+

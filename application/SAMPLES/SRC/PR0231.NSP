@@ -1,0 +1,18 @@
+RESET #NAME(A20)
+* * #NAME ='ABELLAN'
+ #NAME ='ANDERSEN'
+
+FD1.   FIND EMPLOYEES WITH NAME = #NAME 
+WRITE 'BEFORE THE FIND ' #NAME 'from first find BIRTH is' BIRTH
+FO8. FIND EMPLOYEES WITH PERSONNEL-ID= '50005800'
+    IF NO RECORDS FOUND     
+      ESCAPE    
+  write 'from second find BIRTH is ' BIRTH(FO8.)
+    write 'from UNQUALIFIED second find BIRTH is ' BIRTH
+* *   redefine cost-ctr-dt-turn(FO8.) (#filler-11 (A11) #turn (a1))
+* *   WRITE 'IN THE FINd ' cost-ctr-dt-turn '*' #turn
+* *   accept if #turn = '1' or = '2' or = '3'
+* *   write 'after the accept' #TURN
+loop (FO8.)
+Loop(FD1.)
+end

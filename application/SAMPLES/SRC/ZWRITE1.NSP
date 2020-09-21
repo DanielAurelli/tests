@@ -1,0 +1,20 @@
+DEFINE DATA LOCAl
+1 #A1(A10/10)
+1 #I(N2)
+END-DEFINE
+FORMAT(0) LS=80
+FOR #I = 1 TO 10
+  MOVE ALL #I TO #A1(#I)
+END-FOR
+WRITE(0) NOTITLE
+       #A1(01) 
+   12t  #A1(02) 
+   40T  #A1(03) 
+ / 70t  #A1(04)
+ / 12T  #A1(05)
+   70t  #A1(06)
+ / 25T  #A1(07)
+ 04/40 #A1(08)
+#A1(09)
+#A1(10)
+END

@@ -1,0 +1,10 @@
+DB: 000   FILE: 001  - US445_TABLE                        DEFAULT SEQUENCE:
+TYPE: SQL
+
+T L DB Name                              F Leng  S D Remark
+- - -- --------------------------------  - ----  - - ------------------------
+  1 AA TUK                               P 11
+  1 AB US445_DATE_CHA                    A 8
+  1 AC US445_DATE_DEC                    P 8
+  1 AD US445_DATE_NUM                    P 8
+******DDM OUTPUT TERMINATED******

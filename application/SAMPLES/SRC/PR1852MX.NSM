@@ -1,0 +1,20 @@
+* MAP2: PROTOTYPE
+* INPUT USING MAP 'XXXXXXXX'
+*
+DEFINE DATA
+PARAMETER
+ 1 #A (A005)
+END-DEFINE
+PS=23 LS=80 ZP=ON SG=OFF KD=ON IP=OFF
+* MAP2: MAP PROFILES *****************************        200***********
+* .TTAAAMMOO   D I D I N D I D I        ?_)^&:+(   '        '          *
+* 023079        N1NNUCN____         X        01 NCST    YL           1 *
+************************************************************************
+INPUT(IP=OFF)
+/
+/
+ 002T 'Field with helproutine and rule validation'
+ 055T #A   (HE=PR1852H1)
+* MAP2: VALIDATION *****************************************************
+* MAP2: END OF MAP *****************************************************
+END

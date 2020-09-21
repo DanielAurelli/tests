@@ -1,0 +1,8 @@
+0010define data local
+002001 #tab (n3/1:100) init (1:5) <111> (20:30) <123> (60:80) <222>
+0030end-define
+0040include incprog
+0050format   zp=off
+0060write  #tab (*)
+0070end
+0080

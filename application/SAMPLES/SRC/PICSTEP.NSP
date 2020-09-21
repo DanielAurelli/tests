@@ -1,0 +1,216 @@
+************************************************************************    
+**   OBJECT: PICSTEP        
+**   AUTHOR: EVANS DJ       
+**  Written: Mar 25, 2003   
+**     Mode: BATCH / ON-LINE / BATCH OR ON-LINE     
+**    Other: PICSTAMP Protected         
+************************************************************************    
+* ================================================================= *       
+*                                                                   *       
+*   DESCRIPTION : This program is an example of how to get          *       
+*                 cross-reference data for STEPLIBS.                *       
+*                                                                   *       
+*                 SUBFUNC must be filled with:                      *       
+*                  '*',' '  to get all Libaries.                    *       
+*                  'NN' to get all public Libaries.                 *       
+*                  'LK' to get all protected Libaries.              *       
+*                                                                   *       
+*          To assign a start value, use PFILEID(21) or PUSERID(21). *       
+*                                                                   *       
+* ==================================================================*       
+*   
+*   
+DEFINE DATA     
+LOCAL           
+01 POBJ-TYPE (A2)         /* To be filled with Object type 'ST'.
+*   
+01 POBJ-ID (A54)          /* This parameter is redefined as follows:        
+01 REDEFINE POBJ-ID       /*
+  02 PSTEPLIBID(A8)      /* To be filled with the Steplib-Library ID.       
+*   
+01 PDUMMY1 (A8)           /* Unused for this function.          
+*   
+01 PRC               (N4) /* Contains the return code.          
+*                          /* This will be '0' if the function was          
+*                          /* performed successfully. Any other 
+*                          /* return code 'nnnn' corresponds either         
+*                          /* to a NATURAL SECURITY error number
+*                          /* or, if prefixed with '-', to a    
+*                          /* NATURAL system error number.      
+*                          /* You can display the corresponding 
+*                          /* message by entering the NATURAL system        
+*                          /* command 'HELP Unnnn' (for a NATURAL           
+*                          /* SECURITY message, in library SYSSEC)          
+*                          /* or 'HELP nnn' (for a NATURAL system           
+*                          /* message.  
+*   
+01 SUBFUNC            (A2)/* To be filled with :    
+*                            '*',' '  to get all Libaries.      
+*                            'NN' to get all public Libaries.   
+*                            'LK' to get all protected Libaries.
+*   
+01 PPARM             (A20)  
+01 REDEFINE PPARM           
+  02 PNOMAP          (L)  /* Unused for this function.          
+*   
+  02 PSLINES    (B1)      /* To be filled with number of wanted lines.      
+*   
+  02 PRCOUNT    (B3)      /* Number of returned lines.          
+*   
+  02 PPFKEY (N2/1:4)      /* PF-keys.   
+*   
+  02 PCLASSID    (A2)     /* Unused for this function.          
+*   
+  02 PDUMMY      (A5)     /* (reserved for future use)          
+*   
+01 PPARM2 (A80/1:21)      /* Return data.           
+*                         /* To assign a start value use occurrence 21.     
+*   
+01 REDEFINE PPARM2        /* This parameter is      
+*                         /* redefined as follows:  
+  02 PPARM2-GR1  (1:21)   /*
+    03 PSTEPLIB-ID (A8)   /* Steplib ID.
+    03 PSTEPLIB-DEF   (A1)/* Will be filled with 'Y' if this steplib-       
+*                         /* library-id is defined. 
+    03 PSTEPLIB-FNR  (N5) /* File number of Library ID          
+*                         /* defined as Steplib     
+    03 PSTEPLIB-DBID (N5) /* Database ID of Library ID          
+*                         /* defined as Steplib     
+    03 PLIBRARY-ID   (A8) /* Libary Id where the Steplib ID is defined .    
+    03 PLIBRARY-FNR (N5)  /* File number of this Library ID.    
+    03 PLIBRARY-DBID (N5) /* Database ID of this Library ID.    
+    03 PLIBRARY-TYPE (A1) /* Library type:          
+*                         /* 'A' - Library          
+*                         /* 'U' - Private Library  
+*   
+    03 PSTEPLIB-TAB-FNR (N5) /* File number of Steplib Id defined           
+*                         /* in the steplib table.  
+    03 PSTEPLIB-TAB-DBID (N5) /* Database ID of Steplib ID defined          
+*                         /* in the steplib table.  
+    03 PSTEPLIB-TAB-POS  (N2) /* Position of the Steplib ID     
+*                         /* in the steplib table.  
+    03 PLINK-ID (A8)      /* Link ID for this protected Library ID.         
+    03 PDUMMY   (A22)     /* Not yet used.          
+*   
+*   
+LOCAL           
+01 WITHMAP          (A1)    
+01 DISPLAY-OUTPUT   (A1)    
+01 I                (N2)    
+01 #PSLINES         (N2)    
+01 #PRCOUNT         (N3)    
+01 START-STEPLIB-ID (A8)    
+01 START-LIBRARY-ID (A8)    
+01 START-SLINK-ID   (A8)    
+END-DEFINE      
+*   
+DEFINE WINDOW NATWIND SIZE 14*62 BASE 5/10          
+  TITLE 'Xref Steplib - Libraries'      
+  CONTROL SCREEN
+SET KEY ALL     
+SET KEY PF1  NAMED 'Help '  
+  PF2  NAMED 'PrevM'        
+  PF3  NAMED 'Exit '        
+  PF4  NAMED 'AddOp'        
+  PF6  NAMED 'Flip '        
+  PF12 NAMED 'Canc '        
+  PF13 NAMED 'Refr '        
+  PF15 NAMED 'Menu '        
+*   
+FORMAT SG=OFF PS=60         
+*   
+ASSIGN POBJ-TYPE = 'LI'     
+ASSIGN PSLINES = 60         
+ASSIGN  DISPLAY-OUTPUT  = 'Y'           
+ASSIGN  WITHMAP = 'N'       
+ASSIGN  SUBFUNC = 'LL'       
+***IGN  PSTEPLIBID = 'SYSTEM'           
+*   
+MOVE  PSTEPLIB-ID (21)  TO START-STEPLIB-ID         
+MOVE  PLIBRARY-ID (21)  TO START-LIBRARY-ID         
+MOVE  PLINK-ID    (21)  TO START-SLINK-ID           
+RESET PPARM2 (*)
+INPUT WINDOW = 'NATWIND' (AD=MITL'_' IP=OFF SG=OFF) TEXT *PRC   
+*   / 'OBJECT TYPE ........................' POBJ-TYPE          
+  'ENTER THE STEPLIB FOR XREF SEARCH   ' //         
+  / 'Steplib ID .........................' PSTEPLIBID           
+*   / 'NUMBER OF WANTED LINES .............' #PSLINES           
+*   / 'START VALUE FOR STEPLIB ID .........' START-STEPLIB-ID   
+*   / 'START VALUE FOR LIBRARY ID .........' START-LIBRARY-ID   
+*   / 'START VALUE FOR SPECIALLINK ID .....' START-SLINK-ID     
+*   / 'SUBFUNCTION (*, ,NN,LK) ............' SUBFUNC
+*   / 'DISPLAY OUTPUT .....................' DISPLAY-OUTPUT     
+  // '       RETURN CODE: ' PRC //      
+**  //  '            PRESS ANY PF-KEY TO STOP'      
+    //  ' PF3=EXIT                       '          
+*   
+MOVE #PSLINES TO PSLINES    
+*   
+MOVE START-STEPLIB-ID TO PSTEPLIB-ID (21)           
+MOVE START-LIBRARY-ID TO PLIBRARY-ID (21)           
+MOVE START-SLINK-ID   TO PLINK-ID    (21)           
+*   
+IF *PF-KEY = 'PF3'          
+ escape routine 
+*  FETCH 'PICSTAT'
+END-IF          
+*   
+IF WITHMAP = 'Y'
+  MOVE FALSE TO PNOMAP      
+ELSE
+  MOVE TRUE TO PNOMAP       
+END-IF          
+*   
+* Now specify your input:   
+*   
+REPEAT          
+  CALLNAT 'NSCXR' POBJ-TYPE POBJ-ID PDUMMY1 PRC SUBFUNC PPARM  PPARM2(*)    
+*   
+  ASSIGN #PRCOUNT = PRCOUNT 
+WRITE TITLE LEFT *PROGRAM 25T 'STEPLIB X-REF FOR' PSTEPLIBID(AD=I)          
+  69T *DAT4U    
+/   
+  IF DISPLAY-OUTPUT = 'Y' AND PRC = 0   
+    WRITE 'Stepl.ID Def FNR' 19T'DBID' 25T 'Lib. ID Ty.' 38T 'FNR'          
+      45T 'DBID' 53T 'STFNR' 60T 'STDBID' 'Pos' 71T 'Link ID'   
+    WRITE '----------------' 19T'----' 25T '-----------' 38T '---'          
+      45T '----' 53T '-----' 60T '------' '---' 71T '-------'   
+    FOR I 1 #PRCOUNT        
+      WRITE     
+        1T PSTEPLIB-ID      (I)         
+        10T PSTEPLIB-DEF     (I)        
+        12T PSTEPLIB-FNR     (I)        
+        18T PSTEPLIB-DBID    (I)        
+        25T PLIBRARY-ID      (I)        
+        34T PLIBRARY-TYPE    (I)        
+        38T PLIBRARY-FNR     (I)        
+        45T PLIBRARY-DBID    (I)        
+        53T PSTEPLIB-TAB-FNR (I)        
+        60T PSTEPLIB-TAB-DBID(I)        
+        67T PSTEPLIB-TAB-POS (I)        
+        71T PLINK-ID         (I)        
+    END-FOR     
+    NEWPAGE     
+  END-IF        
+  IF #PRCOUNT LT 21         
+**  ESCAPE ROUTINE          
+    FETCH 'PICSTEP'         
+  END-IF        
+END-REPEAT      
+END 
+************************************************************************    
+** THE INFORMATION CONTAINED HEREIN IS THE CONFIDENTIAL PROPERTY OF         
+** UNITED STATES STEEL CORPORATION.  IT IS NOT TO BE DISCLOSED OUTSIDE      
+** OF THIS CORPORATION EXCEPT TO LICENSEES OF UNITED STATES STEEL           
+** CORPORATION WHO HAVE AGREED IN WRITING TO MAINTAIN IT IN     
+** CONFIDENCE.  UNAUTHORIZED USE OF THIS INFORMATION IS STRICTLY
+** PROHIBITED.  
+**  
+**         COPYRIGHT (C) 2003 UNITED STATES STEEL CORPORATION   
+**                         ALL RIGHTS RESERVED      
+************************************************************************    
+** INSTALLED on Thu, Mar 27, 2003 at 13:29 by XY109G7 MELLINGER J A         
+** INSTALLED on Thu, Mar 27, 2003 at 13:47 by XY109G7 MELLINGER J A         
+** INSTALLED on Thu, Mar 27, 2003 at 13:56 by XY109G7 MELLINGER J A         
+** INSTALLED on Thu, Mar 27, 2003 at 14:10 by XY109G7 MELLINGER J A         
+** INSTALLED on Mon, Mar 31, 2003 at 11:32 by XY109G7 MELLINGER J A         

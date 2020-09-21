@@ -1,0 +1,24 @@
+DEFINE DATA LOCAL
+1 #BANK-DAYS(N3)
+1 #CHGD-DATE(A1)
+1 #DATEVAL(D)
+1 #WEEKDAY(A1)
+END-DEFINE
+MOVE 'Y' TO #CHGD-DATE
+PERFORM CHECK-FOR-HOLIDAY
+**********************************************************************   
+DEFINE SUBROUTINE CHECK-FOR-HOLIDAY    
+**********************************************************************   
+IF #CHGD-DATE = 'Y'        
+  PERFORM CALC-DAY-OF-WEEK 
+  PERFORM CHECK-FOR-HOLIDAY
+ELSE
+  ADD 1 TO #BANK-DAYS      
+END-IF
+END-SUBROUTINE
+**********************************************************************   
+DEFINE SUBROUTINE CALC-DAY-OF-WEEK
+**********************************************************************   
+MOVE EDITED #DATEVAL(EM=O) TO #WEEKDAY
+END-SUBROUTINE
+END

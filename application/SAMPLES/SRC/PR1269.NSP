@@ -1,0 +1,36 @@
+DEFINE DATA     
+  LOCAL         
+*   
+* Scalar Constants.         
+  01 #MAX-LINES(P3) CONST<75>           
+  01 #MAX-PANELS(P3) CONST<11>           
+  01 #MAX-SCROLL-REGIONS(P1) CONST<11>   
+*   
+* Array Constants.          
+  01 #CURS-C(P3/1:#MAX-PANELS,1:#MAX-SCROLL-REGIONS,1:2) /* Cursor Col      
+    CONST (1,1,1)<2> (1,1,2)<79>        
+  01 #CURS-L(P3/1:#MAX-PANELS,1:#MAX-SCROLL-REGIONS,1:2) /* Cursor Line     
+    CONST (1,1,1)<10> (1,1,2)<20>       
+*   
+* Miscellaneous Variables.  
+ 
+   01 #ARRAY-INDEXES(N7/1:#MAX-SCROLL-REGIONS)       
+   01 REDEFINE #ARRAY-INDEXES
+      02 #ARRAY1(N7)          
+ 
+   01 #NEXT-DEPTH(P3)        
+   01 #NEXT-INDEXES(P3/1:#MAX-SCROLL-REGIONS)        
+   01 REDEFINE #NEXT-INDEXES 
+     02 #NEXT-ARRAY1(P3)       
+   01 #SCROLL-VARS           /* Scroll variables on map.         
+     02 #CURR-INDEX(P3/1:#MAX-PANELS,1:#MAX-SCROLL-REGIONS) INIT ALL <1>     
+     02 #PANEL(N7) INIT <1>  
+ 
+END-DEFINE      
+*   
+**  
+* Define Formats
+FORMAT PS=23 KD=ON LS=133 ZP=OFF        
+ASSIGN #NEXT-INDEXES(*) = #ARRAY-INDEXES(*) = #CURR-INDEX(#PANEL,*)
+Display #max-scroll-regions #panel #next-indexes (*) 
+End

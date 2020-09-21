@@ -1,0 +1,60 @@
+DEFINE DATA LOCAL
+1 #OPC(A1/10)
+1 #MSG(N4)
+1 #LANG(N2)INIT <1>
+END-DEFINE
+SET KEY PF3 NAMED 'STOP'
+REPEAT
+  MOVE #LANG TO *LANGUAGE
+  INPUT (IP=OFF AD=a'_') 
+  // 10x 'SCREEN IO EVALUATION' (IGR)
+  //
+  / 10x '--------------------------'
+  / 10x 'FIELD ATTRIBUTES:' #OPC(1)
+  / 10x 'FIELD EDITING   :' #OPC(2)
+  / 10x 'SCREEN SIZE     :' #OPC(3)
+  / 10x 'SCREEN WINDOWS  :' #OPC(4)
+  / 10x 'HELP ROUTINES   :' #OPC(5)
+  / 10x 'REPORT PRINT    :' #OPC(6)
+  / 10x 'NUMERIC VALUE   :' #OPC(9)
+  / 10x '--------------------------'
+  /
+  
+  // '<PF3> TO EXIT'(I)
+  /
+  IF *PF-KEY='PF3'
+    ESCAPE BOTTOM
+  END-IF
+  IF #OPC(1) NE ' ' 
+    FETCH RETURN 'IOSCR01'
+  END-IF
+  IF #OPC(2) NE ' ' 
+    FETCH RETURN 'IOSCR02'
+  END-IF
+  IF #OPC(3) NE ' ' 
+    FETCH RETURN 'IOSCR03'
+  END-IF
+  IF #OPC(4) NE ' ' 
+    FETCH RETURN 'IOSCR04'
+  END-IF
+  IF #OPC(5) NE ' ' 
+    FETCH RETURN 'IOSCR05'
+  END-IF
+  IF #OPC(6) NE ' ' 
+    FETCH RETURN 'IOSCR06'
+  END-IF
+  IF #OPC(7) NE ' ' 
+    FETCH RETURN 'IOSCR07'
+  END-IF
+  IF #OPC(8) NE ' ' 
+    FETCH RETURN 'IOSCR08'
+  END-IF
+  
+  IF #OPC(9) NE ' ' 
+    FETCH RETURN 'IOSCR09'
+  END-IF
+  
+END-REPEAT
+END
+
+

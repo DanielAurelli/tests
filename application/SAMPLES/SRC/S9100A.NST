@@ -1,0 +1,965 @@
+BTTS91003053dd0eda85c691abfef8d69d2736f8180021F2000700E9009A0088000502F500190857
+**** Signature => NRUN1  BTTS9100
+********************************************INFORMATION AREA
+  Regions     =>7     Code Lines      =>233
+  Constants   =>154   Vars Table      =>25
+  Symbols     =>5     Constant Area   =>757
+  Variables   =>136   Code Area       =>2135
+********************************************REGIONS
+  0    Type=MAIN           Option=0 Index=0
+  1    Type=OnError        Option=0 Index=185
+  2    Type=Subroutine     Option=1 Index=1
+  3    Type=Subroutine     Option=1 Index=2
+  4    Type=Subroutine     Option=0 Index=187
+  5    Type=Subroutine     Option=1 Index=3
+  6    Type=Subroutine     Option=1 Index=4
+********************************************LINES TABLE
+  0    Prg Line=6        Offset=0
+  1    Prg Line=59       Offset=4
+  2    Prg Line=61       Offset=8
+  3    Prg Line=63       Offset=17
+  4    Prg Line=64       Offset=26
+  5    Prg Line=65       Offset=35
+  6    Prg Line=66       Offset=44
+  7    Prg Line=67       Offset=53
+  8    Prg Line=68       Offset=62
+  9    Prg Line=70       Offset=71
+  10   Prg Line=71       Offset=76
+  11   Prg Line=72       Offset=87
+  12   Prg Line=72       Offset=94
+  13   Prg Line=73       Offset=99
+  14   Prg Line=74       Offset=111
+  15   Prg Line=76       Offset=123
+  16   Prg Line=77       Offset=127
+  17   Prg Line=78       Offset=132
+  18   Prg Line=79       Offset=137
+  19   Prg Line=80       Offset=142
+  20   Prg Line=81       Offset=147
+  21   Prg Line=82       Offset=152
+  22   Prg Line=84       Offset=157
+  23   Prg Line=85       Offset=164
+  24   Prg Line=86       Offset=174
+  25   Prg Line=90       Offset=186
+  26   Prg Line=91       Offset=192
+  27   Prg Line=93       Offset=196
+  28   Prg Line=95       Offset=201
+  29   Prg Line=96       Offset=208
+  30   Prg Line=97       Offset=214
+  31   Prg Line=98       Offset=222
+  32   Prg Line=99       Offset=226
+  33   Prg Line=100      Offset=235
+  34   Prg Line=103      Offset=239
+  35   Prg Line=105      Offset=241
+  36   Prg Line=106      Offset=248
+  37   Prg Line=107      Offset=259
+  38   Prg Line=108      Offset=270
+  39   Prg Line=109      Offset=281
+  40   Prg Line=110      Offset=289
+  41   Prg Line=111      Offset=298
+  42   Prg Line=112      Offset=305
+  43   Prg Line=116      Offset=325
+  44   Prg Line=117      Offset=332
+  45   Prg Line=118      Offset=343
+  46   Prg Line=119      Offset=354
+  47   Prg Line=120      Offset=365
+  48   Prg Line=121      Offset=373
+  49   Prg Line=122      Offset=380
+  50   Prg Line=123      Offset=383
+  51   Prg Line=124      Offset=401
+  52   Prg Line=125      Offset=405
+  53   Prg Line=129      Offset=425
+  54   Prg Line=130      Offset=432
+  55   Prg Line=131      Offset=443
+  56   Prg Line=132      Offset=454
+  57   Prg Line=133      Offset=465
+  58   Prg Line=134      Offset=473
+  59   Prg Line=135      Offset=480
+  60   Prg Line=136      Offset=483
+  61   Prg Line=140      Offset=503
+  62   Prg Line=141      Offset=510
+  63   Prg Line=142      Offset=521
+  64   Prg Line=143      Offset=532
+  65   Prg Line=144      Offset=543
+  66   Prg Line=145      Offset=551
+  67   Prg Line=146      Offset=558
+  68   Prg Line=147      Offset=561
+  69   Prg Line=151      Offset=581
+  70   Prg Line=152      Offset=588
+  71   Prg Line=153      Offset=599
+  72   Prg Line=154      Offset=610
+  73   Prg Line=155      Offset=621
+  74   Prg Line=156      Offset=629
+  75   Prg Line=157      Offset=636
+  76   Prg Line=158      Offset=639
+  77   Prg Line=162      Offset=659
+  78   Prg Line=164      Offset=663
+  79   Prg Line=165      Offset=672
+  80   Prg Line=167      Offset=681
+  81   Prg Line=168      Offset=689
+  82   Prg Line=170      Offset=696
+  83   Prg Line=173      Offset=701
+  84   Prg Line=174      Offset=710
+  85   Prg Line=175      Offset=719
+  86   Prg Line=177      Offset=729
+  87   Prg Line=182      Offset=759
+  88   Prg Line=183      Offset=768
+  89   Prg Line=185      Offset=777
+  90   Prg Line=186      Offset=786
+  91   Prg Line=188      Offset=795
+  92   Prg Line=189      Offset=804
+  93   Prg Line=191      Offset=813
+  94   Prg Line=192      Offset=822
+  95   Prg Line=194      Offset=831
+  96   Prg Line=195      Offset=840
+  97   Prg Line=197      Offset=849
+  98   Prg Line=198      Offset=858
+  99   Prg Line=200      Offset=867
+  100  Prg Line=201      Offset=876
+  101  Prg Line=203      Offset=885
+  102  Prg Line=204      Offset=894
+  103  Prg Line=206      Offset=903
+  104  Prg Line=207      Offset=912
+  105  Prg Line=3        Offset=921
+  106  Prg Line=4        Offset=927
+  107  Prg Line=6        Offset=938
+  108  Prg Line=9        Offset=947
+  109  Prg Line=10       Offset=956
+  110  Prg Line=11       Offset=965
+  111  Prg Line=12       Offset=974
+  112  Prg Line=13       Offset=983
+  113  Prg Line=14       Offset=992
+  114  Prg Line=15       Offset=1001
+  115  Prg Line=16       Offset=1010
+  116  Prg Line=18       Offset=1019
+  117  Prg Line=23       Offset=1028
+  118  Prg Line=24       Offset=1032
+  119  Prg Line=25       Offset=1040
+  120  Prg Line=26       Offset=1049
+  121  Prg Line=35       Offset=1119
+  122  Prg Line=37       Offset=1128
+  123  Prg Line=38       Offset=1132
+  124  Prg Line=39       Offset=1140
+  125  Prg Line=42       Offset=1156
+  126  Prg Line=43       Offset=1167
+  127  Prg Line=47       Offset=1181
+  128  Prg Line=48       Offset=1190
+  129  Prg Line=56       Offset=1250
+  130  Prg Line=58       Offset=1259
+  131  Prg Line=59       Offset=1268
+  132  Prg Line=60       Offset=1277
+  133  Prg Line=61       Offset=1286
+  134  Prg Line=62       Offset=1295
+  135  Prg Line=62       Offset=1299
+  136  Prg Line=62       Offset=1307
+  137  Prg Line=63       Offset=1311
+  138  Prg Line=62       Offset=1322
+  139  Prg Line=62       Offset=1330
+  140  Prg Line=64       Offset=1334
+  141  Prg Line=62       Offset=1343
+  142  Prg Line=65       Offset=1350
+  143  Prg Line=67       Offset=1359
+  144  Prg Line=68       Offset=1368
+  145  Prg Line=69       Offset=1377
+  146  Prg Line=70       Offset=1386
+  147  Prg Line=71       Offset=1395
+  148  Prg Line=72       Offset=1404
+  149  Prg Line=73       Offset=1413
+  150  Prg Line=74       Offset=1422
+  151  Prg Line=75       Offset=1431
+  152  Prg Line=76       Offset=1440
+  153  Prg Line=77       Offset=1449
+  154  Prg Line=78       Offset=1458
+  155  Prg Line=79       Offset=1467
+  156  Prg Line=80       Offset=1476
+  157  Prg Line=81       Offset=1485
+  158  Prg Line=82       Offset=1494
+  159  Prg Line=84       Offset=1503
+  160  Prg Line=85       Offset=1511
+  161  Prg Line=87       Offset=1523
+  162  Prg Line=88       Offset=1528
+  163  Prg Line=89       Offset=1536
+  164  Prg Line=90       Offset=1544
+  165  Prg Line=92       Offset=1558
+  166  Prg Line=93       Offset=1566
+  167  Prg Line=94       Offset=1574
+  168  Prg Line=96       Offset=1588
+  169  Prg Line=99       Offset=1600
+  170  Prg Line=101      Offset=1610
+  171  Prg Line=103      Offset=1619
+  172  Prg Line=104      Offset=1627
+  173  Prg Line=105      Offset=1634
+  174  Prg Line=106      Offset=1644
+  175  Prg Line=211      Offset=1657
+  176  Prg Line=212      Offset=1666
+  177  Prg Line=213      Offset=1675
+  178  Prg Line=214      Offset=1684
+  179  Prg Line=215      Offset=1693
+  180  Prg Line=216      Offset=1702
+  181  Prg Line=217      Offset=1711
+  182  Prg Line=218      Offset=1718
+  183  Prg Line=219      Offset=1727
+  184  Prg Line=220      Offset=1731
+  185  Prg Line=2        Offset=1741
+  186  Prg Line=3        Offset=1749
+  187  Prg Line=228      Offset=1754
+  188  Prg Line=229      Offset=1764
+  189  Prg Line=230      Offset=1771
+  190  Prg Line=231      Offset=1775
+  191  Prg Line=233      Offset=1784
+  192  Prg Line=234      Offset=1796
+  193  Prg Line=235      Offset=1803
+  194  Prg Line=236      Offset=1807
+  195  Prg Line=241      Offset=1816
+  196  Prg Line=242      Offset=1826
+  197  Prg Line=243      Offset=1837
+  198  Prg Line=244      Offset=1844
+  199  Prg Line=245      Offset=1851
+  200  Prg Line=246      Offset=1855
+  201  Prg Line=248      Offset=1864
+  202  Prg Line=249      Offset=1876
+  203  Prg Line=250      Offset=1883
+  204  Prg Line=251      Offset=1887
+  205  Prg Line=257      Offset=1896
+  206  Prg Line=258      Offset=1906
+  207  Prg Line=259      Offset=1913
+  208  Prg Line=260      Offset=1917
+  209  Prg Line=262      Offset=1926
+  210  Prg Line=263      Offset=1938
+  211  Prg Line=264      Offset=1945
+  212  Prg Line=265      Offset=1949
+  213  Prg Line=270      Offset=1958
+  214  Prg Line=271      Offset=1968
+  215  Prg Line=274      Offset=1975
+  216  Prg Line=275      Offset=1979
+  217  Prg Line=277      Offset=1991
+  218  Prg Line=278      Offset=2001
+  219  Prg Line=279      Offset=2011
+  220  Prg Line=280      Offset=2018
+  221  Prg Line=281      Offset=2022
+  222  Prg Line=286      Offset=2034
+  223  Prg Line=288      Offset=2044
+  224  Prg Line=289      Offset=2051
+  225  Prg Line=290      Offset=2055
+  226  Prg Line=293      Offset=2064
+  227  Prg Line=294      Offset=2076
+  228  Prg Line=295      Offset=2083
+  229  Prg Line=296      Offset=2087
+  230  Prg Line=301      Offset=2096
+  231  Prg Line=302      Offset=2107
+  232  Prg Line=303      Offset=2114
+********************************************CONSTANTS TABLE
+  0    Type=Packed  Tam=1     Int=1 Dec=0
+  1    Type=Packed  Tam=2     Int=2 Dec=0
+  2    Type=Packed  Tam=2     Int=2 Dec=0
+  3    Type=Packed  Tam=2     Int=2 Dec=0
+  4    Type=Alpha   Tam=7    
+  5    Type=Alpha   Tam=7    
+  6    Type=Alpha   Tam=7    
+  7    Type=Alpha   Tam=7    
+  8    Type=Packed  Tam=1     Int=1 Dec=0
+  9    Type=Packed  Tam=1     Int=1 Dec=0
+  10   Type=Packed  Tam=1     Int=1 Dec=0
+  11   Type=Packed  Tam=2     Int=2 Dec=0
+  12   Type=Packed  Tam=2     Int=2 Dec=0
+  13   Type=Packed  Tam=2     Int=2 Dec=0
+  14   Type=Alpha   Tam=51   
+  15   Type=Packed  Tam=1     Int=1 Dec=0
+  16   Type=Alpha   Tam=1    
+  17   Type=Packed  Tam=3     Int=4 Dec=0
+  18   Type=Alpha   Tam=12   
+  19   Type=Alpha   Tam=7    
+  20   Type=Alpha   Tam=1    
+  21   Type=Alpha   Tam=1    
+  22   Type=Alpha   Tam=12   
+  23   Type=Alpha   Tam=12   
+  24   Type=Alpha   Tam=1    
+  25   Type=Alpha   Tam=8    
+  26   Type=Alpha   Tam=5    
+  27   Type=Alpha   Tam=1    
+  28   Type=Alpha   Tam=8    
+  29   Type=Alpha   Tam=1    
+  30   Type=Alpha   Tam=8    
+  31   Type=Alpha   Tam=10   
+  32   Type=Alpha   Tam=15   
+  33   Type=Alpha   Tam=2    
+  34   Type=Alpha   Tam=9    
+  35   Type=Alpha   Tam=1    
+  36   Type=Alpha   Tam=13   
+  37   Type=Alpha   Tam=3    
+  38   Type=Alpha   Tam=2    
+  39   Type=Alpha   Tam=12   
+  40   Type=Alpha   Tam=8    
+  41   Type=Alpha   Tam=1    
+  42   Type=Alpha   Tam=8    
+  43   Type=Alpha   Tam=8    
+  44   Type=Packed  Tam=3     Int=4 Dec=0
+  45   Type=Packed  Tam=3     Int=4 Dec=0
+  46   Type=Alpha   Tam=1    
+  47   Type=Alpha   Tam=25   
+  48   Type=Alpha   Tam=13   
+  49   Type=Alpha   Tam=5    
+  50   Type=Alpha   Tam=9    
+  51   Type=Binary  Tam=1    
+  52   Type=Alpha   Tam=18   
+  53   Type=Binary  Tam=1    
+  54   Type=Alpha   Tam=2    
+  55   Type=Packed  Tam=3     Int=4 Dec=0
+  56   Type=Alpha   Tam=12   
+  57   Type=Packed  Tam=3     Int=4 Dec=0
+  58   Type=Alpha   Tam=12   
+  59   Type=Packed  Tam=3     Int=4 Dec=0
+  60   Type=Alpha   Tam=12   
+  61   Type=Packed  Tam=3     Int=4 Dec=0
+  62   Type=Alpha   Tam=12   
+  63   Type=Packed  Tam=3     Int=4 Dec=0
+  64   Type=Alpha   Tam=12   
+  65   Type=Packed  Tam=3     Int=4 Dec=0
+  66   Type=Alpha   Tam=12   
+  67   Type=Packed  Tam=3     Int=4 Dec=0
+  68   Type=Alpha   Tam=12   
+  69   Type=Packed  Tam=3     Int=4 Dec=0
+  70   Type=Alpha   Tam=12   
+  71   Type=Packed  Tam=3     Int=4 Dec=0
+  72   Type=Alpha   Tam=12   
+  73   Type=Alpha   Tam=7    
+  74   Type=Alpha   Tam=4    
+  75   Type=Alpha   Tam=5    
+  76   Type=Alpha   Tam=11   
+  77   Type=Alpha   Tam=13   
+  78   Type=Alpha   Tam=13   
+  79   Type=Alpha   Tam=13   
+  80   Type=Alpha   Tam=13   
+  81   Type=Alpha   Tam=6    
+  82   Type=Alpha   Tam=16   
+  83   Type=Alpha   Tam=11   
+  84   Type=Alpha   Tam=14   
+  85   Type=Packed  Tam=3     Int=4 Dec=0
+  86   Type=Alpha   Tam=11   
+  87   Type=Alpha   Tam=9    
+  88   Type=Alpha   Tam=5    
+  89   Type=Alpha   Tam=18   
+  90   Type=Alpha   Tam=13   
+  91   Type=Alpha   Tam=1    
+  92   Type=Alpha   Tam=1    
+  93   Type=Alpha   Tam=9    
+  94   Type=Alpha   Tam=13   
+  95   Type=Alpha   Tam=7    
+  96   Type=Alpha   Tam=5    
+  97   Type=Alpha   Tam=7    
+  98   Type=Alpha   Tam=1    
+  99   Type=Alpha   Tam=7    
+  100  Type=Alpha   Tam=18   
+  101  Type=Alpha   Tam=5    
+  102  Type=Alpha   Tam=22   
+  103  Type=Packed  Tam=3     Int=4 Dec=0
+  104  Type=Alpha   Tam=2    
+  105  Type=Alpha   Tam=3    
+  106  Type=Alpha   Tam=10   
+  107  Type=Alpha   Tam=13   
+  108  Type=Alpha   Tam=15   
+  109  Type=Alpha   Tam=15   
+  110  Type=Alpha   Tam=13   
+  111  Type=Alpha   Tam=10   
+  112  Type=Alpha   Tam=17   
+  113  Type=Alpha   Tam=16   
+  114  Type=Alpha   Tam=1    
+  115  Type=Alpha   Tam=17   
+  116  Type=Alpha   Tam=17   
+  117  Type=Alpha   Tam=16   
+  118  Type=Alpha   Tam=14   
+  119  Type=Alpha   Tam=11   
+  120  Type=Alpha   Tam=14   
+  121  Type=Alpha   Tam=18   
+  122  Type=Alpha   Tam=17   
+  123  Type=Alpha   Tam=12   
+  124  Type=Alpha   Tam=13   
+  125  Type=Alpha   Tam=5    
+  126  Type=Alpha   Tam=17   
+  127  Type=Alpha   Tam=11   
+  128  Type=Alpha   Tam=12   
+  129  Type=Alpha   Tam=13   
+  130  Type=Alpha   Tam=8    
+  131  Type=Alpha   Tam=8    
+  132  Type=Alpha   Tam=74   
+  133  Type=Alpha   Tam=3    
+  134  Type=Alpha   Tam=10   
+  135  Type=Alpha   Tam=44   
+  136  Type=Alpha   Tam=3    
+  137  Type=Alpha   Tam=44   
+  138  Type=Alpha   Tam=39   
+  139  Type=Alpha   Tam=62   
+  140  Type=Alpha   Tam=10   
+  141  Type=Alpha   Tam=6    
+  142  Type=Alpha   Tam=2    
+  143  Type=Alpha   Tam=10   
+  144  Type=Alpha   Tam=2    
+  145  Type=Alpha   Tam=10   
+  146  Type=Alpha   Tam=9    
+  147  Type=Alpha   Tam=10   
+  148  Type=Alpha   Tam=12   
+  149  Type=Alpha   Tam=10   
+  150  Type=Alpha   Tam=11   
+  151  Type=Alpha   Tam=8    
+  152  Type=Alpha   Tam=11   
+  153  Type=Alpha   Tam=17   
+********************************************VARIABLES TABLE
+  0    Tp=Global  level=1 Opt=96 Fmt=Integr Tam=1            
+  1    Tp=Global  level=1 Opt=96 Fmt=Integr Tam=1            
+  2    Tp=Global  level=1 Opt=96 Fmt=Integr Tam=1            
+  3    Tp=Global  level=1 Opt=96 Fmt=Integr Tam=1            
+  4    Tp=Global  level=1 Opt=0  Fmt=XXX    Tam=27000        
+  5    Tp=Global  level=2 Opt=0  Fmt=XXX    Tam=270          (1:100)
+  6    Tp=Global  level=3 Opt=0  Fmt=AlphaN Tam=20           (1:100)
+  7    Tp=Global  level=3 Opt=0  Fmt=AlphaN Tam=250          (1:100)
+  8    Tp=Global  level=1 Opt=0  Fmt=Integr Tam=4            
+  9    Tp=Global  level=1 Opt=0  Fmt=Integr Tam=4            
+  10   Tp=Global  level=1 Opt=0  Fmt=Integr Tam=4            
+  11   Tp=Global  level=1 Opt=0  Fmt=Integr Tam=1            
+  12   Tp=Global  level=1 Opt=0  Fmt=XXX    Tam=800          
+  13   Tp=Global  level=2 Opt=0  Fmt=XXX    Tam=8            (1:100)
+  14   Tp=Global  level=3 Opt=0  Fmt=AlphaN Tam=5            (1:100)
+  15   Tp=Global  level=3 Opt=0  Fmt=AlphaN Tam=1            (1:100)
+  16   Tp=Global  level=3 Opt=0  Fmt=AlphaN Tam=1            (1:100)
+  17   Tp=Global  level=3 Opt=0  Fmt=AlphaN Tam=1            (1:100)
+  18   Tp=Global  level=1 Opt=65 Fmt=AlphaN Tam=11           (1:3)
+  19   Tp=Global  level=2 Opt=6  Fmt=XXX    Tam=11           (1:3)
+  20   Tp=Global  level=3 Opt=2  Fmt=AlphaN Tam=2            (1:3)
+  21   Tp=Global  level=3 Opt=2  Fmt=AlphaN Tam=9            (1:3)
+  22   Tp=Global  level=1 Opt=0  Fmt=AlphaN Tam=1000         
+  23   Tp=Global  level=1 Opt=0  Fmt=AlphaN Tam=1000         
+  24   Tp=Global  level=1 Opt=0  Fmt=AlphaN Tam=3            
+  25   Tp=Global  level=1 Opt=0  Fmt=AlphaN Tam=20           
+  26   Tp=Global  level=1 Opt=0  Fmt=Packed Tam=10    Dec=0  
+  27   Tp=Global  level=1 Opt=0  Fmt=AlphaN Tam=50           
+  28   Tp=Global  level=1 Opt=0  Fmt=Numeri Tam=10    Dec=0  
+  29   Tp=Global  level=1 Opt=0  Fmt=AlphaN Tam=80           
+  30   Tp=Global  level=1 Opt=0  Fmt=AlphaN Tam=40           
+  31   Tp=Global  level=1 Opt=0  Fmt=AlphaN Tam=1000         
+  32   Tp=Global  level=1 Opt=0  Fmt=AlphaN Tam=40           
+  33   Tp=Global  level=1 Opt=0  Fmt=Integr Tam=2            
+  34   Tp=Global  level=1 Opt=0  Fmt=AlphaN Tam=8            
+  35   Tp=Global  level=1 Opt=0  Fmt=XXX    Tam=109722        
+  36   Tp=Global  level=2 Opt=0  Fmt=Logic                   
+  37   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=10000        
+  38   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=8            
+  39   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=8            
+  40   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=8            
+  41   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=8            
+  42   Tp=Global  level=2 Opt=64 Fmt=AlphaN Tam=7            
+  43   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=10000        
+  44   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=50           
+  45   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=8            
+  46   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=8            
+  47   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=8            
+  48   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=8            
+  49   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=8            
+  50   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=50           (1:99)
+  51   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=14           
+  52   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=10000        
+  53   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=1            
+  54   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=1            
+  55   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=1            
+  56   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=1            
+  57   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=2            
+  58   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=15           
+  59   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=100          
+  60   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=8            
+  61   Tp=Global  level=2 Opt=0  Fmt=Logic                   
+  62   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=250          
+  63   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=150          
+  64   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=10000        
+  65   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=10000        
+  66   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=10000        
+  67   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=10000        
+  68   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=10000        
+  69   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=10000        
+  70   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=1000         
+  71   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=1000         
+  72   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=1000         
+  73   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=3            
+  74   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=20           (1:50)
+  75   Tp=Global  level=2 Opt=0  Fmt=Numeri Tam=7     Dec=0  
+  76   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=8            
+  77   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=80           
+  78   Tp=Global  level=2 Opt=0  Fmt=AlphaN Tam=10000        
+  79   Tp=Local   level=1 Opt=0  Fmt=XXX    Tam=6            
+  80   Tp=Local   level=2 Opt=64 Fmt=Integr Tam=1            
+  81   Tp=Local   level=2 Opt=64 Fmt=Integr Tam=1            
+  82   Tp=Local   level=2 Opt=64 Fmt=Integr Tam=1            
+  83   Tp=Local   level=2 Opt=64 Fmt=Integr Tam=1            
+  84   Tp=Local   level=2 Opt=64 Fmt=Integr Tam=1            
+  85   Tp=Local   level=2 Opt=64 Fmt=Integr Tam=1            
+  86   Tp=Local   level=1 Opt=0  Fmt=XXX    Tam=1271         
+  87   Tp=Local   level=2 Opt=0  Fmt=AlphaN Tam=1            
+  88   Tp=Local   level=2 Opt=0  Fmt=AlphaN Tam=0            
+  89   Tp=Local   level=2 Opt=0  Fmt=AlphaN Tam=8            
+  90   Tp=Local   level=2 Opt=0  Fmt=AlphaN Tam=3            
+  91   Tp=Local   level=2 Opt=0  Fmt=AlphaN Tam=1            
+  92   Tp=Local   level=2 Opt=0  Fmt=AlphaN Tam=1            
+  93   Tp=Local   level=2 Opt=0  Fmt=AlphaN Tam=0            
+  94   Tp=Local   level=2 Opt=0  Fmt=AlphaN Tam=0            
+  95   Tp=Local   level=2 Opt=0  Fmt=AlphaN Tam=0            
+  96   Tp=Local   level=2 Opt=0  Fmt=AlphaN Tam=0            
+  97   Tp=Local   level=2 Opt=0  Fmt=AlphaN Tam=1000         
+  98   Tp=Local   level=2 Opt=0  Fmt=AlphaN Tam=3            
+  99   Tp=Local   level=2 Opt=0  Fmt=AlphaN Tam=250          
+  100  Tp=Local   level=2 Opt=0  Fmt=Integr Tam=4            
+  101  Tp=Local   level=1 Opt=0  Fmt=AlphaN Tam=253          
+  102  Tp=Local   level=1 Opt=0  Fmt=Integr Tam=4            
+  103  Tp=Local   level=1 Opt=64 Fmt=AlphaN Tam=0            
+  104  Tp=Local   level=1 Opt=64 Fmt=AlphaN Tam=0            
+  105  Tp=Local   level=1 Opt=0  Fmt=AlphaN Tam=0            
+  106  Tp=Local   level=1 Opt=64 Fmt=Integr Tam=4            
+  107  Tp=Local   level=1 Opt=64 Fmt=AlphaN Tam=0            
+  108  Tp=Local   level=1 Opt=64 Fmt=AlphaN Tam=0            
+  109  Tp=Local   level=1 Opt=64 Fmt=AlphaN Tam=0            
+  110  Tp=Local   level=1 Opt=64 Fmt=AlphaN Tam=0            
+  111  Tp=Local   level=1 Opt=0  Fmt=Integr Tam=4            
+  112  Tp=Local   level=1 Opt=0  Fmt=AlphaN Tam=100          (1:20)
+  113  Tp=Local   level=1 Opt=0  Fmt=AlphaN Tam=10           
+  114  Tp=Local   level=1 Opt=0  Fmt=Date                    
+  115  Tp=Local   level=1 Opt=0  Fmt=Integr Tam=2            
+  116  Tp=Local   level=1 Opt=0  Fmt=Integr Tam=2            
+  117  Tp=Local   level=1 Opt=0  Fmt=AlphaN Tam=250          (1:200)
+  118  Tp=Local   level=1 Opt=0  Fmt=AlphaN Tam=20           (1:200)
+  119  Tp=Local   level=1 Opt=0  Fmt=Integr Tam=2            
+  120  Tp=Local   level=1 Opt=0  Fmt=AlphaN Tam=20           (1:200)
+  121  Tp=Local   level=1 Opt=0  Fmt=Integr Tam=2            
+  122  Tp=Local   level=1 Opt=0  Fmt=AlphaN Tam=2            (1:200)
+  123  Tp=Local   level=1 Opt=0  Fmt=Integr Tam=2            
+  124  Tp=Local   level=1 Opt=0  Fmt=AlphaN Tam=10           (1:200)
+  125  Tp=Local   level=1 Opt=0  Fmt=Integr Tam=2            
+  126  Tp=Local   level=1 Opt=0  Fmt=AlphaN Tam=10           (1:200)
+  127  Tp=Local   level=1 Opt=0  Fmt=Integr Tam=2            
+  128  Tp=Local   level=1 Opt=0  Fmt=AlphaN Tam=15           
+  129  Tp=Local   level=1 Opt=0  Fmt=AlphaN Tam=250          
+  130  Tp=Local   level=1 Opt=0  Fmt=AlphaN Tam=250          
+  131  Tp=Local   level=1 Opt=0  Fmt=AlphaN Tam=80           
+  132  Tp=Local   level=1 Opt=0  Fmt=AlphaN Tam=80           
+  133  Tp=Local   level=1 Opt=0  Fmt=AlphaN Tam=80           
+  134  Tp=Indepen level=1 Opt=0  Fmt=AlphaN Tam=8             Smb=0
+  135  Tp=Local   level=1 Opt=0  Fmt=Integr Tam=4            
+********************************************SYMBOL TABLE
+  0    +ERROR-TA
+  1    GET-MESSAGE-TEXT
+  2    BTTS0020-GET-ENVIRONMENT
+  3    BTT-W3READ-RESOURCE
+  4    W3REPLACE
+********************************************CONSTANTS AREA
+  0   (N)=1
+  1   (N)=99
+  2   (N)=30
+  3   (N)=20
+  4   (A)=04es_ES
+  5   (A)=01en_US
+  6   (A)=11pt_BR
+  7   (A)=#FFFFFF
+  8   (N)=5
+  9   (N)=8
+  10  (N)=9
+  11  (N)=11
+  12  (N)=13
+  13  (N)=15
+  14  (A)=<option value='Todos'selected>$_TEXT-6115$</option>
+  15  (N)=-1
+  16  (A)= 
+  17  (N)=6115
+  18  (A)=$_TEXT-6115$
+  19  (A)=btttemp
+  20  (A)=G
+  21  (A)=/
+  22  (A)=.REPORTS.TXT
+  23  (A)=.REPORTS.SEL
+  24  (A)=4
+  25  (A)=BTT1000N
+  26  (A)=ASCII
+  27  (A)=.
+  28  (A)=BTTNSORT
+  29  (A)=D
+  30  (A)=YYYYMMDD
+  31  (A)=DD/MM/YYYY
+  32  (A)=<option value='
+  33  (A)='>
+  34  (A)=</option>
+  35  (A)=A
+  36  (A)=vetShellName[
+  37  (A)=]='
+  38  (A)=';
+  39  (A)=BTTH9100.HTM
+  40  (A)=$_CORPO$
+  41  (A)=1
+  42  (A)=BTTS9110
+  43  (A)=BTTS9115
+  44  (N)=6030
+  45  (N)=6015
+  46  (A)=-
+  47  (A)=<input type='image' src='
+  48  (A)=bt_confirmar_
+  49  (A)=.gif'
+  50  (A)= onClick=
+  51  (H)=22
+  52  (A)=form.frmCmd.value=
+  53  (H)=27
+  54  (A)=/>
+  55  (N)=6095
+  56  (A)=$_TEXT-6095$
+  57  (N)=6072
+  58  (A)=$_TEXT-6072$
+  59  (N)=6073
+  60  (A)=$_TEXT-6073$
+  61  (N)=6070
+  62  (A)=$_TEXT-6070$
+  63  (N)=6096
+  64  (A)=$_TEXT-6096$
+  65  (N)=6157
+  66  (A)=$_TEXT-6157$
+  67  (N)=6158
+  68  (A)=$_TEXT-6158$
+  69  (N)=6171
+  70  (A)=$_TEXT-6171$
+  71  (N)=6172
+  72  (A)=$_TEXT-6172$
+  73  (A)=$_AJAX$
+  74  (A)=true
+  75  (A)=false
+  76  (A)=$_ATRIBUTO$
+  77  (A)=$_ATRIBUTO-0$
+  78  (A)=$_ATRIBUTO-1$
+  79  (A)=$_ATRIBUTO-2$
+  80  (A)=$_CAMPO-FOCO$
+  81  (A)=$_CMD$
+  82  (A)=$_CMD-RECURSIVO$
+  83  (A)=$_CMD-TELA$
+  84  (A)=$_BOTAO-AVISO$
+  85  (N)=6195
+  86  (A)=<a onclick=
+  87  (A)=; target=
+  88  (A)=_self
+  89  (A)=; submeterURLForm(
+  90  (A)=document.form
+  91  (A)=)
+  92  (A)=>
+  93  (A)=<img src=
+  94  (A)=bt_reload.gif
+  95  (A)= title=
+  96  (A)= alt=
+  97  (A)=border=
+  98  (A)=0
+  99  (A)= /></a>
+  100 (A)=$_BOTAO-ATUALIZAR$
+  101 (A)=BTTS7
+  102 (A)=; form.frmPasta.value=
+  103 (N)=6196
+  104 (A)=);
+  105 (A)= />
+  106 (A)= <img src=
+  107 (A)=bt_voltar.gif
+  108 (A)=$_BOTAO-VOLTAR$
+  109 (A)=$_BOTAO-PAGINA$
+  110 (A)=$_ISN-SESSAO$
+  111 (A)=$_LEGENDA$
+  112 (A)=$_OPTION-EMPRESA$
+  113 (A)=$_OPTION-PERFIL$
+  114 (A)=2
+  115 (A)=$_OPTION-SISTEMA$
+  116 (A)=$_OPTION-USUARIO$
+  117 (A)=$_OPTION-CLASSE$
+  118 (A)=$_OPTION-FILA$
+  119 (A)=$_PATH-CSS$
+  120 (A)=$_PATH-IMAGEM$
+  121 (A)=$_PATH-JAVASCRIPT$
+  122 (A)=$_PREFIXO-SELECT$
+  123 (A)=$_SIST-DESC$
+  124 (A)=$_SIST-SIGLA$
+  125 (A)=$_SO$
+  126 (A)=$_USUARIO-SESSAO$
+  127 (A)=$_MSG-AJAX$
+  128 (A)=$_TR-PAGINA$
+  129 (A)=$_CMD-PAGINA$
+  130 (A)=$_START$
+  131 (A)=<tr><td>
+  132 (A)=&nbsp;</td><td align='right' style='font-size:10px;'>$_CMD-TELA$</td></tr>
+  133 (A)='!'
+  134 (A)=<img src='
+  135 (A)=warning.gif' border='0' align='absmiddle' />
+  136 (A)='?'
+  137 (A)=nat-web.gif' border='0' align='absmiddle' />
+  138 (A)=ok.gif' border='0' align='absmiddle' />
+  139 (A)=<tr><td colspan='2' style='background:#FFFFCC; color:#FF0000'>
+  140 (A)=</td></tr>
+  141 (A)=$_MSG$
+  142 (A)=99
+  143 (A)=$_DSC-CMP(
+  144 (A)=)$
+  145 (A)=$_OP-IMPR$
+  146 (A)=$_OP-JOB$
+  147 (A)=$_OP-DATA$
+  148 (A)=$_OP-CLASSE$
+  149 (A)=$_OP-FORM$
+  150 (A)=$_OP-GRUPO$
+  151 (A)=$_SHELL$
+  152 (A)=$_vetShell$
+  153 (A)=$_vetShellLength$
+********************************************Initialization Area
+  Var=0 has inital value: constant 0
+  Var=1 has inital value: constant 1
+  Var=2 has inital value: constant 2
+  Var=3 has inital value: constant 3
+  Var=18 has inital value:
+   idx=3 constant=4
+   idx=2 constant=5
+	 idx=1 constant=6
+  Var=42 has inital value: constant 7
+  Var=80 has inital value: constant 8
+  Var=81 has inital value: constant 9
+  Var=82 has inital value: constant 10
+  Var=83 has inital value: constant 11
+  Var=84 has inital value: constant 12
+  Var=85 has inital value: constant 13
+  Var=103 has inital value: constant 14
+  Var=104 has inital value: constant 14
+  Var=106 has inital value: constant 15
+  Var=107 has inital value: constant 14
+  Var=108 has inital value: constant 14
+  Var=109 has inital value: constant 14
+  Var=110 has inital value: constant 14
+********************************************Code Area
+ [Offset] Code Area starts at 4420
+
+ [     0] Compute var134= *PROGRAM
+ [     4] Compute var48= *PROGRAM
+ [     8] PerformRegion2 Qty=3 var60 const17 var77
+ [    17] Examine Forward var103 const18 replace var77
+ [    26] Examine Forward var104 const18 replace var77
+ [    35] Examine Forward var107 const18 replace var77
+ [    44] Examine Forward var108 const18 replace var77
+ [    53] Examine Forward var109 const18 replace var77
+ [    62] Examine Forward var110 const18 replace var77
+ [    71] Compute var77= const19
+ [    76] PerformRegion3 Qty=4 const20 var77 var101 var102
+ [    87] If == var102 0 goto99
+ [    94] Compute var133= var101
+ [    99] Compress leaving no Qty=4 var133 const21 var34 const22 var129
+ [   111] Compress leaving no Qty=4 var133 const21 var34 const23 var130
+ [   123] Reset Qty=1 var86
+ [   127] Compute var87= const24
+ [   132] Compute var88= var129
+ [   137] Compute var89= var34
+ [   142] Compute var90= var24
+ [   147] Compute var91= var54
+ [   152] Compute var92= var55
+ [   157] For var115 1 50 goto186
+ [   164] If <> var14( var115) const16 goto184
+ [   174] Compress Qty=2 var99 var14( var115) var99 goto157
+ [   186] CallSub const25 Qty=1 var86
+ [   192] Compute var134= *PROGRAM
+ [   196] Compute var23= var88
+ [   201] Reset Qty=2 var116 var112 multiple(*)
+ [   208] Define work file file name type 1 var23 const26
+ [   214] Read Work File 1 Qty=1 var129 jump222 jump239 jump0
+ [   222] Add 1 var116
+ [   226] Separate delimiters operand const27 var129 Qty=1 var112 multiple(*)
+ [   235] PerformRegion4 goto214
+ [   239] CloseWork 1
+ [   241] If > var119 0 goto325
+ [   248] Move var118 multiple(1:  var119) var117 multiple(1:  var119)
+ [   259] CallSub const28 Qty=3 const29 var119 var117 multiple(*)
+ [   270] Move var117 multiple(1:  var119) var118 multiple(1:  var119)
+ [   281] For var115 1 var119 goto325
+ [   289] Move edited op2 var118( var115) (EM= const30) var114
+ [   298] Move edited op1 var114 (EM= const31) var113
+ [   305] Compress leaving no Qty=6 var107 const32 var118( var115) const33 var113 const34 var107 goto281
+ [   325] If > var121 0 goto425
+ [   332] Move var120 multiple(1:  var121) var117 multiple(1:  var121)
+ [   343] CallSub const28 Qty=3 const35 var121 var117 multiple(*)
+ [   354] Move var117 multiple(1:  var121) var120 multiple(1:  var121)
+ [   365] For var115 1 var121 goto425
+ [   373] Compute var128= var120( var115)
+ [   380] Examine var128 Translate into uppercase
+ [   383] Compress leaving no Qty=6 var104 const32 var120( var115) const33 var128 const34 var104
+ [   401] Add 1 var106
+ [   405] Compress leaving no Qty=6 var105 const36 var106 const37 var120( var115) const38 var105 goto365
+ [   425] If > var123 0 goto503
+ [   432] Move var122 multiple(1:  var123) var117 multiple(1:  var123)
+ [   443] CallSub const28 Qty=3 const35 var123 var117 multiple(*)
+ [   454] Move var117 multiple(1:  var123) var122 multiple(1:  var123)
+ [   465] For var115 1 var123 goto503
+ [   473] Compute var128= var122( var115)
+ [   480] Examine var128 Translate into uppercase
+ [   483] Compress leaving no Qty=6 var108 const32 var122( var115) const33 var128 const34 var108 goto465
+ [   503] If > var125 0 goto581
+ [   510] Move var124 multiple(1:  var125) var117 multiple(1:  var125)
+ [   521] CallSub const28 Qty=3 const35 var125 var117 multiple(*)
+ [   532] Move var117 multiple(1:  var125) var124 multiple(1:  var125)
+ [   543] For var115 1 var125 goto581
+ [   551] Compute var128= var124( var115)
+ [   558] Examine var128 Translate into uppercase
+ [   561] Compress leaving no Qty=6 var103 const32 var124( var115) const33 var128 const34 var103 goto543
+ [   581] If > var127 0 goto659
+ [   588] Move var126 multiple(1:  var127) var117 multiple(1:  var127)
+ [   599] CallSub const28 Qty=3 const35 var127 var117 multiple(*)
+ [   610] Move var117 multiple(1:  var127) var126 multiple(1:  var127)
+ [   621] For var115 1 var127 goto659
+ [   629] Compute var128= var126( var115)
+ [   636] Examine var128 Translate into uppercase
+ [   639] Compress leaving no Qty=6 var109 const32 var126( var115) const33 var128 const34 var109 goto621
+ [   659] Compute var134= *PROGRAM
+ [   663] PerformRegion5 Qty=3 const16 const39 var52
+ [   672] PerformRegion6 Qty=3 const16 const40 var52
+ [   681] If else == var56 const41 goto696
+ [   689] Compute var45= const42 goto701
+ [   696] Compute var45= const43
+ [   701] PerformRegion2 Qty=3 var60 const44 var131
+ [   710] PerformRegion2 Qty=3 var60 const45 var132
+ [   719] Compress Qty=3 var131 const46 var132 var59
+ [   729] Compress leaving no Qty=13 const47 var71 const48 var11 const49 const50 const51 const52 const53 var45 const53 const51 const54 var43
+ [   759] PerformRegion2 Qty=3 var60 const55 var77
+ [   768] PerformRegion6 Qty=3 const16 const56 var77
+ [   777] PerformRegion2 Qty=3 var60 const57 var77
+ [   786] PerformRegion6 Qty=3 const16 const58 var77
+ [   795] PerformRegion2 Qty=3 var60 const59 var77
+ [   804] PerformRegion6 Qty=3 const16 const60 var77
+ [   813] PerformRegion2 Qty=3 var60 const61 var77
+ [   822] PerformRegion6 Qty=3 const16 const62 var77
+ [   831] PerformRegion2 Qty=3 var60 const63 var77
+ [   840] PerformRegion6 Qty=3 const16 const64 var77
+ [   849] PerformRegion2 Qty=3 var60 const65 var77
+ [   858] PerformRegion6 Qty=3 const16 const66 var77
+ [   867] PerformRegion2 Qty=3 var60 const67 var77
+ [   876] PerformRegion6 Qty=3 const16 const68 var77
+ [   885] PerformRegion2 Qty=3 var60 const69 var77
+ [   894] PerformRegion6 Qty=3 const16 const70 var77
+ [   903] PerformRegion2 Qty=3 var60 const71 var77
+ [   912] PerformRegion6 Qty=3 const16 const72 var77
+ [   921] If else TRUE var36 goto938
+ [   927] PerformRegion6 Qty=3 const16 const73 const74 goto947
+ [   938] PerformRegion6 Qty=3 const16 const73 const75
+ [   947] PerformRegion6 Qty=3 const16 const76 var38
+ [   956] PerformRegion6 Qty=3 const16 const77 var39
+ [   965] PerformRegion6 Qty=3 const16 const78 var40
+ [   974] PerformRegion6 Qty=3 const16 const79 var41
+ [   983] PerformRegion6 Qty=3 const16 const80 var44
+ [   992] PerformRegion6 Qty=3 const16 const81 var45
+ [  1001] PerformRegion6 Qty=3 const16 const82 var47
+ [  1010] PerformRegion6 Qty=3 const16 const83 var48
+ [  1019] PerformRegion6 Qty=3 const16 const84 var37
+ [  1028] Reset Qty=1 var52
+ [  1032] If <> var46 const16 goto1119
+ [  1040] PerformRegion2 Qty=3 var60 const85 var77
+ [  1049] Compress leaving no Qty=33 const86 const51 const52 const53 var46 const53 const87 const53 const88 const53 const89 const90 const91 const51 const92 const93 const51 var71 const94 const51 const95 const51 var77 const51 const96 const51 var77 const51 const97 const51 const98 const51 const99 var52
+ [  1119] PerformRegion6 Qty=3 const16 const100 var52
+ [  1128] Reset Qty=1 var52
+ [  1132] If <> var49 const16 goto1250
+ [  1140] Compress leaving no Qty=6 const86 const51 const52 const53 var49 const53 var52
+ [  1156] If == SubString( var49, 1, 5) const101 goto1181
+ [  1167] Compress leaving no Qty=5 var52 const102 const53 var22 const53 var52
+ [  1181] PerformRegion2 Qty=3 var60 const103 var77
+ [  1190] Compress leaving no Qty=28 var52 const87 const53 const88 const53 const89 const90 const104 const51 const105 const106 const51 var71 const107 const51 const95 const51 var77 const51 const96 const51 var77 const51 const97 const51 const98 const51 const99 var52
+ [  1250] PerformRegion6 Qty=3 const16 const108 var52
+ [  1259] PerformRegion6 Qty=3 const16 const109 var43
+ [  1268] PerformRegion6 Qty=3 const16 const110 var28
+ [  1277] PerformRegion6 Qty=3 const16 const111 var59
+ [  1286] PerformRegion6 Qty=3 const16 const112 var65
+ [  1295] Reset Qty=1 var135
+ [  1299] If else == var54 const41 goto1322
+ [  1307] Add 1 var135
+ [  1311] PerformRegion6 Qty=3 const16 const113 var67 goto1343
+ [  1322] If == var54 const114 goto1343
+ [  1330] Add 1 var135
+ [  1334] PerformRegion6 Qty=3 const16 const113 var67
+ [  1343] If == var135 0 goto1359
+ [  1350] PerformRegion6 Qty=3 const16 const113 var67
+ [  1359] PerformRegion6 Qty=3 const16 const115 var68
+ [  1368] PerformRegion6 Qty=3 const16 const116 var69
+ [  1377] PerformRegion6 Qty=3 const16 const117 var64
+ [  1386] PerformRegion6 Qty=3 const16 const118 var66
+ [  1395] PerformRegion6 Qty=3 const16 const119 var70
+ [  1404] PerformRegion6 Qty=3 const16 const120 var71
+ [  1413] PerformRegion6 Qty=3 const16 const121 var72
+ [  1422] PerformRegion6 Qty=3 const16 const122 var73
+ [  1431] PerformRegion6 Qty=3 const16 const123 var29
+ [  1440] PerformRegion6 Qty=3 const16 const124 var30
+ [  1449] PerformRegion6 Qty=3 const16 const125 var32
+ [  1458] PerformRegion6 Qty=3 const16 const126 var34
+ [  1467] PerformRegion6 Qty=3 const16 const127 var63
+ [  1476] PerformRegion6 Qty=3 const16 const128 var78
+ [  1485] PerformRegion6 Qty=3 const16 const129 var46
+ [  1494] PerformRegion6 Qty=3 const16 const130 var33
+ [  1503] If else == var62 const16 goto1523
+ [  1511] Compress Qty=3 const131 var62 const132 var62 goto1610
+ [  1523] Move left just var62 var62
+ [  1528] If else MASK var62 const133 goto1558
+ [  1536] Move SubString( var62, 2, 149) var62
+ [  1544] Compress leaving no Qty=4 const134 var71 const135 var62 var62 goto1600
+ [  1558] If else MASK var62 const136 goto1588
+ [  1566] Move SubString( var62, 2, 149) var62
+ [  1574] Compress leaving no Qty=4 const134 var71 const137 var62 var62 goto1600
+ [  1588] Compress leaving no Qty=4 const134 var71 const138 var62 var62
+ [  1600] Compress leaving no Qty=3 const139 var62 const140 var62
+ [  1610] PerformRegion6 Qty=3 const16 const141 var62
+ [  1619] For var8 1 const1 goto1657
+ [  1627] Move edited op1 var8 (EM= const142) var51
+ [  1634] Compress leaving no Qty=3 const143 var51 const144 var51
+ [  1644] PerformRegion6 Qty=3 const16 var51 var50( var8) goto1619
+ [  1657] PerformRegion6 Qty=3 const16 const145 var103
+ [  1666] PerformRegion6 Qty=3 const16 const146 var104
+ [  1675] PerformRegion6 Qty=3 const16 const147 var107
+ [  1684] PerformRegion6 Qty=3 const16 const148 var108
+ [  1693] PerformRegion6 Qty=3 const16 const149 var109
+ [  1702] PerformRegion6 Qty=3 const16 const150 var110
+ [  1711] PerformRegion6 Qty=2 const16 const151
+ [  1718] PerformRegion6 Qty=3 const16 const152 var105
+ [  1727] Add 1 var106
+ [  1731] PerformRegion6 Qty=3 const16 const153 var106
+ [  1740] Escape routine
+ [  1741] If == var134 const16 goto1753
+ [  1749] Compute var134= *PROGRAM
+ [  1753] EndEvent
+ [  1754] If <> var112( var83) const16 goto1816
+ [  1764] If == var125 0 goto1784
+ [  1771] Add 1 var125
+ [  1775] Compute var124( var125)= var112( var83)
+ [  1784] Examine Forward var124 multiple(*) var112( var83) giving index var111
+ [  1796] If == var111 0 goto1816
+ [  1803] Add 1 var125
+ [  1807] Move var112( var83) var124( var125)
+ [  1816] If <> var112( var80) const16 goto1896
+ [  1826] Examine Forward var104 var112( var80) giving number var111
+ [  1837] If == var111 0 goto1896
+ [  1844] If == var121 0 goto1864
+ [  1851] Add 1 var121
+ [  1855] Compute var120( var121)= var112( var80)
+ [  1864] Examine Forward var120 multiple(*) var112( var80) giving index var111
+ [  1876] If == var111 0 goto1896
+ [  1883] Add 1 var121
+ [  1887] Move var112( var80) var120( var121)
+ [  1896] If MASK var112( var84) const30 goto1958
+ [  1906] If == var119 0 goto1926
+ [  1913] Add 1 var119
+ [  1917] Compute var118( var119)= var112( var84)
+ [  1926] Examine Forward var118 multiple(*) var112( var84) giving index var111
+ [  1938] If == var111 0 goto1958
+ [  1945] Add 1 var119
+ [  1949] Move var112( var84) var118( var119)
+ [  1958] If <> var112( var81) const16 goto2034
+ [  1968] If == var123 0 goto1991
+ [  1975] Add 1 var123
+ [  1979] Move SubString( var112( var81), 1, 1) var122( var123)
+ [  1991] Compute var101= SubString( var112( var81), 1, 1)
+ [  2001] Examine Forward var122 multiple(*) var101 giving index var111
+ [  2011] If == var111 0 goto2034
+ [  2018] Add 1 var123
+ [  2022] Move SubString( var112( var81), 1, 1) var122( var123)
+ [  2034] If <> var112( var82) const16 goto2096
+ [  2044] If == var127 0 goto2064
+ [  2051] Add 1 var127
+ [  2055] Compute var126( var127)= var112( var82)
+ [  2064] Examine Forward var126 multiple(*) var112( var82) giving index var111
+ [  2076] If == var111 0 goto2096
+ [  2083] Add 1 var127
+ [  2087] Move var112( var82) var126( var127)
+ [  2096] Examine Forward var110 var112( var85) giving number var111
+ [  2107] If == var111 0 goto2134
+ [  2114] Compress leaving no Qty=6 var110 const32 var112( var85) const33 var112( var85) const34 var110
+ [  2134] Escape routine
+********************************************Final

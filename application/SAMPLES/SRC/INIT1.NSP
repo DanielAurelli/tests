@@ -1,0 +1,10 @@
+0010DEFINE DATA LOCAL
+00201 #char                    (a10) init <'SAO PAULO'>
+00301 #tab                     (A3/1:3) init all <'AAA'>
+00401 GRP_PARM
+00502 #MULTA                   (N3,2/1:3) INIT ALL <999,88>
+00602 #PREF                    (a15) init <'sao paulo'>
+0070end-define
+0080include incprog
+0090WRITE NOTITLE NOHDR  '=' #MULTA (1:3) / '=' #PREF  / '=' #CHAR / '=' #tab (1:3)
+0100END

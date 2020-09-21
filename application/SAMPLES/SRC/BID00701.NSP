@@ -1,0 +1,15 @@
+0010* *
+0020* EXAMINE FULL  #var for '--' replace full '  ' /* ( 2 brancos)
+0030* resultado esperado : 2  B  C  8'  ( 2 brancos)
+0040*
+0050*
+0060define data local
+00701 #var (a30)
+0080end-define
+0090include incprog
+0100move '2--B--C--8' to #var
+0110examine full #var for '--' replace full '  '  /* ( 2 brancos)
+0120write '=' #var /
+0130'=' #var (em=hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh)
+0140end
+0150

@@ -1,0 +1,192 @@
+/*  Read Natural Error Information
+/*  This program serves as example how to design a user-defined
+/*  program to call 'USR2006N'.
+/***********************************************************************
+/*
+DEFINE DATA 
+LOCAL
+01 CONTROL                            /*control block*/
+  02 INDEX                 (I4)       /*NUMBER OF MESSAGE TO READ*/
+  02 RESPONSE              (I4)       /*RESPONSE CODE*/
+                                      /*    0 ok
+                                      /* 4131 read: message does not exist */
+/*
+01 ERROR                              /*error information*/
+  02 NUMBER                (I4)       /*ERROR NUMBER*/
+  02 LINE                  (I4)       /*PROGRAM LINE WHERE ERROR OCCURED
+  02 PROGRAM               (A32)      /*PROGRAM WITH ERROR*/
+  02 LIBRARY               (A32)      /*LIBRARY OF PROGRAM WITH ERROR*/
+  02 DBID                  (I4)       /*DBID*/
+  02 FNR                   (I4)       /*AND FILE NUMBER*/
+  02 TIME                  (T)        /*TIME OF ERROR*/
+  02 OBJTYPE               (A11)      /*OBJECT TYPE*/
+  02 LANGUAGE              (I4)       /*LANGUAGE CODE*/
+  02 LEVEL                 (I4)       /*OBJECT LEVEL*/
+  02 FILLER                (B1)       /*FILLER BYTE*/
+  02 MC                    (B1)       /*MESSAGE CLASS:
+                                      /*00 - ERROR
+                                      /*01 - WARNING
+                                      /*02 - MESSAGE
+  02 EC                    (B1)       /*ERROR CLASS:
+                                      /*00 - SYSTEM
+                                      /*00 - USER
+  02 ET                    (B1)       /*ERROR TYPE*/
+                                      /*00 - RUNTIME
+                                      /*01 - SYNTAX
+                                      /*02 - COMMAND TIME
+                                      /*03 - TERMINATION
+                                      /*04 - PROGRAM TERMINATION
+                                      /*05 - REMOTE
+/*
+01 TEXT                    (A253)     /*message text
+/*
+/*
+01 #TYPE                   (A20)
+01 #CLASS                  (A20)
+01 #MSG-CLASS              (A20)
+01 #DATE                   (A20)
+01 #TIME                   (A20)
+01 #FCT                    (A3)
+01 #TEXT                   (A50)
+END-DEFINE
+/*
+ASSIGN *ERROR-TA='NFWERRTA'
+write 
+ *PROGRAM
+ *error-nr   
+ *error-line 
+ *TIME       
+ *LANGUAGE   
+ *LEVEL      
+
+/*
+DEFINE SUBROUTINE OUTPUT-MESSAGE
+RESET #CLASS
+DECIDE ON FIRST VALUE OF EC
+  VALUE 0    MOVE 'System'            TO #CLASS
+  VALUE 1    MOVE 'User'              TO #CLASS
+  NONE       MOVE 'Unknown'           TO #CLASS
+END-DECIDE
+/*
+RESET #MSG-CLASS
+DECIDE ON FIRST VALUE OF MC
+  VALUE 0    MOVE 'Error'             TO #MSG-CLASS
+  VALUE 1    MOVE 'Warning'           TO #MSG-CLASS
+  VALUE 2    MOVE 'Message'           TO #MSG-CLASS
+  NONE       MOVE 'Unknown'           TO #MSG-CLASS
+END-DECIDE
+/*
+RESET #TYPE
+DECIDE ON FIRST VALUE OF ET
+  VALUE 0    MOVE 'Runtime'             TO #TYPE
+  VALUE 1    MOVE 'Syntax'              TO #TYPE
+  VALUE 2    MOVE 'Command Execution'   TO #TYPE
+  VALUE 3    MOVE 'Termination'         TO #TYPE
+  VALUE 4    MOVE 'Program Termination' TO #TYPE
+  VALUE 5    MOVE 'Remote'              TO #TYPE
+  NONE       MOVE 'Unknown'             TO #TYPE
+END-DECIDE
+/*
+MOVE EDITED TIME   (EM=YYYY'-'MM'-'DD) TO #DATE
+MOVE EDITED TIME   (EM=HH':'II':'SS)   TO #TIME
+/*
+IF INDEX EQ 0
+  WRITE 'last message'
+ELSE
+  WRITE INDEX '.message'
+END-IF
+/*
+WRITE
+  'Date of message...' '-' #DATE          (AD=O) /
+  'Time of message...' '-' #TIME          (AD=O) /
+  '-----------------------------------'          /
+  'Message Number....' '-' NUMBER         (AD=O) /
+  'Message Type......' '-' #TYPE          (AD=O) /
+  'Message Class.....' '-' #MSG-CLASS     (AD=O) /
+  'Error Class.......' '-' #CLASS         (AD=O) /
+  '-----------------------------------'          /
+  'Object Name.......' '-' PROGRAM        (AD=O) /
+  'Line..............' '-' LINE           (AD=O) /
+  'Object Type.......' '-' OBJTYPE        (AD=O) /
+  'Subroutine Level..' '-' LEVEL          (AD=O) /
+  'Library...........' '-' LIBRARY        (AD=O) /
+  'Database..........' '-' DBID           (AD=O) /
+  'File Number.......' '-' FNR            (AD=O) /
+  'Text..............'                    (AD=O) /
+TEXT (AL=79)
+END-SUBROUTINE
+/*
+/*
+SET KEY ALL
+#FCT := '4'
+/*
+REPEAT
+  /*
+  INPUT (AD=MIT'_'L IP=OFF CD=TU SG=OFF) WITH TEXT #TEXT
+      10T 'Call Error Message Collector' (YEI)
+    / 10T '-' (28) (YEI) /
+    / 10T 'Function .........' (TU) #FCT (CD=NE)
+    / 10T ' 1: Set clear flag to message table.' (TU)
+    / 10T '    Table will be cleared when next error occurs.' (TU)
+    / 10T ' 2: Set last message to 0.' (TU)
+    / 10T ' 3: Read very last message.' (TU)
+    / 10T ' 4: Read all messages by index.' (TU)
+    / 10T ' 5: Force Error.' (RE)
+  /// 10T 'Response Code:' RESPONSE (AD=OIT' ' CD=NE)
+   // 10T 'Press any PF-key to stop.' (TU)
+  IF *PF-KEY NE 'ENTR' OR #FCT = '.'
+    STOP
+  END-IF
+    /*
+  RESET #TEXT
+  MOVE LEFT #FCT TO #FCT
+  DECIDE ON FIRST VALUE OF #FCT
+    VALUE '1'
+      INDEX := -1               /* Set clear flag to message table */
+      CALLNAT 'USR2006N' CONTROL ERROR TEXT
+    VALUE '2'
+      INDEX := -2               /* Set last message to 0 */
+      CALLNAT 'USR2006N' CONTROL ERROR TEXT
+    VALUE '3'
+      RESET INDEX               /* Read last message */
+      CALLNAT 'USR2006N' CONTROL ERROR TEXT
+      PERFORM OUTPUT-MESSAGE
+    VALUE '4'                   /* READ ALL MESSAGES */
+      MOVE 1 TO INDEX           /* Start with first message */
+      REPEAT
+        /********************************
+        /**  read message information  **
+        /********************************
+        CALLNAT 'USR2006N' CONTROL ERROR TEXT
+        IF RESPONSE NE 0        /* First message does not exits
+          IF INDEX GT 1
+            ESCAPE BOTTOM
+          END-IF
+          RESET INDEX           /* Read last message */
+          CALLNAT 'USR2006N' CONTROL ERROR TEXT
+        END-IF
+        /**********************************
+        /**  DISPLAY MESSAGE INFORMATION **
+        /**********************************
+        PERFORM OUTPUT-MESSAGE
+        NEWPAGE
+        /*
+        IF INDEX = 0
+          ESCAPE BOTTOM
+        ELSE
+          ADD 1 TO INDEX
+        END-IF
+      END-REPEAT
+    VALUE '5'
+      FETCH 'NOTEXIST'
+    NONE #TEXT := 'Invalid function code.'
+  END-DECIDE
+END-REPEAT
+ON ERROR 
+      CALLNAT 'USR2006N' CONTROL ERROR TEXT
+      PERFORM OUTPUT-MESSAGE
+      ESCAPE ROUTINE
+END-ERROR
+/*
+END
+

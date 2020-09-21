@@ -1,0 +1,20 @@
+** Example 'WRITEX07': WRITE  (with P*field)
+************************************************************************
+DEFINE DATA LOCAL
+1 VIEWEMP VIEW OF EMPLOYEES
+  2 CITY
+  2 NAME
+  2 JOB-TITLE
+  2 SALARY (1:1)
+  2 BONUS  (1:1,1:1)
+END-DEFINE
+*
+READ (3) VIEWEMP BY CITY STARTING FROM 'LOS ANGELES'
+  DISPLAY NAME JOB-TITLE
+          VERT AS 'INCOME' SALARY (1) BONUS (1,1)
+  WRITE P*SALARY '***SALARY PLUS BONUS***'
+        P*BONUS  '(IN US DOLLARS)'
+  SKIP 1
+END-READ
+END
+

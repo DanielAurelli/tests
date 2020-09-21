@@ -1,0 +1,39 @@
+DEFINE DATA LOCAL
+1 #N2-1(N2,1)
+1 #TRIDIM(A20/1 : 10 ,1: 10,1 :10) INIT 
+ (1:3 , 2  : 4 , 7) <'Hello'> 
+ (1 , 5 : 7 , 1 : 6) <'World'>  
+ (1 ,1, 1) <'Oito'>
+ (8, 8 ,8) <'Oito'>
+1 #A(A10/1:10)
+1 REDEFINE #A
+2 #AR(A100)
+1 #C(A10/1:10) INIT <"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro">
+1 #B(I4/1:10) INIT (5:7) <4> (1:2) <5>
+1 #I(I4)
+1 I(I4)
+1 J(I4)
+1 K(I4)
+END-DEFINE
+FORMAT LS=133
+ASSIGN #TRIDIM(1:3, 2:4, 7) = 'Hello'
+ASSIGN #TRIDIM(1, 5:7, 1:6) = 'World'
+ASSIGN #TRIDIM(8, 8, 8) = 'Oito'
+MOVE ALL '7' TO #AR
+WRITE '=' #AR
+COMPUTE #A(3:7) = 'EDUARDO'
+MOVE ALL 'EDU' TO #C(*)
+COMPUTE #B(3:7) = 321
+FOR #I 1 10
+  MOVE #I TO I
+  WRITE '=' I '=' #A(I) '=' #B(I)
+END-FOR
+FOR I 1 10
+  FOR J 1 10
+    FOR K 1 10
+      WRITE '=' I '=' J '=' K '=' #TRIDIM(I, J, K)
+    END-FOR
+  END-FOR
+END-FOR
+* COMPUTE #C(2:6) = #B(1:5)
+END  

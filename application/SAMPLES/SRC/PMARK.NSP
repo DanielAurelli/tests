@@ -1,0 +1,28 @@
+DEFINE DATA LOCAL
+1 #DLR-CD (A2/12)
+1 #TEST (a2)
+1 #I (P2)
+END-DEFINE
+INPUT  #DLR-CD(*)
+       REINPUT  'Invalid Dollar Code'  MARK *#DLR-CD(#I)(AD=I) #I /* #test 
+       REINPUT  'Invalid Dollar Code'  MARK *#DLR-CD(#I) #test := 'ab'
+       #DLR-CD (#I) := 'ab'
+       REINPUT  'Invalid Dollar Code'  MARK *#DLR-CD(#I) /* #test := 'ab'
+       #DLR-CD (#I) := 'ab'
+* perform check
+* define subroutine check
+*    for #i = 1 to 4
+*      IF NOT(#DLR-CD(#i) = '11' OR= '17' OR= '21' OR= '31'        
+*          OR= '41' OR= '88'   
+*          OR= '90' OR= '91' OR= '92' OR= '93' OR= '94' OR= '95'   
+*          OR= '96' OR= '97' OR= '98' OR= '99')        
+*        REINPUT  'Invalid Dollar Code'  MARK *#DLR-CD(#I) /*#test := 'ab'
+*        #DLR-CD (#I) := 'ab'
+* *     else  
+* * * *      #test := 'ab'
+* *        #DLR-CD (#I) := 'ab'
+* * * *    END-IF      
+*   LOOP /* end-for
+* end-subroutine
+* 
+END

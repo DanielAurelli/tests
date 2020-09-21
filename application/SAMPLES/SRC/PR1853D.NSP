@@ -1,0 +1,12 @@
+PASSW='ADS'
+READ (5) EMPLOYEES BY CITY                   
+REDEFINE NAME (#CCY(A5) #HDTY(A6) #TNY(A1))  
+WRITE 'READ' #CCY #HDTY #TNY                             
+FIND(1) EMPLOYEES WITH DEPT = DEPT
+WRITE NAME          
+REDEFINE NAME(0005) (#CCX(A5) #HDTX(A6) #TNX(A1))  
+WRITE 'FIND' #CCX #HDTX #TNX                             
+ESCAPE BOTTOM                                            
+LOOP                                                     
+LOOP                                                     
+END

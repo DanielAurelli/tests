@@ -1,0 +1,31 @@
+** PR1398C   Issue #1398 *ISN not being set properly
+define data local
+1 CUST-DATA VIEW OF EMPLOYEES      
+  2 NAME       
+  2 LANG(1:6)  
+*
+1 #I(P2)
+1 #tot-cnt (p4)
+1 #isn (p10)        
+*
+END-DEFINE  
+FORMAT ZP=ON    
+*
+F1.   
+FIND(1) CUST-DATA WITH CITY = 'BARCELONA'
+  sorted by NAME 
+  IF NO RECORDS FOUND       
+    ESCAPE BOTTOM           
+  END-NOREC     
+  ADD 1 TO #TOT-CNT         
+  #ISN := *ISN       
+*   
+  write NAME LANG(1)        
+*   
+END-FIND 
+** If no records found #ISN is 0 and GET will fail on #ISN
+G1.  
+get CUST-DATA #ISN
+write '=' *isn #ISN *ISN(F1.) *ISN(G1.)
+end
+

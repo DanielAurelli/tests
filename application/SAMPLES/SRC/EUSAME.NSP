@@ -1,0 +1,7 @@
+** PR0196 Issue #196 - UPDATE SAME
+FD1. FIND FIRST EMPLOYEES WITH PERSONNEL-ID='CBI06RW01' 
+move 's' to MAR-stat 
+update same
+write 'update now'
+end
+

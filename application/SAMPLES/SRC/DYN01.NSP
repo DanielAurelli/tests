@@ -1,0 +1,17 @@
+0010DEFINE DATA
+0020LOCAL
+0030    1 #dyn (A) dynamic
+0040    1 #fix (a20)
+0050    1 #num  (n10,6)
+0060    END-DEFINE
+0070include incprog
+0080*
+0090move 1234567890,123456 to #num
+0100move edited #NUM (em=Z.zzz.zzz.zz9,999999) to #dyn
+0110move edited #NUM (em=Z.zzz.zzz.zz9,999999) to #fix
+0120write notitle nohdr '=' #dyn (al=20)/
+0130      '=' #dyn (al=20 em=hhhhhhhhhhhhhhhhhhhh)/
+0140      '=' #fix /
+0150      '=' #num
+0160*
+0170end

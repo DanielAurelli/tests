@@ -1,0 +1,5 @@
+INPUT(IP=OFF)
+ 001T 'A'(CD=PI)
+ 001T 'B'(CD=RE)
+ 001T 'C'(CD=GR)
+END

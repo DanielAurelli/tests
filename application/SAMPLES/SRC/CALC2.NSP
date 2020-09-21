@@ -1,0 +1,68 @@
+DEFINE DATA
+LOCAL
+1 #i(I2) INIT <3>
+1 #J(I2) INIT <2>
+1 #n (N2.2) INIT < 0.5 >
+1 #X (N3.1) INIT < 3 >
+1 #Y (n3.1) Init < 0.5 >
+1 #R (N3)
+END-DEFINE
+WRITE
+/"1 #i(I2) INIT <3>"
+/"1 #J(I2) INIT <2>"
+/"1 #n (N2.2) INIT < 2 >"
+/"1 #X (N3.1) INIT < 3 >"
+/"1 #Y (n3.1) Init < 2 >"
+/"1 #R (N3)"
+WRITE "=" (30)
+COMPUTE #R =  8 - #I * 0.5
+WRITE #R "=  8 - #I * 0.5"
+
+COMPUTE #R =  8 - #I * ( 2 / 4 )
+WRITE #R "=  8 - #I * ( 2 / 4 )"
+
+COMPUTE #R =  8 - #I * ( 2.0 / 4 )
+WRITE #R "=  8 - #I * ( 2.0 / 4 )"
+
+COMPUTE #R =  8 - #I * #Y
+WRITE #R "=  8 - #I * #Y "
+
+COMPUTE #R =  8 - #I * ( #J / 4 )
+WRITE #R "=  8 - #I * ( #J / 4 )"
+
+COMPUTE #R =  8 - #I * #N
+WRITE #R "=  8 - #I * #N"
+
+WRITE "=" (30)
+COMPUTE #R =  8 - #X * 0.5
+WRITE #R "=  8 - #X * 0.5"
+
+COMPUTE #R =  8 - #X * ( 2 / 4 )
+WRITE #R "=  8 - #X * ( 2 / 4 )"
+
+COMPUTE #R =  8 - #X * ( 2.0 / 4 )
+WRITE #R "=  8 - #X * ( 2.0 / 4 )"
+
+COMPUTE #R =  8 - #X * #Y
+WRITE #R "=  8 - #X * #Y"
+
+COMPUTE #R =  8 - #X * ( #J / 4 )
+WRITE #R "=  8 - #X * ( #J / 4 )"
+
+COMPUTE #R =  8 - #X * #N
+WRITE #R "=  8 - #X * #N"
+
+
+
+WRITE "=" (30)
+COMPUTE #R =  8 - 3.0 * ( #J / 4 )
+WRITE #R "=  8 - 3.0 * ( #J / 4 )"
+
+COMPUTE #R =  8 - 3 * ( #J / 4 )
+WRITE #R "=  8 - 3 * ( #J / 4 )"
+
+
+* COMPUTE #R = SIN ( 8 - 3 * ( #I / 2 ) )
+* WRITE #R "= SIN ( 8 - 3 * ( #I / 2 )"
+
+END

@@ -1,0 +1,56 @@
+************************************************************************
+** OBJECT: PAWVARLD
+** AUTHOR: SPATH KM
+** PPM: 166018
+** WRITTEN: APR 05, 2016
+** MODE: BATCH / ON-LINE / BATCH OR ON-LINE
+** FUNCTION: VACATION RATE LOAD TO VACATION RECORDS
+************************************************************************
+** PPM225912 KM SPATH 12/4/2019 - USE RATE BASED ON FIRST DATE OF SCHED VAC
+************************************************************************
+DEFINE DATA LOCAL
+1 VAC VIEW OF PY-WAGE-VACATION
+2 ELIG-YR
+2 FILE-ID
+2 SOC-SEC-NO
+2 PYRL-NO
+2 CST-CTR
+2 LOC
+2 POS
+2 ELIG-WKS-CALC
+2 ELIG-WKS
+2 REM-WKS
+2 VAC-RATE
+2 PREV-RATE
+2 AVG-VAC-HRS
+2 ANNIV-DT
+2 EFF-RATE-DT
+2 VAC-DIV-DEPT-CREW
+2 VAC-NUM-DAYS(1:28)
+2 VAC-HRS-PD (1:28)
+2 VAC-AMT-PD (1:28)
+2 VAC-EARN-CODE(1:28)
+2 VAC-WEEK(1:28)
+2 VAC-ALT-SCHED (1:28)
+2 VAC-STRT-DY(1:28)
+2 VAC-YR-PP-WK(1:28)
+2 UPD-DT
+2 UPD-PGM
+2 UPD-TIME
+1 #I (N3)
+END-DEFINE
+***********************************************************************
+GT1. GET VAC 23541
+FOR #I = 1 TO 28
+IF VAC.VAC-WEEK(#I) > ' '
+MOVE VAC.FILE-ID TO VAC.FILE-ID
+IF VAC.VAC-EARN-CODE(#I) = ' '
+OR= 'AD' OR= 'SW' OR= 'S1' OR= 'S2'
+UPDATE(GT1.)
+END TRANSACTION
+END-IF
+END-IF
+END-FOR
+
+*
+END 
